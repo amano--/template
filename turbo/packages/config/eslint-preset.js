@@ -4,11 +4,11 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'airbnb',
     'airbnb-typescript', //追加
     'airbnb/hooks', //追加
     'plugin:@typescript-eslint/recommended', //型を必要としないプラグインの推奨ルールをすべて有効
     'plugin:@typescript-eslint/recommended-requiring-type-checking', //型を必要とするプラグインの推奨ルールをすべて有効
+    'plugin:@next/next/recommended',
     'plugin:import/recommended',
     'eslint:recommended',
     'eslint-config-prettier',
@@ -92,11 +92,23 @@ module.exports = {
     ],
   },
   settings: {
+    // ref to https://github.com/jsx-eslint/eslint-plugin-react#configuration
+    react: {
+      createClass: 'createReactClass', // Regex for Component Factory to use,
+      // default to "createReactClass"
+      pragma: 'React', // Pragma to use, default to "React"
+      fragment: 'Fragment', // Fragment to use (may be a property of <pragma>), default to "Fragment"
+      version: 'detect', // React version. "detect" automatically picks the version you have installed.
+      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+      // It will default to "latest" and warn if missing, and to "detect" in the future
+      flowVersion: '0.53', // Flow version
+    },
     'import/resolver': {
       //importするファイルをjsだけではなく、tsを含むファイルを許可する
       node: {
         paths: ['src'],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        // moduleDirectory: ['node_modules', 'src/'],
       },
     },
     next: {

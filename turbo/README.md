@@ -1,5 +1,17 @@
 [ turborepo で monorepo の差分ビルド ](https://zenn.dev/mizchi/articles/introduce-turborepo)
 
+[ Node.jsのバージョン管理にVoltaを推したい ](https://zenn.dev/taichifukumoto/articles/how-to-use-volta)
+
+Volta のインストール
+
+curl https://get.volta.sh | bash
+
+```js
+
+# テストレポートツールのインストール
+brew install allure
+```
+
 # Turborepo starter
 
 This is an official Yarn v1 starter turborepo.
