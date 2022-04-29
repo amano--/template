@@ -1,9 +1,9 @@
-import { hoge } from '.'
+import { purchaseHoge } from '.'
 
 describe('simple test', () => {
   it('dom draw', () => {
-    const test = hoge
+    const test = purchaseHoge
 
-    expect(test).toContain('hoge1')
+    expect(test).toContain('purchaseHoge')
   })
 })

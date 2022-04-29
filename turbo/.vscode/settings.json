@@ -50,6 +50,9 @@
   "workbench.startupEditor": "none", // Welcome Page を表示しない
 
   // この行以降独自追加
+  "jest.jestCommandLine": "npx jest",
+  "jestrunner.jestCommand": "npx jest",
+
   "editor.defaultFormatter": "esbenp.prettier-vscode", //デフォルトのフォーマットはprettierを指定
   // "editor.codeActionsOnSave": { //ESLintに対応しているファイルはESLintでフォーマット
   //   "source.fixAll.eslint": true
@@ -89,6 +92,7 @@
           "/apps/docs/design/rdra/rdra.yml"
       ],
       "url": "https://raw.githubusercontent.com/tango238/rdra/main/src/schema.json"
-    }
+    },
+
   ]
 }

@@ -1,1 +1,1 @@
-export const hoge = 'hoge12'
+export const purchaseHoge = 'purchaseHoge'
