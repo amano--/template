@@ -1,0 +1,14 @@
+{
+  "folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "domains/purchase"
+		}
+	],
+
+  "settings": {
+    "jestrunner.jestCommand": "npx jest",
+  }
+}

@@ -47,11 +47,9 @@
   // "window.title": "${activeEditorMedium}${separator}${rootName}", // ウインドウ上部に表示する文字列の設定
   // "workbench.editor.labelFormat": "short", // タブに表示する文字列の設定
   // "workbench.editor.tabSizing": "shrink", // タブの表示設定
-  "workbench.startupEditor": "none", // Welcome Page を表示しない
 
   // この行以降独自追加
   "jest.jestCommandLine": "npx jest",
-  "jestrunner.jestCommand": "npx jest",
 
   "editor.defaultFormatter": "esbenp.prettier-vscode", //デフォルトのフォーマットはprettierを指定
   // "editor.codeActionsOnSave": { //ESLintに対応しているファイルはESLintでフォーマット
@@ -94,5 +92,39 @@
       "url": "https://raw.githubusercontent.com/tango238/rdra/main/src/schema.json"
     },
 
-  ]
+  ],
+  // テキストコピー時に書式設定を含める
+  "editor.copyWithSyntaxHighlighting": false,
+  // ドラッグアンドドロップで選択範囲のテキストを移動できるようにする
+  "editor.dragAndDrop": false,
+  // 単語の区切り文字
+  "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?　、。！？「」【】『』（）",
+  // 改行コードの規定値
+  "files.eol": "\n",
+  // 非表示にするファイル・ディレクトリのパスのパターン
+  "files.watcherExclude": {
+    // あれば記述する
+  },
+  // 起動時に表示するエディター
+  "workbench.startupEditor": "readme",
+
+  /* 各言語、ファイル固有の設定 */
+  "[csv]": {
+    // 行の折り返し表示
+    "editor.wordWrap": "off"
+  },
+  "[json]": {
+    // 既定のフォーマッター
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[log]": {
+    // 行の折り返し表示
+    "editor.wordWrap": "off"
+  },
+  "[tsv]": {
+    // Tabキーで半角スペースを挿入
+    "editor.insertSpaces": false,
+    // 行の折り返し表示
+    "editor.wordWrap": "off"
+  }
 }

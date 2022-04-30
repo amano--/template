@@ -1,9 +1,13 @@
 import { purchaseHoge } from '.'
+// import { purchaseMock } from '../../mocks/src/purchase/index';
+import { purchaseMock } from 'mocks';
 
 describe('simple test', () => {
   it('dom draw', () => {
-    const test = purchaseHoge
+    
 
-    expect(test).toContain('purchaseHoge')
+    
+    expect(purchaseHoge).toContain('purchaseHoge')
+    expect(purchaseMock).toContain('purchaseMock')
   })
 })
