@@ -7,6 +7,7 @@
     "eslint-preset.js"
   ],
   "dependencies": {
+    "ulidx": "^0.3.0",
     "fp-ts": "^2.12.0"
   },
   "devDependencies": {

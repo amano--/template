@@ -10,8 +10,8 @@
     "test": "jest"
   },
   "devDependencies": {
-    "mocks": "*",
     "config": "*",
+    "mocks": "*",
     "tsconfig": "*"
   }
 }

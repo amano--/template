@@ -1,2 +1,4 @@
-import * as React from 'react'
 export * from './purchase'
+
+// export const purchaseMock = 'purchaseMock'
+// export const myMock = 'myMock'
