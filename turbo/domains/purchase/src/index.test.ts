@@ -5,6 +5,7 @@ import { purchaseMock } from 'mocks'
 describe('simple test', () => {
   it('dom draw', () => {
     expect(purchaseHoge).toContain('purchaseHoge')
+
     expect(purchaseMock).toContain('purchaseMock')
   })
 })
