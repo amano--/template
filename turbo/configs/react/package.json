@@ -1,14 +1,17 @@
 {
-  "name": "ui",
+  "name": "config-react",
   "version": "0.0.0",
-  "main": "./src/index.tsx",
-  "types": "./src/index.tsx",
+  "main": "index.js",
   "license": "MIT",
-   "devDependencies": {
+
+  "dependencies": {
+    "react": "18.0.0",
+    "react-dom": "18.0.0"
+  },
+
+  "devDependencies": {
     "config-min": "*",
     "tsconfig": "*",
-
-    "ts-jest": "^28.0.1",
 
     "@babel/preset-react": "^7.16.7",
     "jest-environment-jsdom": "^28.0.2",
