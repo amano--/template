@@ -1,13 +1,10 @@
-import { purchaseHoge } from './createAccount'
+import { purchaseUsecase } from './createAccount'
 // import { purchaseMock } from '../../mocks/src/purchase/index';
-import { purchaseMock } from 'mocks';
+import { purchaseMock } from 'mocks'
 
 describe('simple test', () => {
   it('dom draw', () => {
-    
-
-    
-    expect(purchaseHoge).toContain('purchaseHoge')
+    expect(purchaseUsecase).toContain('purchaseUsecase')
     expect(purchaseMock).toContain('purchaseMock')
   })
 })

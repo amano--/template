@@ -1,4 +1,3 @@
-import { ulid,decodeTime } from "ulidx";
+import { ulid, decodeTime } from 'ulidx'
 
-export const purchaseHoge = 'purchaseHoge'
-
+export const purchaseUsecase = 'purchaseUsecase'

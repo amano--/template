@@ -9,6 +9,9 @@
     "lint": "next lint",
     "test": "jest"
   },
+  "dependencies": {
+    "domains": "*"
+  },
   "devDependencies": {
     "config": "*",
     "mocks": "*",
