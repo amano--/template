@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "apps/*",
+    "clients/*",
     "configs/*",
     "packages/*",
     "domains/*",
@@ -14,7 +14,9 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx}\""
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "graphs": "  npx turbo run build --graph=build-graph.svg"
+
   },
   "devDependencies": {
     "turbo": "latest"
