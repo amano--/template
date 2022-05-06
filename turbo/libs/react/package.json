@@ -1,6 +1,8 @@
 {
-  "name": "ui",
+  "name": "@me/react-libs",
   "version": "0.0.0",
+  "private": true,
+
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",
   "license": "MIT",

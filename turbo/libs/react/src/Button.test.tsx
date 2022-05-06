@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 // import { purchaseMock } from '../../mocks/src/purchase/index';
-import { purchaseMock } from 'mocks'
+import { purchaseMock } from '@me/mocks'
+import { Button } from './Button'
 import { render, fireEvent, waitFor, screen, prettyDOM } from '@testing-library/react'
-import { Button } from '@me/react-libs'
-import { purchaseHoge } from '@me/purchase'
 
 describe('simple test', () => {
   it('dom draw', () => {
@@ -14,7 +13,6 @@ describe('simple test', () => {
 
     expect(domText).toContain('Boop')
 
-    expect(purchaseHoge).toContain('purchaseHoge')
     expect(purchaseMock).toContain('purchaseMock')
   })
 })

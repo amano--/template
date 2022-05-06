@@ -5,11 +5,9 @@
   "workspaces": [
     "clients/*",
     "configs/*",
-    "packages/*",
+    "libs/*",
     "domains/*",
-    "servers/*"
-
-  ],
+    "servers/*"  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
