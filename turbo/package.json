@@ -15,7 +15,7 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "graphs": "  npx turbo run build --graph=build-graph.svg"
+    "graphs": "npx turbo run build --graph=docs/dependency-graph/images/build-graph.svg ; npx turbo run dev --graph=docs/dependency-graph/images/dev-graph.svg"
 
   },
   "devDependencies": {
