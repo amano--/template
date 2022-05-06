@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    'jest/globals': true,
   },
   extends: [
     'airbnb-typescript', //追加
@@ -28,6 +29,7 @@ module.exports = {
     'react',
     '@typescript-eslint',
     'unused-imports', //追加 使っていないimportを自動で削除用
+    'jest',
   ],
   ignorePatterns: ['build'], //追加 .eslintignoreに対象外にしているが無いとコンパイルに時間がかかる
   rules: {
