@@ -16,15 +16,16 @@
     "ulidx": "^0.3.0"
   },
   "devDependencies": {
-    "@me/mocks": "*",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "@babel/preset-typescript": "^7.16.7",
+    "@me/mocks": "*",
     "@next/eslint-plugin-next": "^12.1.6",
     "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "babel-jest": "^28.1.0",
+    "better-typescript-lib": "^2.1.0",
     "eslint": "^8.14.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
