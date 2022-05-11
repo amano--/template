@@ -1,5 +1,5 @@
 {
-  "name": "@me/purchase",
+  "name": "@me/usecases",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -8,13 +8,15 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "npx eslint src usecases",
+    "lint": "npx eslint src scenario",
     "test": "npx jest"
   },
   "dependencies": {
     "fp-ts": "^2.12.1",
     "log4js": "^6.4.6",
-    "ulidx": "^0.3.0"
+    "ulidx": "^0.3.0",
+    "@me/ad": "*",
+    "@me/purchase": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",

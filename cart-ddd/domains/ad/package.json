@@ -1,5 +1,5 @@
 {
-  "name": "@me/purchase",
+  "name": "@me/ad",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -12,6 +12,7 @@
     "test": "npx jest"
   },
   "dependencies": {
+    "@js-temporal/polyfill": "^0.4.1",
     "fp-ts": "^2.12.1",
     "log4js": "^6.4.6",
     "ulidx": "^0.3.0"
@@ -27,6 +28,7 @@
     "@typescript-eslint/parser": "^5.22.0",
     "babel-jest": "^28.1.0",
     "better-typescript-lib": "^2.1.0",
+    "dotenv": "^16.0.1",
     "eslint": "^8.14.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
