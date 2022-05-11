@@ -5,6 +5,7 @@ import { getLogger } from 'log4js'
 import { selectAd } from '../src/selectAd'
 
 const logger = getLogger('scenario/buyItem')
+// logger.level = 'info'
 
 /*
 
@@ -15,13 +16,7 @@ const logger = getLogger('scenario/buyItem')
 export const purchaseUsecase = 'purchaseUsecase'
 
 export const buyItem = async (e: AdSelectEvent) => {
-  logger.info(`event : ${e}`)
-  const log = await selectAd(e)
-  logger.info('save log=' + log)
+  const naviEvent = await selectAd(e)
 
-  return Promise.resolve<AdToPurchaseNaviEvent>({
-    eventType: 'AdToPurchaseNavi',
-    fromType: 'mobile',
-    naviToPurchaseUrl: '/purchase',
-  })
+  return naviEvent
 }

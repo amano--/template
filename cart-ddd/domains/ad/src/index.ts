@@ -9,12 +9,14 @@ export type AdToPurchaseNaviEvent = { eventType: 'AdToPurchaseNavi'; fromType: s
 
 export type AdSelected = { commandType: 'AdSelected' }
 
+// todo Temporal.Now のテストの方法調査
 const adApiMock = {
-  saveSelectAd: (e: AdSelectEvent): Promise<AdSelectEventLog> =>
+  saveEvent: (e: AdSelectEvent): Promise<AdSelectEventLog> =>
     Promise.resolve({
       ...e,
       logId: ulid(Temporal.Now.instant().epochMilliseconds),
     }),
 }
 
+// TODO apiの実装変換の方法の検討
 export const adApi = process.env.NODE_ENV === 'production' ? adApiMock : adApiMock

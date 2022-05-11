@@ -1,28 +1,36 @@
 // import { ulid, decodeTime } from 'ulidx'
 
-import { AdSelectEvent, AdToPurchaseNaviEvent } from '@me/ad'
+import { AdSelectEvent, AdToPurchaseNaviEvent, adApi } from '@me/ad'
 
 import { getLogger } from 'log4js'
-import { adApi } from '../../ad/src/index'
-
 const logger = getLogger('usecases/selectAd')
+// logger.level = 'info'
 
 /*
-
-流入元を記録する
-流入情報に基づきリダイレクト先を算出し返却
 
 */
 export const purchaseUsecase = 'purchaseUsecase'
 
-export const selectAd = async (e: AdSelectEvent) => {
-  logger.info(`event : ${e}`)
-  const log = await adApi.saveSelectAd(e)
-  logger.info('save log=' + log)
+export const selectAd = async (e: AdSelectEvent): Promise<AdToPurchaseNaviEvent> => {
+  logger.info('event :', e)
+  const log = await adApi.saveEvent(e)
+  logger.info('save log=', log)
 
-  return Promise.resolve<AdToPurchaseNaviEvent>({
+  return Promise.resolve({
     eventType: 'AdToPurchaseNavi',
-    fromType: 'mobile',
+    fromType: e.fromType,
+    naviToPurchaseUrl: '/purchase',
+  })
+}
+
+export const addToCart = async (e: ItemSelectEvent): Promise<AdToPurchaseNaviEvent> => {
+  logger.info('event :', e)
+  const log = await adApi.saveEvent(e)
+  logger.info('save log=', log)
+
+  return Promise.resolve({
+    eventType: 'AdToPurchaseNavi',
+    fromType: e.fromType,
     naviToPurchaseUrl: '/purchase',
   })
 }

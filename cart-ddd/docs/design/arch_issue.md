@@ -1,3 +1,43 @@
+### 標準ライブラリ
+
+[ 今からでも追いつける！　JavaScriptの「標準ライブラリ」を学ぶ ](https://qiita.com/uhyo/items/acd645744fa61c805097)
+  標準ライブラリ (standard library)」から「組み込みモジュール (built-in modules)」
+
+[ TypeScript 4.5でますます便利に！ better-typescript-lib v2 ](https://zenn.dev/uhyo/articles/better-typescript-lib-v2)
+
+[ TypeScript lib  ](https://github.com/microsoft/TypeScript/tree/main/lib)
+
+- 日付ライブラリ
+  - [ Temporal で JavaScript の次世代の日時処理に触れてみる ](https://qiita.com/sangotaro/items/8ee4b0f40cbcf3f12784)
+  - [date-fns](https://date-fns.org/) 
+  - moment.js メンテ停止?
+
+- ロギングライブラリ
+  - [ log4js ](https://github.com/log4js-node/log4js-node)
+
+- ULID生成ライブラリ
+  - [ ulidx ](https://github.com/perry-mitchell/ulidx)
+
+- コレクション操作ライブラリ
+  
+  - lodash
+    - [ lodash やめ方 ](https://qiita.com/mizchi/items/af17f45d5653b76f6751)
+
+  -  [ just ](https://github.com/angus-c/just/)
+    - [ lodashの代わりにjustを使う ](https://zenn.dev/terrierscript/articles/2020-11-26-lodash-just)
+
+  
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+
+### 課題
+
 package.json version 共有方法がわからない
 
 自パッケージ を目視で確認しやすいように @me 的な Scoped module を使うのはあり?
@@ -6,10 +46,28 @@ monorepo 環境における VSCode eslint のきかせ方
 
 mockデータの扱い
  fetch のモック化
-[ 今からでも追いつける！　JavaScriptの「標準ライブラリ」を学ぶ ](https://qiita.com/uhyo/items/acd645744fa61c805097)
 
-標準ライブラリ (standard library)」から「組み込みモジュール (built-in modules)」
+本番とローカル開発環境用の サービスにアクセスするための URL の管理方法
 
-[ TypeScript 4.5でますます便利に！ better-typescript-lib v2 ](https://zenn.dev/uhyo/articles/better-typescript-lib-v2)
-
-[ TypeSScript lib  ](https://github.com/microsoft/TypeScript/tree/main/lib)
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()
+[]()

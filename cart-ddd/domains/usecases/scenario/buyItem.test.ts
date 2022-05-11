@@ -1,11 +1,9 @@
-import { purchaseUsecase } from './createAccount'
-// import { purchaseMock } from '../../mocks/src/purchase/index';
-import { adMock, purchaseMock } from '@me/mocks'
+import { buyItem } from './buyItem'
 
-describe('selectAd', () => {
-  it('test simple', () => {
-    expect(purchaseUsecase).toContain('purchaseUsecase')
-    expect(purchaseMock).toContain('purchaseMock')
-    expect(adMock).toContain('adMock')
+describe('buyItem', () => {
+  it('test simple', async () => {
+    const result = await buyItem({ eventType: 'AdSelect', fromType: 'iphone' })
+    console.log(result)
+    expect(result).not.toBeNull()
   })
 })
