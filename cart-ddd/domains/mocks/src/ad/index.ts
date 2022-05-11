@@ -1,7 +1,5 @@
-export type AdSelectEvent = { eventType: 'AdSelect' }
+export type AdSelectEvent = { eventType: 'AdSelect'; naviToPurchaseUrl: string }
 
-export type NaviToPurchaseEvent = { eventType: 'NaviToPurchase' }
+export type AdSelected = { commandType: 'AdSelected' }
 
-export type AdSelected = { commandType: 'adSelected' }
-
-const adMock = 'adMock'
+export const adMock = 'adMock'
