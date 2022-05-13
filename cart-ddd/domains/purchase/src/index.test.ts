@@ -1,12 +1,11 @@
-import { purchaseHoge } from '.'
+import { purchaseApi } from '.'
 // import { purchaseMock } from '../../mocks/src/purchase/index';
-import { purchaseMock } from '@me/mocks'
 
-describe('simple test', () => {
-  it('dom draw', () => {
-    console.log('')
-    expect(purchaseHoge).toContain('purchaseHoge')
+describe('purchase', () => {
+  it('simple test', async () => {
+    const log = await purchaseApi.saveEvent({ c: 'AddCart', productId: '' })
 
-    expect(purchaseMock).toContain('purchaseMock')
+    console.log('log=', log)
+    expect(log).not.toBeNull()
   })
 })

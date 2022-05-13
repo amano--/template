@@ -3,7 +3,7 @@
 import { AdSelectEvent, AdToPurchaseNaviEvent, adApi } from '@me/ad'
 
 import { getLogger } from 'log4js'
-const logger = getLogger('usecases/selectAd')
+const logger = getLogger('usecases/ad')
 // logger.level = 'info'
 
 /*
@@ -12,19 +12,7 @@ const logger = getLogger('usecases/selectAd')
 export const purchaseUsecase = 'purchaseUsecase'
 
 export const selectAd = async (e: AdSelectEvent): Promise<AdToPurchaseNaviEvent> => {
-  logger.info('event :', e)
-  const log = await adApi.saveEvent(e)
-  logger.info('save log=', log)
-
-  return Promise.resolve({
-    eventType: 'AdToPurchaseNavi',
-    fromType: e.fromType,
-    naviToPurchaseUrl: '/purchase',
-  })
-}
-
-export const addToCart = async (e: ItemSelectEvent): Promise<AdToPurchaseNaviEvent> => {
-  logger.info('event :', e)
+  logger.info('selectAd : event = ', e)
   const log = await adApi.saveEvent(e)
   logger.info('save log=', log)
 

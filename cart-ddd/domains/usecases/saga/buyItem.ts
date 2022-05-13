@@ -13,8 +13,6 @@ const logger = getLogger('scenario/buyItem')
 流入情報に基づきリダイレクト先を算出し返却
 
 */
-export const purchaseUsecase = 'purchaseUsecase'
-
 export const buyItem = async (e: AdSelectEvent) => {
   const naviEvent = await selectAd(e)
 
