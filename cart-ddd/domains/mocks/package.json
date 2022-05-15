@@ -10,6 +10,14 @@
     "start": "next start",
     "lint": "npx eslint src"
   },
+
+  "dependencies": {
+    "@me/common": "*",
+    "@me/ad": "*",
+    "@me/purchase": "*",
+    "log4js": "^6.4.6"
+  },
+
   "devDependencies": {
     "config": "*",
     "tsconfig": "*"

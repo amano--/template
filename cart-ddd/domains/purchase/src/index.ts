@@ -1,7 +1,6 @@
-import { getLogger } from 'log4js'
-import { Ulid, newLogId } from '@me/common'
-import { simpleProducts } from '@me/mocks'
+import { Ulid } from '@me/common'
 
+import { getLogger } from 'log4js'
 const logger = getLogger('domains/purchase')
 
 export type Product = { productId: string }
@@ -24,26 +23,26 @@ export type PurchaseEvent = PurchaseCommandEvent | PurchaseQueryEvent
 
 export type PurchaseEventLog = AddCartEventLog
 
-const mutations = {
-  saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
-    logger.info('saveEvent : event=', e)
+// const mutations = {
+//   saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
+//     logger.info('saveEvent : event=', e)
 
-    return Promise.resolve({
-      ...e,
-      logId: newLogId(),
-    })
-  },
-}
+//     return Promise.resolve({
+//       ...e,
+//       logId: newLogId(),
+//     })
+//   },
+// }
 
-const queries = {
-  listProducts: async (input: ListProductsInput): Promise<Product[]> => {
-    logger.info('listProducts : input=', input)
+// const queries = {
+//   listProducts: async (input: ListProductsInput): Promise<Product[]> => {
+//     logger.info('listProducts : input=', input)
 
-    return Promise.resolve(simpleProducts)
-  },
-}
+//     return Promise.resolve(simpleProducts)
+//   },
+// }
 
-const purchaseApiMock = { ...mutations, ...queries }
+// const purchaseApiMock = { ...mutations, ...queries }
 
-// TODO apiの実装変換の方法の検討
-export const purchaseApi = process.env.NODE_ENV === 'production' ? purchaseApiMock : purchaseApiMock
+// // TODO apiの実装変換の方法の検討
+// export const purchaseApi = process.env.NODE_ENV === 'production' ? purchaseApiMock : purchaseApiMock

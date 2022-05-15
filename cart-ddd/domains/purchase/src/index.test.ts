@@ -1,4 +1,4 @@
-import { purchaseApi } from '.'
+import { purchaseApi } from '@me/common'
 // import { purchaseMock } from '../../mocks/src/purchase/index';
 
 describe('purchase', () => {

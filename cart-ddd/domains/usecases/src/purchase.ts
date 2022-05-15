@@ -1,7 +1,7 @@
+import { purchaseApi } from '@me/common'
 import { ListProductsInput, Product } from '@me/purchase'
 
 import { getLogger } from 'log4js'
-import { purchaseApi } from '../../purchase/src/index'
 const logger = getLogger('usecases/purchase')
 
 export const listRecommendProducts = async (input: ListProductsInput): Promise<Product[]> => {
