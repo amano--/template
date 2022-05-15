@@ -4,6 +4,8 @@ import { simpleProducts } from '@me/mocks'
 
 const logger = getLogger('domains/purchase')
 
+export type Product = { productId: string }
+
 export type PurchaseStartEvent = { c: 'PurchaseStart'; fromType: 'ad' | 'bookmark' }
 
 // export type ItemSelected = { commandType: 'ItemSelected'; itemId: Ulid }
@@ -34,10 +36,10 @@ const mutations = {
 }
 
 const queries = {
-  listProducts: (input: ListProductsInput) => {
+  listProducts: async (input: ListProductsInput): Promise<Product[]> => {
     logger.info('listProducts : input=', input)
 
-    return simpleProducts
+    return Promise.resolve(simpleProducts)
   },
 }
 

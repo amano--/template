@@ -3,6 +3,7 @@
 import { AdSelectEvent, AdToPurchaseNaviEvent } from '@me/ad'
 import { getLogger } from 'log4js'
 import { selectAd } from '../src/selectAd'
+import { listRecommendProducts } from '../src/purchase'
 
 const logger = getLogger('scenario/buyItem')
 // logger.level = 'info'
@@ -15,6 +16,8 @@ const logger = getLogger('scenario/buyItem')
 */
 export const buyItem = async (e: AdSelectEvent) => {
   const naviEvent = await selectAd(e)
+
+  const products = await listRecommendProducts({ keyword: 'hogefuga' })
 
   return naviEvent
 }
