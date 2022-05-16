@@ -1,35 +1,12 @@
 import { selectAd } from '../selectAd'
 import { listRecommendProducts } from '../purchase'
 
-const buyProduct = [selectAd, listRecommendProducts]
+// const buyProduct = [selectAd, listRecommendProducts]
 
-const buyProduct2 = { selectAd, listRecommendProducts }
+const buyProduct = { selectAd, listRecommendProducts }
 
-type A = Partial<B>
-// type PickInOut<L> = [][I in L] ? (I extends (a: infer A) => infer R ? [A, R] : never) : never
+export type PickUsecaseInOut<A> = {
+  [P in keyof A]: A[P] extends (e: infer EVENT) => Promise<infer RESULT> ? [EVENT, RESULT] : never
+}
 
-type PickUsecaseInOut<L> = L extends Array<infer I>
-  ? I extends (a: infer A) => Promise<infer R>
-    ? [A, R]
-    : never
-  : never
-
-type V = PickUsecaseInOut<typeof buyProduct>
-
-type c<F> = F extends (a: infer A) => Promise<infer R> ? [A, R] : never
-
-type aa<T> = { [P in keyof T]: T[P] }
-
-type ab = aa<typeof buyProduct>
-type d<A> = { [P in keyof A]: c<A[P]> }
-
-type e = d<ab>
-
-type g = 'a' | 'b'
-
-type f<T> = { [P in keyof T]: T[P] }
-
-type he = aa<V>
-
-type ee = f<aa<V>>
-type ac = d<typeof buyProduct2>
+// type a = PickUsecaseInOut<typeof buyProduct>
