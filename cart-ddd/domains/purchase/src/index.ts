@@ -3,7 +3,8 @@ import { Ulid } from '@me/common'
 import { getLogger } from 'log4js'
 const logger = getLogger('domains/purchase')
 
-export type Product = { productId: string }
+export type ProductId = string
+export type Product = { productId: ProductId }
 
 export type PurchaseStartEvent = { c: 'PurchaseStart'; fromType: 'ad' | 'bookmark' }
 
@@ -13,36 +14,16 @@ export type ListProductsInput = { keyword: string }
 
 export type ListProductsEvent = { q: 'ListProducts'; input: ListProductsInput }
 
-export type AddCartEvent = { c: 'AddCart'; productId: string } //save: 'batch';
-export type AddCartEventLog = AddCartEvent & { logId: Ulid }
+export type CartAddEvent = { c: 'CartAdd'; productId: ProductId } //save: 'batch';
+export type CartAddEventLog = CartAddEvent & { logId: Ulid }
+export type CartAddSuccessEvent = { e: 'CartAddSuccess' }
+export type CartAddProductOutOfStockEvent = { e: 'CartAddProductOutOfStock'; list: Product[] }
 
-export type PurchaseCommandEvent = AddCartEvent
+export type CartSettleEvent = { c: 'CartSettle' }
+export type CartSettleSuccessEvent = { e: 'CartSettleSuccess' }
+export type CartSettleFailEvent = { e: 'CartSettleFail' }
+
+export type PurchaseEventLog = CartAddEventLog
+export type PurchaseCommandEvent = CartAddEvent | CartSettleEvent
 export type PurchaseQueryEvent = ListProductsEvent
-
 export type PurchaseEvent = PurchaseCommandEvent | PurchaseQueryEvent
-
-export type PurchaseEventLog = AddCartEventLog
-
-// const mutations = {
-//   saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
-//     logger.info('saveEvent : event=', e)
-
-//     return Promise.resolve({
-//       ...e,
-//       logId: newLogId(),
-//     })
-//   },
-// }
-
-// const queries = {
-//   listProducts: async (input: ListProductsInput): Promise<Product[]> => {
-//     logger.info('listProducts : input=', input)
-
-//     return Promise.resolve(simpleProducts)
-//   },
-// }
-
-// const purchaseApiMock = { ...mutations, ...queries }
-
-// // TODO apiの実装変換の方法の検討
-// export const purchaseApi = process.env.NODE_ENV === 'production' ? purchaseApiMock : purchaseApiMock

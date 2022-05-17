@@ -1,12 +1,9 @@
 {
   "folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "domains/purchase"
-		}
-	],
+    {
+      "path": "."
+    }
+  ],
 
   "settings": {
   // 参考URL : https://qiita.com/hi85/items/eaede5ebb509f21f27f5

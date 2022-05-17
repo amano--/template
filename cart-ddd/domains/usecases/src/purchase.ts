@@ -1,12 +1,21 @@
-import { purchaseApi } from '@me/common'
-import { ListProductsInput, Product } from '@me/purchase'
+import { AllEvent, purchaseApi } from '@me/common'
+import {
+  ListProductsInput,
+  ListProductsEvent,
+  CartAddEvent,
+  Product,
+  CartAddSuccessEvent,
+  CartAddProductOutOfStockEvent,
+  CartSettleEvent,
+  CartSettleSuccessEvent,
+} from '@me/purchase'
 
 import { getLogger } from 'log4js'
-import { ListProductsEvent } from '../../purchase/src/index'
+import { CartSettleFailEvent } from '../../purchase/src/index'
 const logger = getLogger('usecases/purchase')
 
 export const listRecommendProducts = async (e: ListProductsEvent): Promise<{ list: Product[] }> => {
-  logger.info('e :', e)
+  logger.info('event :', e)
 
   const products = await purchaseApi.listProducts(e.input)
 
@@ -15,14 +24,29 @@ export const listRecommendProducts = async (e: ListProductsEvent): Promise<{ lis
   return Promise.resolve({ list: products })
 }
 
-export const addToCart = async (e: AddToCartEvent): Promise<AllEEvent> => {
+export const addCart = async (e: CartAddEvent) => {
   logger.info('event :', e)
-  const log = await adApi.saveEvent(e)
-  logger.info('save log=', log)
+  const counts = await purchaseApi.findProductStock([e.productId])
 
-  return Promise.resolve({
-    eventType: 'AdToPurchaseNavi',
-    fromType: e.fromType,
-    naviToPurchaseUrl: '/purchase',
+  if (!counts.some((v) => v.count === 0)) {
+    return Promise.resolve<CartAddSuccessEvent>({
+      e: 'CartAddSuccess',
+    })
+  }
+
+  const products = await purchaseApi.listRelatedProducts([e.productId])
+
+  return Promise.resolve<CartAddProductOutOfStockEvent>({
+    e: 'CartAddProductOutOfStock',
+    list: products,
+  })
+}
+
+export const settleCart = async (e: CartSettleEvent) => {
+  logger.info('event :', e)
+  const log = await purchaseApi.settleCart(e)
+
+  return Promise.resolve<CartSettleSuccessEvent | CartSettleFailEvent>({
+    e: 'CartSettleSuccess',
   })
 }

@@ -19,7 +19,7 @@ export type PickUsecasesInOut<A> = {
 
 export type PickUsecasesTestParams<A> = {
   [P in keyof A]: A[P] extends (e: infer EVENT) => Promise<infer EVENT_RES>
-    ? [Partial<EVENT>, Partial<EVENT_RES>]
+    ? { in: Partial<EVENT>; out: Partial<EVENT_RES> }
     : never
 }
 
@@ -43,23 +43,24 @@ export type AllEventRes = any // { logId?: Ulid }
 // のような定義をして型チェックと厳密化したいが方法がわからないので any でごまかす
 export type Usecases = { [P: string]: (e: any) => Promise<AllEventRes> }
 
-export const execUsecases = async <E extends AllEvent>(
-  saga: Usecases,
-  testParams: PickUsecasesTestParams<Usecases>
-) => {
-  const results = _.map(saga, async (f, name) => {
+export const execUsecases = async <T extends PickUsecasesTestParams<Usecases>>(usecases: Usecases, testParams: T) => {
+  const results = _.map(usecases, async (f, name) => {
     const param = _.get(testParams, name)
 
     // console.log(name, param)
 
-    return { usecase: name, input: param[0], expected: param[1], actual: await f(param[0] as E) }
+    return { usecase: name, input: param.in, expected: param.out, actual: await f(param.in) }
   })
 
   return await Promise.all(results)
 }
 
-// const buyProduct = {
-//   selectAd: (e: string) => Promise.resolve('hoge'),
-//   listRecommendProducts: (e: number) => Promise.resolve(111),
-// }
-// type a = PickUsecasesInOut<typeof buyProduct>
+//TODO 本来なら devDependencies に分離するべきテスト用メソッドだが、面倒なのでここにとりあえず置く
+export const expectUsecases = async <T extends PickUsecasesTestParams<Usecases>>(usecases: Usecases, testParams: T) => {
+  const results = await execUsecases(usecases, testParams)
+
+  results.forEach((res) => {
+    console.log(JSON.stringify(res, null, 2))
+    expect(res.actual).toMatchObject(res.expected)
+  })
+}
