@@ -14,6 +14,9 @@
   "dependencies": {
     "@js-temporal/polyfill": "^0.4.1",
     "fp-ts": "^2.12.1",
+    "@types/lodash": "^4.14.182",
+    "lodash-es": "^4.17.21",
+
     "log4js": "^6.4.6",
     "ulidx": "^0.3.0"
   },

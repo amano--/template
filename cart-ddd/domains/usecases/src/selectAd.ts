@@ -11,13 +11,13 @@ const logger = getLogger('usecases/ad')
 */
 export const purchaseUsecase = 'purchaseUsecase'
 
-export const selectAd = async (e: AdSelectEvent): Promise<AdToPurchaseNaviEvent> => {
+export const selectAd = async (e: AdSelectEvent) => {
   logger.info('selectAd : event = ', e)
   const log = await adApi.saveEvent(e)
   logger.info('save log=', log)
 
-  return Promise.resolve({
-    eventType: 'AdToPurchaseNavi',
+  return Promise.resolve<AdToPurchaseNaviEvent>({
+    e: 'AdToPurchaseNavi',
     fromType: e.fromType,
     naviToPurchaseUrl: '/purchase',
   })
