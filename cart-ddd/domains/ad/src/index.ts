@@ -5,7 +5,7 @@ export type AdSelectEvent = { f: 'AdSelect'; fromType: string }
 
 export type AdSelectEventLog = AdSelectEvent & { logId: string }
 
-export type AdToPurchaseNaviEvent = { e: 'AdToPurchaseNavi'; fromType: string; naviToPurchaseUrl: string }
+export type AdToPurchaseNaviEvent = { r: 'AdToPurchaseNavi'; fromType: string; naviToPurchaseUrl: string }
 
 export type AdSelected = { commandType: 'AdSelected' }
 

@@ -1,4 +1,4 @@
-import { AllEvent, purchaseApi } from '@me/common'
+import { AllEvent, QuerySuccessEvent, purchaseApi } from '@me/common'
 import {
   ListProductsInput,
   ListProductsEvent,
@@ -14,14 +14,14 @@ import { getLogger } from 'log4js'
 import { CartSettleFailEvent } from '../../purchase/src/index'
 const logger = getLogger('usecases/purchase')
 
-export const listRecommendProducts = async (e: ListProductsEvent): Promise<{ list: Product[] }> => {
+export const listRecommendProducts = async (e: ListProductsEvent) => {
   logger.info('event :', e)
 
   const products = await purchaseApi.listProducts(e.input)
 
   logger.info('products=', products)
 
-  return Promise.resolve({ list: products })
+  return Promise.resolve<QuerySuccessEvent<Product>>({ r: 'QuerySuccess', list: products })
 }
 
 export const addCart = async (e: CartAddEvent) => {
@@ -30,14 +30,14 @@ export const addCart = async (e: CartAddEvent) => {
 
   if (!counts.some((v) => v.count === 0)) {
     return Promise.resolve<CartAddSuccessEvent>({
-      e: 'CartAddSuccess',
+      r: 'CartAddSuccess',
     })
   }
 
   const products = await purchaseApi.listRelatedProducts([e.productId])
 
   return Promise.resolve<CartAddProductOutOfStockEvent>({
-    e: 'CartAddProductOutOfStock',
+    r: 'CartAddProductOutOfStock',
     list: products,
   })
 }
@@ -47,6 +47,6 @@ export const settleCart = async (e: CartSettleEvent) => {
   const log = await purchaseApi.settleCart(e)
 
   return Promise.resolve<CartSettleSuccessEvent | CartSettleFailEvent>({
-    e: 'CartSettleSuccess',
+    r: 'CartSettleSuccess',
   })
 }

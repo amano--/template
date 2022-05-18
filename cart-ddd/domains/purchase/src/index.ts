@@ -16,12 +16,12 @@ export type ListProductsEvent = { q: 'ListProducts'; input: ListProductsInput }
 
 export type CartAddEvent = { c: 'CartAdd'; productId: ProductId } //save: 'batch';
 export type CartAddEventLog = CartAddEvent & { logId: Ulid }
-export type CartAddSuccessEvent = { e: 'CartAddSuccess' }
-export type CartAddProductOutOfStockEvent = { e: 'CartAddProductOutOfStock'; list: Product[] }
+export type CartAddSuccessEvent = { r: 'CartAddSuccess' }
+export type CartAddProductOutOfStockEvent = { r: 'CartAddProductOutOfStock'; list: Product[] }
 
 export type CartSettleEvent = { c: 'CartSettle' }
-export type CartSettleSuccessEvent = { e: 'CartSettleSuccess' }
-export type CartSettleFailEvent = { e: 'CartSettleFail' }
+export type CartSettleSuccessEvent = { r: 'CartSettleSuccess' }
+export type CartSettleFailEvent = { r: 'CartSettleFail' }
 
 export type PurchaseEventLog = CartAddEventLog
 export type PurchaseCommandEvent = CartAddEvent | CartSettleEvent

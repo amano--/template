@@ -28,20 +28,48 @@ export type UnsaveEvent = { unsave?: boolean }
 export type CommandEvent = { c: string } & UnsaveEvent
 export type QueryEvent = { q: string } & UnsaveEvent
 export type FetchEvent = { f: string } & UnsaveEvent
-export type UserEvent = { u: string }
-export type EtcEvent = { e: string } & UnsaveEvent
+export type UserEvent = { u: string } & UnsaveEvent
 
-export type AllEvent = CommandEvent | QueryEvent | UserEvent | FetchEvent | EtcEvent
+/**
+ * サーバーのレスポンスに使用する 出力用イベント
+ *
+ * @param  r TaggedUnionのタグとして使用するため、ユニークなイベント名を設定する。
+ * @param category success 正常フロー alt 代替フロー exception 例外フロー 省略時は success として扱われる
+ */
+export type ResponseEvent = {
+  r: string
+  category?: 'success' | 'alt' | 'exception'
+  logId?: Ulid
+}
+// export type ExceptionEvent = { x: string }
+// export type EtcEvent = { e: string } & UnsaveEvent
+
+export type InputEvent = CommandEvent | QueryEvent | UserEvent | FetchEvent
+export type OutputEvent = ResponseEvent
+
+export type AllEvent = InputEvent | OutputEvent
 // type AllEvent = {
 //   [P in keyof (CommandEvent & QueryEvent & UserEvent & FetchEvent & EtcEvent)]?: string
 // }
 
-export type AllEventRes = any // { logId?: Ulid }
+export type QuerySuccessEvent<DATA> = { r: 'QuerySuccess'; list: DATA[] }
+export type PagedQuerySuccessEvent<DATA> = {
+  r: 'PagedQuerySuccess'
+  list: DATA[]
+
+  //TODO ページングに関する情報を精査し正しく設定
+  max: number
+  count: number
+  pageCount: number
+  pageStep: number
+}
+
+// export type AllEventRes = any // { logId?: Ulid }
 
 // type Usecases<E extends AllEvent> = { [P: string]: (e: E) => Promise<AllEventRes> }
 // TODO 本当は type Usecases = { [P: string]: (e: AllEvent) => Promise<AllEventRes> }
 // のような定義をして型チェックと厳密化したいが方法がわからないので any でごまかす
-export type Usecases = { [P: string]: (e: any) => Promise<AllEventRes> }
+export type Usecases = { [P: string]: (e: any) => Promise<OutputEvent> }
 
 export const execUsecases = async <T extends PickUsecasesTestParams<Usecases>>(usecases: Usecases, testParams: T) => {
   const results = _.map(usecases, async (f, name) => {

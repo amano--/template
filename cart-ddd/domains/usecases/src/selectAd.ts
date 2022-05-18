@@ -17,7 +17,7 @@ export const selectAd = async (e: AdSelectEvent) => {
   logger.info('save log=', log)
 
   return Promise.resolve<AdToPurchaseNaviEvent>({
-    e: 'AdToPurchaseNavi',
+    r: 'AdToPurchaseNavi',
     fromType: e.fromType,
     naviToPurchaseUrl: '/purchase',
   })
