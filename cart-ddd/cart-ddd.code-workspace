@@ -58,6 +58,7 @@
   // この行以降独自追加
 	"jestrunner.jestCommand": "npx jest",
 	"jest.jestCommandLine": "npx jest",
+  // "jest.jestCommandLine":"node_modules/.bin/jest --config jest.config.ts",
 
   "editor.defaultFormatter": "esbenp.prettier-vscode", //デフォルトのフォーマットはprettierを指定
   // "editor.codeActionsOnSave": { //ESLintに対応しているファイルはESLintでフォーマット
