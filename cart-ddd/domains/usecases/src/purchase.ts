@@ -11,7 +11,7 @@ import {
 } from '@me/purchase'
 
 import { getLogger } from 'log4js'
-import { CartSettleFailEvent } from '../../purchase/src/index'
+import { CartSettleFailEvent, isGuest, NaviToUserEntryEvent } from '../../purchase/src/index'
 const logger = getLogger('usecases/purchase')
 
 export const listRecommendProducts = async (e: ListProductsEvent) => {
@@ -44,9 +44,13 @@ export const addCart = async (e: CartAddEvent) => {
 
 export const settleCart = async (e: CartSettleEvent) => {
   logger.info('event :', e)
-  const log = await purchaseApi.settleCart(e)
 
-  return Promise.resolve<CartSettleSuccessEvent | CartSettleFailEvent>({
-    r: 'CartSettleSuccess',
-  })
+  if (isGuest(e.account)) {
+    return Promise.resolve<NaviToUserEntryEvent>({
+      r: 'NaviToUserEntry',
+      path: '/user/account/entry',
+    })
+  }
+
+  return await purchaseApi.settleCart(e)
 }

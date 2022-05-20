@@ -19,9 +19,20 @@ export type CartAddEventLog = CartAddEvent & { logId: Ulid }
 export type CartAddSuccessEvent = { r: 'CartAddSuccess' }
 export type CartAddProductOutOfStockEvent = { r: 'CartAddProductOutOfStock'; list: Product[] }
 
-export type CartSettleEvent = { c: 'CartSettle' }
-export type CartSettleSuccessEvent = { r: 'CartSettleSuccess' }
+export type UserId = string
+
+export type UserAccount = { userId: UserId; name: string }
+export type GuestAccount = { guest: true; fromUrl: string }
+
+export const isGuest = (account: UserAccount | GuestAccount): account is GuestAccount => {
+  return 'guest' in account
+}
+
+export type CartSettleEvent = { c: 'CartSettle'; account: UserAccount | GuestAccount; list: Product[] }
+
+export type CartSettleSuccessEvent = { r: 'CartSettleSuccess'; logId: Ulid }
 export type CartSettleFailEvent = { r: 'CartSettleFail' }
+export type NaviToUserEntryEvent = { r: 'NaviToUserEntry'; path: string }
 
 export type PurchaseEventLog = CartAddEventLog
 export type PurchaseCommandEvent = CartAddEvent | CartSettleEvent

@@ -1,5 +1,13 @@
 import { newLogId } from '@me/common'
-import { ListProductsInputEvent, Product, PurchaseCommandEvent, CartSettleEvent, ProductId } from '@me/purchase'
+import {
+  ListProductsInputEvent,
+  Product,
+  PurchaseCommandEvent,
+  CartSettleEvent,
+  ProductId,
+  CartSettleSuccessEvent,
+  CartSettleFailEvent,
+} from '@me/purchase'
 
 import { getLogger } from 'log4js'
 const logger = getLogger('mocks/purchase/api')
@@ -17,12 +25,19 @@ const mutations = {
     })
   },
 
-  settleCart: (e: CartSettleEvent): Promise<PurchaseEventLog> => {
+  settleCart: (e: CartSettleEvent) => {
     logger.info('saveEvent : event=', e)
 
-    return Promise.resolve({
-      ...e,
-      logId: newLogId(),
+    const f = true
+    if (f) {
+      return Promise.resolve<CartSettleSuccessEvent>({
+        r: 'CartSettleSuccess',
+        logId: newLogId(),
+      })
+    }
+
+    return Promise.resolve<CartSettleFailEvent>({
+      r: 'CartSettleFail',
     })
   },
 }
