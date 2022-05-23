@@ -55,6 +55,11 @@ Nested されたユースケースのテスト方法の調査
 
 リダイレクト先URL等インフラ情報をドメイン層から返していることの是非
 
+
+api の実装を mock と production を切り替える際 productionの引数の型に属性が増えている場合、以下のようにOptionalならコンパイルエラーにならないが、必須にするとエラーになってしまう問題の対応方法
+  createAccount: (e: CreateUserAccountEvent & { productionOnlyParam?: string }) => {
+
+
 []()
 []()
 []()

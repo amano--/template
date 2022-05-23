@@ -1,15 +1,15 @@
-import { commonApi, newLogId } from '@me/common'
-
-import { getLogger } from 'log4js'
 import {
   CreateUserAccountEvent,
   CreateUserAccountSuccessEvent,
   CreateUserAccountDuplicatedExceptionEvent,
-} from '../../../common/src/index'
+  newLogId,
+} from '@me/common'
+
+import { getLogger } from 'log4js'
 const logger = getLogger('mocks/common/api')
 
-const simpleProducts = [{ productId: 'normal' }, { productId: 'outOfStock' }]
-const relatedProducts = [{ productId: '5' }, { productId: '6' }]
+// const simpleProducts = [{ productId: 'normal' }, { productId: 'outOfStock' }]
+// const relatedProducts = [{ productId: '5' }, { productId: '6' }]
 
 const mutations = {
   // saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {

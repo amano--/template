@@ -19,7 +19,7 @@ describe('createAccount', () => {
   })
 
   describe('代替フロー', () => {
-    it('すでにアカウント名が使用されていた場合、', async () => {
+    it('すでにアカウント名が使用されていた場合、重複エラーイベントが返却される', async () => {
       const result = await expectUsecaseLine(
         createAccount,
         {
