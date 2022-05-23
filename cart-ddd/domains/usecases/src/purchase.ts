@@ -49,6 +49,7 @@ export const settleCart = async (e: CartSettleEvent) => {
     return Promise.resolve<NaviToUserEntryEvent>({
       r: 'NaviToUserEntry',
       path: '/user/account/entry',
+      callBy: { settleCart: e },
     })
   }
 

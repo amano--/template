@@ -98,8 +98,8 @@ export const execUsecases = async <A, B extends PickUsecasesTestParams<Usecases<
 }
 
 //TODO 本来なら devDependencies に分離するべきテスト用メソッドだが、面倒なのでここにとりあえず置く
-export const expectUsecases = async <A, B extends PickUsecasesTestParams<Usecases<A>>>(
-  usecases: Usecases<A>,
+export const expectUsecases = async <S, B extends PickUsecasesTestParams<Usecases<S>>>(
+  usecases: Usecases<S>,
   testParams: B
 ) => {
   const results = await execUsecases(usecases, testParams)

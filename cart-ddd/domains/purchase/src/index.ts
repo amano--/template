@@ -32,7 +32,11 @@ export type CartSettleEvent = { c: 'CartSettle'; account: UserAccount | GuestAcc
 
 export type CartSettleSuccessEvent = { r: 'CartSettleSuccess'; logId: Ulid }
 export type CartSettleFailEvent = { r: 'CartSettleFail' }
-export type NaviToUserEntryEvent = { r: 'NaviToUserEntry'; path: string }
+export type NaviToUserEntryEvent = {
+  r: 'NaviToUserEntry'
+  path: string
+  callBy: { settleCart: CartSettleEvent }
+}
 
 export type PurchaseEventLog = CartAddEventLog
 export type PurchaseCommandEvent = CartAddEvent | CartSettleEvent
