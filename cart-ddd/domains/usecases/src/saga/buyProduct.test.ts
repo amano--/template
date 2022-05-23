@@ -51,7 +51,12 @@ describe('* addCart カートに登録する', () => {
         },
       })
       console.log(res.addCart.actual)
-      // console.log(res.addCart.actual.list)
+
+      // response event が Union型で その詳細までテストしたい場合 if や switch で型の絞り込みをしてから、expect する
+      const event = res.addCart.actual
+      if (event.r === 'CartAddProductOutOfStock') {
+        expect(event.list).toEqual([{ productId: '5' }, { productId: '6' }])
+      }
     })
   })
 })
@@ -62,7 +67,7 @@ describe('* settleCart カートを決済する', () => {
       const res = await expectUsecases(buyProduct, {
         ...success,
         settleCart: {
-          in: { ...success.settleCart.in, account: { guest: true } },
+          in: { ...success.settleCart.in, account: { guest: true, fromUrl: '' } },
           out: { r: 'NaviToUserEntry' },
         },
       })
