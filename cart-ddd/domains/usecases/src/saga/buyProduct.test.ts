@@ -43,17 +43,17 @@ describe('ゲストが商品を購入する', () => {
 describe('* addCart カートに登録する', () => {
   describe('代替フロー', () => {
     it('カートに商品を追加時、品切れ状態だった場合,関連商品が返却される', async () => {
-      const res = await expectUsecases(buyProduct, {
+      const results = await expectUsecases(buyProduct, {
         ...success,
         addCart: {
           in: { ...success.addCart.in, productId: 'outOfStock' },
           out: { r: 'CartAddProductOutOfStock' },
         },
       })
-      console.log(res.addCart.actual)
+      console.log(results.addCart.actual)
 
       // response event が Union型で その詳細までテストしたい場合 if や switch で型の絞り込みをしてから、expect する
-      const event = res.addCart.actual
+      const event = results.addCart.actual
       if (event.r === 'CartAddProductOutOfStock') {
         expect(event.list).toEqual([{ productId: '5' }, { productId: '6' }])
       }
@@ -63,15 +63,20 @@ describe('* addCart カートに登録する', () => {
 
 describe('* settleCart カートを決済する', () => {
   describe('代替フロー', () => {
-    it('ゲストが決済しようとした時、ユーザー登録画面に誘導されるイベントが発生する', async () => {
-      const res = await expectUsecases(buyProduct, {
+    it('ゲストが決済しようとした時、ユーザー登録画面に誘導されるイベントが返却される', async () => {
+      const results = await expectUsecases(buyProduct, {
         ...success,
         settleCart: {
           in: { ...success.settleCart.in, account: { guest: true, fromUrl: '' } },
           out: { r: 'NaviToUserEntry' },
         },
       })
-      console.log(res.addCart.actual)
+      console.log(results.settleCart.actual)
+
+      const event = results.settleCart.actual
+      if (event.r === 'NaviToUserEntry') {
+        // expect(event.callBy).toEqual([{ productId: '5' }, { productId: '6' }])
+      }
       // console.log(res.addCart.actual.list)
     })
   })

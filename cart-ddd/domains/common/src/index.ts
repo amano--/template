@@ -19,6 +19,8 @@ export type QueryEvent = { q: string } & UnsaveEvent
 // export type FetchEvent = { f: string } & UnsaveEvent
 export type UserEvent = { u: string } & UnsaveEvent
 
+export type CommandLog = { logId?: Ulid }
+
 /**
  * サーバーのレスポンスに使用する 出力用イベント
  *
@@ -53,15 +55,33 @@ export type PagedQuerySuccessEvent<DATA> = {
   pageStep: number
 }
 
+export type UserId = string
+
+export type UserAccount = { userId: UserId; name: string }
+export type EncryptedUserAccount = UserAccount & { encryptedPassword: string }
+export type GuestAccount = { guest: true; fromUrl: string }
+
+export const isGuest = (account: UserAccount | GuestAccount): account is GuestAccount => {
+  return 'guest' in account
+}
+
+export type CreateUserAccountEvent = { c: 'CreateUserAccount'; input: { name: string } }
+
+export type CreateUserAccountSuccessEvent = { r: 'CreateUserAccountSuccess' } & UserAccount & CommandLog
+
+export type CreateUserAccountDuplicatedExceptionEvent = { r: 'CreateUserAccountDuplicatedException' }
+
 // export type AllEventRes = any // { logId?: Ulid }
 
-export type UsecaseLine = (e: any) => Promise<OutputEvent>
+export type UsecaseLine<IN, OUT> = (e: IN) => Promise<OUT>
+
+export type UsecaseLineAny = (e: any) => Promise<OutputEvent>
 // type Usecases<E extends AllEvent> = { [P: string]: (e: E) => Promise<AllEventRes> }
 // TODO 本当は type Usecases = { [P: string]: (e: AllEvent) => Promise<AllEventRes> }
 // のような定義をして型チェックと厳密化したいが方法がわからないので any でごまかす
-export type Usecases<T> = { [P in keyof T]: UsecaseLine }
+export type Usecases<T> = { [P in keyof T]: UsecaseLineAny }
 
-export type Usecase<T> = Usecases<T> | UsecaseLine
+export type Usecase<T> = Usecases<T> | UsecaseLineAny
 
 // export type PickUsecasesInOut<A> = {
 //   [P in keyof A]: A[P] extends (e: infer EVENT) => Promise<infer RESULT> ? [EVENT, RESULT] : never
@@ -97,16 +117,38 @@ export const execUsecases = async <A extends Usecases<A>, B extends PickUsecases
   return res as PickUsecasesExecResults<A>
 }
 
+export type PickInEventFromUsecaseLine<A extends UsecaseLineAny> = A extends (e: infer IN) => Promise<any> ? IN : never
+
+export type PickOutEventFromUsecaseLine<A extends UsecaseLineAny> = A extends (e: any) => Promise<infer OUT>
+  ? OUT
+  : never
+
+// TODO 型計算のテストをどこに書くのが良いかの検討
+// const line = (e: { c: 'Command' }) =>
+//   e.c === 'Command' ? Promise.resolve({ r: 'Success' } as const) : Promise.resolve({ r: 'Fail' } as const)
+
+// type A = typeof line
+
 //TODO 本来なら devDependencies に分離するべきテスト用メソッドだが、面倒なのでここにとりあえず置く
+export const expectUsecaseLine = async <A extends UsecaseLineAny>(
+  line: A,
+  expectedIn: PickInEventFromUsecaseLine<A>,
+  expectedOut: Partial<PickOutEventFromUsecaseLine<A>>
+) => {
+  const results = await line(expectedIn)
+  expect(results).toMatchObject(expectedOut)
+  return results as Partial<PickOutEventFromUsecaseLine<A>>
+}
+
 export const expectUsecases = async <A extends Usecases<A>, B extends PickUsecasesTestParams<A>>(
   usecases: A,
   testParams: B
 ) => {
   const results = await execUsecases(usecases, testParams)
 
-  Object.values(results).forEach((res) => {
+  Object.values(results).forEach((res: any) => {
     console.log(JSON.stringify(res, null, 2))
-    expect(res.actual).toMatchObject(res.expected as any)
+    expect(res.actual).toMatchObject(res.expected)
   })
 
   return results

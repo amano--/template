@@ -1,10 +1,10 @@
-import { purchaseUsecase } from './createAccount'
-// import { purchaseMock } from '../../mocks/src/purchase/index';
-import { purchaseMock } from 'mocks'
+import { addCart } from './purchase'
 
 describe('simple test', () => {
-  it('dom draw', () => {
-    expect(purchaseUsecase).toContain('purchaseUsecase')
-    expect(purchaseMock).toContain('purchaseMock')
+  it('addCart', async () => {
+    // TODO 実行結果が補完(型推論)されない問題の解決
+    expect(await addCart({ c: 'CartAdd', productId: 'normal' })).toMatchObject({ r: 'CartAddSuccess' })
+
+    expect(await addCart({ c: 'CartAdd', productId: 'outOfStock' })).toMatchObject({ r: 'CartAddProductOutOfStock' })
   })
 })
