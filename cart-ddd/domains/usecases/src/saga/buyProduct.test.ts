@@ -5,7 +5,7 @@ import { execUsecases, PickUsecasesTestParams, Ulid, purchaseApi, expectUsecases
 
 const logger = getLogger('saga/buyProduct')
 
-const buyProduct = { selectAd, listRecommendProducts, addCart, settleCart } as const
+const buyProduct = { selectAd, listRecommendProducts, addCart, settleCart } //as const
 type TestParams = PickUsecasesTestParams<typeof buyProduct>
 
 const success: TestParams = {

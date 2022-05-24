@@ -25,7 +25,7 @@ export const listRecommendProducts = async (e: ListProductsEvent) => {
 }
 
 export const addCart = async (e: CartAddEvent) => {
-  logger.info('event :', e)
+  logger.info('addCart :', 'e=', e)
   const counts = await purchaseApi.findProductStock([e.productId])
 
   if (!counts.some((v) => v.count === 0)) {
@@ -43,7 +43,7 @@ export const addCart = async (e: CartAddEvent) => {
 }
 
 export const settleCart = async (e: CartSettleEvent) => {
-  logger.info('event :', e)
+  logger.info('settleCart :', 'e=', e)
 
   if (isGuest(e.account)) {
     return Promise.resolve<NaviToUserEntryEvent>({

@@ -7,3 +7,10 @@
 ### 境界つけられたコンテキスト(Bounded Context) 候補
 
 おすすめ商品( recommend )
+
+graphql で apiを実装
+
+"noErrorTruncation": true 聞いていない問題への対処
+
+インフラ(ブラウザ Fetch先 DB) 等 ランタイム上のメモリにないものとやり取りする = モック化したいメソッド の集まり
+インフラ層実装を用いた単体テストの切替方法の調査
