@@ -1,1 +1,1 @@
-export type { MockProductIdType } from '@me/mocks'
+export type { MockUserAccountIdType as MockProductIdType } from '@me/mocks'

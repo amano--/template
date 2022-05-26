@@ -31,6 +31,7 @@ export const addCart = async (e: CartAddEvent) => {
   if (!counts.some((v) => v.count === 0)) {
     return Promise.resolve<CartAddSuccessEvent>({
       r: 'CartAddSuccess',
+      rt: 'success',
     })
   }
 
@@ -38,6 +39,7 @@ export const addCart = async (e: CartAddEvent) => {
 
   return Promise.resolve<CartAddProductOutOfStockEvent>({
     r: 'CartAddProductOutOfStock',
+    rt: 'alt',
     list: products,
   })
 }
@@ -48,10 +50,11 @@ export const settleCart = async (e: CartSettleEvent) => {
   if (isGuest(e.account)) {
     return Promise.resolve<NaviToUserEntryEvent>({
       r: 'NaviToUserEntry',
+      rt: 'alt',
       path: '/user/account/entry',
       callBy: { settleCart: e },
     })
   }
 
-  return await purchaseApi.settleCart(e)
+  return await purchaseApi.settleCart({ ...e, account: e.account })
 }

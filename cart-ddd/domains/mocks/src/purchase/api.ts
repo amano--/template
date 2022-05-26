@@ -1,23 +1,26 @@
-import { newLogId } from '@me/common'
+import { isGuest, newLogId, UserAccount } from '@me/common'
 import {
   Product,
   PurchaseCommandEvent,
   CartSettleEvent,
   ProductId,
   CartSettleSuccessEvent,
-  CartSettleFailEvent,
+  CartSettleEtcFailEvent,
   ListProductsInput,
+  CartSettleFailByInsufficientFundsEvent,
 } from '@me/purchase'
 
 import { getLogger } from 'log4js'
+import { CartSettleFailByCardExpiredEvent } from '../../../purchase/src/index'
+import { Temporal } from '@js-temporal/polyfill'
 const logger = getLogger('mocks/purchase/api')
 
 const simpleProducts = { normal: { productId: 'normal' }, outOfStock: { productId: 'outOfStock' } } as const
 const relatedProducts = { relate1: { productId: 'relate1' }, relate2: { productId: 'relate2' } } as const
 
 // [ TypeScript で string 型の値に自動補完を効かせる ](https://nanto.asablo.jp/blog/2021/09/11/9422241)
-const allMockProducts = { ...simpleProducts, ...relatedProducts } as const
-export type MockProductIdType = keyof typeof allMockProducts | (string & {})
+export const MockProducts = { ...simpleProducts, ...relatedProducts } as const
+export type MockProductIdType = keyof typeof MockProducts | (string & {})
 
 const mutations = {
   saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
@@ -29,19 +32,39 @@ const mutations = {
     })
   },
 
-  settleCart: (e: CartSettleEvent) => {
+  // TODO UserAccount | GuestAccount から GuestAccount のうまい抜き方の調査
+  // settleCart: (e: Omit<CartSettleEvent, 'account'> & { account: UserAccount }) => {
+  settleCart: (e: CartSettleEvent & { account: UserAccount }) => {
     logger.info('settleCart: ', 'e=', e)
+
+    if (e.account.userId === 'poor') {
+      return Promise.resolve<CartSettleFailByInsufficientFundsEvent>({
+        r: 'CartSettleFailByInsufficientFunds',
+        rt: 'exception',
+        differenceAmount: 1,
+      })
+    }
+
+    if (e.account.userId === 'cardExpired') {
+      return Promise.resolve<CartSettleFailByCardExpiredEvent>({
+        r: 'CartSettleFailByCardExpired',
+        rt: 'exception',
+        oldDate: Temporal.ZonedDateTime.from('2000-01-01T09:00:00+09:00[Asia/Tokyo]'),
+      })
+    }
 
     //TODO 後で分岐を実装
     const fail = false
     if (fail) {
-      return Promise.resolve<CartSettleFailEvent>({
-        r: 'CartSettleFail',
+      return Promise.resolve<CartSettleEtcFailEvent>({
+        r: 'CartSettleEtcFail',
+        rt: 'exception',
       })
     }
 
     return Promise.resolve<CartSettleSuccessEvent>({
       r: 'CartSettleSuccess',
+      rt: 'success',
       logId: newLogId(),
     })
   },
