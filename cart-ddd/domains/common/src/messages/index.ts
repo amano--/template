@@ -1,2 +1,2 @@
 export type { SupportLang } from './common'
-export { createCommonMessageFinder } from './common'
+export { createMessageFinder as createCommonMessageFinder } from './common'

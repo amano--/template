@@ -3,11 +3,16 @@ import { MockUserAccounts, MockProducts } from '@me/mocks'
 import { expectUsecaseLine } from '@me/common'
 
 describe('(listRecommendProducts) ', () => {
-  it('多言語対応の応答メッセージが取得できることを確認', async () => {
-    const res = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'hoge' } })
-
-    expect(res.msg('ja')).toEqual('検索が成功しました')
-    expect(res.msg('en')).toEqual('query success')
+  describe('多言語対応', () => {
+    it('SupportLangの言語が指定された場合、対応した文字列が返却される', async () => {
+      const res = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'hoge' } })
+      expect(res.msg('ja')).toEqual('検索が成功しました')
+      expect(res.msg('en')).toEqual('query success')
+    })
+    it('SupportLangの言語以外が指定された場合、英語メッセージが返却される', async () => {
+      const res = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'hoge' } })
+      expect(res.msg('fr')).toEqual('query success')
+    })
   })
 })
 
@@ -23,29 +28,31 @@ describe('(addCart) ユーザーは商品をカートに追加する', () => {
 
 describe('(settleCart) ユーザーはカートを決済する', () => {
   // settleCart の戻り値のイベントを網羅するテストをかく
-  const baseInput = { c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] } as const
+  const success = { c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] } as const
 
   // settleCart の戻り値のイベントを網羅するようにテストをかく
   it('成功の場合', async () => {
-    expect(await settleCart(baseInput)).toMatchObject({
-      r: 'CartSettleSuccess',
-    })
+    await expectUsecaseLine(settleCart, success, { r: 'CartSettleSuccess' })
   })
+
   it('ゲストの場合、新規会員登録画面へのNaviイベントが返る', async () => {
-    expect(await settleCart({ ...baseInput, account: MockUserAccounts.guestNormal })).toMatchObject({
-      r: 'NaviToUserEntry',
-    })
+    await expectUsecaseLine(settleCart, { ...success, account: MockUserAccounts.guestNormal }, { r: 'NaviToUserEntry' })
   })
+
   it('残高不足のユーザの場合', async () => {
-    expect(await settleCart({ ...baseInput, account: MockUserAccounts.poor })).toMatchObject({
-      r: 'CartSettleFailByInsufficientFunds',
-    })
+    await expectUsecaseLine(
+      settleCart,
+      { ...success, account: MockUserAccounts.poor },
+      { r: 'CartSettleFailByInsufficientFunds' }
+    )
   })
 
   it('カード期限切れユーザの場合', async () => {
-    expect(await settleCart({ ...baseInput, account: MockUserAccounts.cardExpired })).toMatchObject({
-      r: 'CartSettleFailByCardExpired',
-    })
+    await expectUsecaseLine(
+      settleCart,
+      { ...success, account: MockUserAccounts.cardExpired },
+      { r: 'CartSettleFailByCardExpired' }
+    )
   })
 })
 

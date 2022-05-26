@@ -2,7 +2,7 @@ import { ulid } from 'ulidx'
 import { Temporal } from '@js-temporal/polyfill'
 // import { string } from 'fp-ts'
 import { MockUserAccountIdType } from './tbd_for_code_completion_from_mock'
-import { createCommonMessageFinder, SupportLang } from './messages/common'
+import { createMessageFinder, SupportLang } from './messages/common'
 
 export type Ulid = string
 
@@ -45,7 +45,7 @@ export type AllEvent = InputEvent | OutputEvent
 // type AllEvent = {
 //   [P in keyof (CommandEvent & QueryEvent & UserEvent & FetchEvent & EtcEvent)]?: string
 // }
-export const commonFinder = { querySuccess: createCommonMessageFinder('querySuccess') }
+export const commonFinder = { querySuccess: createMessageFinder('querySuccess') }
 // export const querySuccessFinder = createCommonMessageFinder('querySuccess')
 
 export type QuerySuccessEvent<DATA> = ResponseEventWithMessage<typeof commonFinder['querySuccess']> & {
