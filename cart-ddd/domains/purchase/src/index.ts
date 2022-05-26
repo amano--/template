@@ -1,13 +1,12 @@
 import { GuestAccount, Ulid, UserAccount } from '@me/common'
 
 import { getLogger } from 'log4js'
-import { MockUserAccountIdType } from '@me/mocks'
-import { ResponseEvent } from '../../common/src/common'
 import { Temporal } from '@js-temporal/polyfill'
+import { ResponseEvent, MockProductIdType } from '@me/common'
 const logger = getLogger('domains/purchase')
 
 // TBD テストデータを設定する時補完ができるように実験的に型を設定している。基本は string
-export type ProductId = MockUserAccountIdType
+export type ProductId = MockProductIdType
 export type Product = { productId: ProductId }
 
 export type PurchaseStartEvent = { c: 'PurchaseStart'; fromType: 'ad' | 'bookmark' }

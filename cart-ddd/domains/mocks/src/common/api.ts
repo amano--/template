@@ -27,10 +27,12 @@ const mutations = {
     if (e.input.name === 'duplicated') {
       return Promise.resolve<CreateUserAccountDuplicatedExceptionEvent>({
         r: 'CreateUserAccountDuplicatedException',
+        rt: 'exception',
       })
     }
     return Promise.resolve<CreateUserAccountSuccessEvent>({
       r: 'CreateUserAccountSuccess',
+      rt: 'success',
       userId: newLogId(),
       name: e.input.name,
       logId: newLogId(),

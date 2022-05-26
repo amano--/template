@@ -1,14 +1,23 @@
-import { addCart, settleCart } from './purchase'
+import { addCart, settleCart, listRecommendProducts } from './purchase'
 import { MockUserAccounts, MockProducts } from '@me/mocks'
+import { expectUsecaseLine } from '@me/common'
+
+describe('(listRecommendProducts) ', () => {
+  it('多言語対応の応答メッセージが取得できることを確認', async () => {
+    const res = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'hoge' } })
+
+    expect(res.msg('ja')).toEqual('検索が成功しました')
+    expect(res.msg('en')).toEqual('query success')
+  })
+})
 
 describe('(addCart) ユーザーは商品をカートに追加する', () => {
   it('成功した場合', async () => {
-    // TODO 実行結果が補完(型推論)されない問題の解決
-    expect(await addCart({ c: 'CartAdd', productId: 'normal' })).toMatchObject({ r: 'CartAddSuccess' })
+    await expectUsecaseLine(addCart, { c: 'CartAdd', productId: 'normal' }, { r: 'CartAddSuccess' })
   })
 
   it('品切れ状態の場合', async () => {
-    expect(await addCart({ c: 'CartAdd', productId: 'outOfStock' })).toMatchObject({ r: 'CartAddProductOutOfStock' })
+    await expectUsecaseLine(addCart, { c: 'CartAdd', productId: 'outOfStock' }, { r: 'CartAddProductOutOfStock' })
   })
 })
 

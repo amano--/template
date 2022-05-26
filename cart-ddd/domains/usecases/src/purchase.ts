@@ -12,6 +12,7 @@ import {
 } from '@me/purchase'
 
 import { getLogger } from 'log4js'
+import { commonFinder } from '../../common/src/common'
 const logger = getLogger('usecases/purchase')
 
 export const listRecommendProducts = async (e: ListProductsEvent) => {
@@ -21,7 +22,12 @@ export const listRecommendProducts = async (e: ListProductsEvent) => {
 
   logger.info('listRecommendProducts :', 'products=', products)
 
-  return Promise.resolve<QuerySuccessEvent<Product>>({ r: 'QuerySuccess', rt: 'success', list: products })
+  return Promise.resolve<QuerySuccessEvent<Product>>({
+    r: 'QuerySuccess',
+    rt: 'success',
+    msg: commonFinder.querySuccess,
+    list: products,
+  })
 }
 
 export const addCart = async (e: CartAddEvent) => {

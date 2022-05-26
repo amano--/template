@@ -1,7 +1,8 @@
 import { ulid } from 'ulidx'
 import { Temporal } from '@js-temporal/polyfill'
 // import { string } from 'fp-ts'
-import { MockUserAccountIdType } from '../../mocks/src/common/user'
+import { MockUserAccountIdType } from './tbd_for_code_completion_from_mock'
+import { createCommonMessageFinder, SupportLang } from './messages/common'
 
 export type Ulid = string
 
@@ -19,6 +20,7 @@ export type UserEvent = { u: string } & UnsaveEvent
 
 export type CommandLog = { logId?: Ulid }
 
+// const querySuccess = createCommonMessageFinder('querySuccess')
 /**
  * サーバーのレスポンスに使用する 出力用イベント
  *
@@ -30,6 +32,9 @@ export type ResponseEvent = {
   rt: 'success' | 'alt' | 'exception'
   logId?: Ulid
 }
+export type ResponseEventWithMessage<FINDER> = ResponseEvent & {
+  msg: FINDER
+}
 // export type ExceptionEvent = { x: string }
 // export type EtcEvent = { e: string } & UnsaveEvent
 
@@ -40,8 +45,14 @@ export type AllEvent = InputEvent | OutputEvent
 // type AllEvent = {
 //   [P in keyof (CommandEvent & QueryEvent & UserEvent & FetchEvent & EtcEvent)]?: string
 // }
+export const commonFinder = { querySuccess: createCommonMessageFinder('querySuccess') }
+// export const querySuccessFinder = createCommonMessageFinder('querySuccess')
 
-export type QuerySuccessEvent<DATA> = ResponseEvent & { r: 'QuerySuccess'; rt: 'success'; list: DATA[] }
+export type QuerySuccessEvent<DATA> = ResponseEventWithMessage<typeof commonFinder['querySuccess']> & {
+  r: 'QuerySuccess'
+  rt: 'success'
+  list: DATA[]
+}
 export type PagedQuerySuccessEvent<DATA> = QuerySuccessEvent<DATA> & {
   r: 'PagedQuerySuccess'
   //TODO ページングに関する情報を精査し正しく設定
