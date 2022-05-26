@@ -12,16 +12,16 @@ import {
 import { getLogger } from 'log4js'
 const logger = getLogger('mocks/purchase/api')
 
-const simpleProducts = [{ productId: 'normal' }, { productId: 'outOfStock' }]
-const relatedProducts = [{ productId: '5' }, { productId: '6' }]
+const simpleProducts = { normal: { productId: 'normal' }, outOfStock: { productId: 'outOfStock' } } as const
+const relatedProducts = { relate1: { productId: 'relate1' }, relate2: { productId: 'relate2' } } as const
 
 // [ TypeScript で string 型の値に自動補完を効かせる ](https://nanto.asablo.jp/blog/2021/09/11/9422241)
-// const products = { normal: { productId: 'normal' }, outOfStock: { productId: 'outOfStock' } } as const
-// export type MockProductIdType = keyof typeof products | (string & {})
+const allMockProducts = { ...simpleProducts, ...relatedProducts } as const
+export type MockProductIdType = keyof typeof allMockProducts | (string & {})
 
 const mutations = {
   saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
-    logger.info('saveEvent : event=', e)
+    logger.info('saveEvent: ', 'e=', e)
 
     return Promise.resolve({
       ...e,
@@ -30,7 +30,7 @@ const mutations = {
   },
 
   settleCart: (e: CartSettleEvent) => {
-    logger.info('saveEvent : event=', e)
+    logger.info('settleCart: ', 'e=', e)
 
     //TODO 後で分岐を実装
     const fail = false
@@ -49,7 +49,7 @@ const mutations = {
 
 const queries = {
   findProductStock: async (input: [ProductId]): Promise<{ count: number }[]> => {
-    logger.info('findProductStock : input=', input)
+    logger.info('findProductStock: ', 'input=', input)
 
     const results = input.map((id) => {
       // 品切れ状態の設定
@@ -63,15 +63,15 @@ const queries = {
   },
 
   listProducts: async (input: ListProductsInput): Promise<Product[]> => {
-    logger.info('listProducts : input=', input)
+    logger.info('listProducts: ', 'input=', input)
 
-    return Promise.resolve(simpleProducts)
+    return Promise.resolve(Object.values(simpleProducts))
   },
 
   listRelatedProducts: async (input: [ProductId]): Promise<Product[]> => {
     logger.info('listRelatedProducts : input=', input)
 
-    return Promise.resolve(relatedProducts)
+    return Promise.resolve(Object.values(relatedProducts))
   },
 }
 

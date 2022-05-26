@@ -1,9 +1,11 @@
 import { GuestAccount, Ulid, UserAccount } from '@me/common'
 
 import { getLogger } from 'log4js'
+import { MockProductIdType } from '@me/mocks'
 const logger = getLogger('domains/purchase')
 
-export type ProductId = string
+// TBD テストデータを設定する時補完ができるように実験的に型を設定している。基本は string
+export type ProductId = MockProductIdType
 export type Product = { productId: ProductId }
 
 export type PurchaseStartEvent = { c: 'PurchaseStart'; fromType: 'ad' | 'bookmark' }
@@ -25,6 +27,7 @@ export type CartSettleSuccessEvent = { r: 'CartSettleSuccess'; logId: Ulid }
 export type CartSettleFailEvent = { r: 'CartSettleFail' }
 export type NaviToUserEntryEvent = {
   r: 'NaviToUserEntry'
+  // TBD domain層から 外側のインフラ層の情報を返すことの是非
   path: string
   callBy: { settleCart: CartSettleEvent }
 }
