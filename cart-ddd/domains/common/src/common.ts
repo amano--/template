@@ -1,6 +1,7 @@
 import { ulid } from 'ulidx'
 import { Temporal } from '@js-temporal/polyfill'
 // import { string } from 'fp-ts'
+import { MockUserAccountIdType } from '../../mocks/src/common/user'
 
 export type Ulid = string
 
@@ -40,11 +41,9 @@ export type AllEvent = InputEvent | OutputEvent
 //   [P in keyof (CommandEvent & QueryEvent & UserEvent & FetchEvent & EtcEvent)]?: string
 // }
 
-export type QuerySuccessEvent<DATA> = { r: 'QuerySuccess'; list: DATA[] }
-export type PagedQuerySuccessEvent<DATA> = {
+export type QuerySuccessEvent<DATA> = ResponseEvent & { r: 'QuerySuccess'; rt: 'success'; list: DATA[] }
+export type PagedQuerySuccessEvent<DATA> = QuerySuccessEvent<DATA> & {
   r: 'PagedQuerySuccess'
-  list: DATA[]
-
   //TODO ページングに関する情報を精査し正しく設定
   max: number
   count: number
@@ -52,7 +51,7 @@ export type PagedQuerySuccessEvent<DATA> = {
   pageStep: number
 }
 
-export type UserId = string
+export type UserId = MockUserAccountIdType
 
 export type UserAccount = { userId: UserId; name: string }
 export type EncryptedUserAccount = UserAccount & { encryptedPassword: string }
@@ -62,10 +61,17 @@ export const isGuest = (account: UserAccount | GuestAccount): account is GuestAc
   return 'guest' in account
 }
 
-export type CreateUserAccountEvent = { c: 'CreateUserAccount'; input: { name: string } }
+export type CreateUserAccountEvent = ResponseEvent & { r: 'CreateUserAccount'; rt: 'success'; input: { name: string } }
 
-export type CreateUserAccountSuccessEvent = { r: 'CreateUserAccountSuccess' } & UserAccount & CommandLog
+export type CreateUserAccountSuccessEvent = ResponseEvent & {
+  r: 'CreateUserAccountSuccess'
+  rt: 'success'
+} & UserAccount &
+  CommandLog
 
-export type CreateUserAccountDuplicatedExceptionEvent = { r: 'CreateUserAccountDuplicatedException' }
+export type CreateUserAccountDuplicatedExceptionEvent = ResponseEvent & {
+  r: 'CreateUserAccountDuplicatedException'
+  rt: 'exception'
+}
 
 // export type AllEventRes = any // { logId?: Ulid }

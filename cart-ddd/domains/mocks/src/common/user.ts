@@ -1,9 +1,11 @@
 import { GuestAccount, UserAccount } from '@me/common'
 
 const users = {
-  normal: { userId: 'normal', name: 'normal' } as UserAccount,
-  poor: { userId: 'poor', name: 'poor' } as UserAccount,
-  cardExpired: { userId: 'cardExpired', name: 'cardExpired' } as UserAccount,
+  normal: { userId: 'normal', name: 'normal' },
+  poor: { userId: 'poor', name: 'poor' },
+  cardExpired: { userId: 'cardExpired', name: 'cardExpired' },
+  // TODO 以下のようにしてデータ入力時方の補完を聞かせたいのだがやり方がわからない
+  // cardExpired: { userId: 'cardExpired', name: 'cardExpired' } as UserAccount,
 } as const
 
 const guests = { guestNormal: { guest: true, fromUrl: 'guestNormal' } as GuestAccount } as const

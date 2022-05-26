@@ -18,6 +18,7 @@ export const selectAd = async (e: AdSelectEvent) => {
 
   return Promise.resolve<AdToPurchaseNaviEvent>({
     r: 'AdToPurchaseNavi',
+    rt: 'alt',
     fromType: e.fromType,
     naviToPurchaseUrl: '/purchase',
   })

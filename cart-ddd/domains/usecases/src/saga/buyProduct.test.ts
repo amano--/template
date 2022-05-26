@@ -5,7 +5,7 @@ import { execUsecases, PickUsecasesTestParams, Ulid, purchaseApi, expectUsecases
 
 const logger = getLogger('saga/buyProduct')
 
-const buyProduct = { selectAd, listRecommendProducts, addCart, settleCart } //as const
+const buyProduct = { selectAd, listRecommendProducts, addCart, settleCart } as const
 type TestParams = PickUsecasesTestParams<typeof buyProduct>
 
 const success: TestParams = {
@@ -16,19 +16,19 @@ const success: TestParams = {
   },
   addCart: { in: { c: 'CartAdd', productId: 'normal' }, out: { r: 'CartAddSuccess' } },
   settleCart: {
-    in: { c: 'CartSettle', account: { userId: 'bronze', name: 'Bronze聖闘士' }, list: [{ productId: 'normal' }] },
+    in: { c: 'CartSettle', account: { userId: 'normal', name: 'Bronze聖闘士' }, list: [{ productId: 'normal' }] },
     out: { r: 'CartSettleSuccess' },
   },
 }
 
-describe('ゲストが商品を購入する', () => {
-  it('正常系 - ベタ書き', async () => {
-    const naviEvent = await selectAd({ q: 'AdSelect', fromType: 'iphone' })
-    expect(naviEvent).not.toBeNull()
+describe('(saga) ユーザーが商品を購入する', () => {
+  // it('正常系 - ベタ書き', async () => {
+  //   const naviEvent = await selectAd({ q: 'AdSelect', fromType: 'iphone' })
+  //   expect(naviEvent).not.toBeNull()
 
-    const products = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'fuga' } })
-    expect(products).not.toBeNull()
-  })
+  //   const products = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'fuga' } })
+  //   expect(products).not.toBeNull()
+  // })
 
   it('正常系 - execUsecases でまとめて実行、テスト', async () => {
     const results = await execUsecases(buyProduct, success)
@@ -41,7 +41,7 @@ describe('ゲストが商品を購入する', () => {
   })
 })
 
-describe('* addCart カートに登録する', () => {
+describe('* (addCart) カートに登録する', () => {
   describe('代替フロー', () => {
     it('カートに商品を追加時、品切れ状態だった場合,関連商品が返却される', async () => {
       const results = await expectUsecases(buyProduct, {
@@ -62,7 +62,7 @@ describe('* addCart カートに登録する', () => {
   })
 })
 
-describe('* settleCart カートを決済する', () => {
+describe('* (settleCart) カートを決済する', () => {
   describe('代替フロー', () => {
     it('ゲストが決済しようとした時、ユーザー登録画面に誘導されるイベントが返却される', async () => {
       const results = await expectUsecases(buyProduct, {
@@ -76,9 +76,8 @@ describe('* settleCart カートを決済する', () => {
 
       const event = results.settleCart.actual
       if (event.r === 'NaviToUserEntry') {
-        // expect(event.callBy).toEqual([{ productId: '5' }, { productId: '6' }])
+        expect(event.callBy).not.toBeNull()
       }
-      // console.log(res.addCart.actual.list)
     })
   })
 })

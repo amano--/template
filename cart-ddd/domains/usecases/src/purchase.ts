@@ -15,13 +15,13 @@ import { getLogger } from 'log4js'
 const logger = getLogger('usecases/purchase')
 
 export const listRecommendProducts = async (e: ListProductsEvent) => {
-  logger.info('event :', e)
+  logger.info('listRecommendProducts :', 'e :', e)
 
   const products = await purchaseApi.listProducts(e.input)
 
-  logger.info('products=', products)
+  logger.info('listRecommendProducts :', 'products=', products)
 
-  return Promise.resolve<QuerySuccessEvent<Product>>({ r: 'QuerySuccess', list: products })
+  return Promise.resolve<QuerySuccessEvent<Product>>({ r: 'QuerySuccess', rt: 'success', list: products })
 }
 
 export const addCart = async (e: CartAddEvent) => {

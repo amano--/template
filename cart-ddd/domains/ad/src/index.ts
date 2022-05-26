@@ -1,11 +1,17 @@
 import { ulid } from 'ulidx'
 import { Temporal } from '@js-temporal/polyfill'
+import { ResponseEvent } from '../../common/src/common'
 
 export type AdSelectEvent = { q: 'AdSelect'; fromType: string }
 
 export type AdSelectEventLog = AdSelectEvent & { logId: string }
 
-export type AdToPurchaseNaviEvent = { r: 'AdToPurchaseNavi'; fromType: string; naviToPurchaseUrl: string }
+export type AdToPurchaseNaviEvent = ResponseEvent & {
+  r: 'AdToPurchaseNavi'
+  rt: 'alt'
+  fromType: string
+  naviToPurchaseUrl: string
+}
 
 export type AdSelected = { commandType: 'AdSelected' }
 
