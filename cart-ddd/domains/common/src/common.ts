@@ -21,18 +21,30 @@ export type UserEvent = { u: string } & UnsaveEvent
 export type CommandLog = { logId?: Ulid }
 
 // const querySuccess = createCommonMessageFinder('querySuccess')
+
 /**
  * サーバーのレスポンスに使用する 出力用イベント
  *
  * @param  r TaggedUnionのタグとして使用するため、ユニークなイベント名を設定する。BoundedContextでユニークかシステムでユニークにするかはTBD。キー名はresponse の頭文字。
  * @param rt キー名はresponse type の略。success 正常フロー alt 代替フロー exception 例外フロー
  */
-export type ResponseEvent = {
+export type ResponseBaseEvent = {
   r: string
-  rt: 'success' | 'alt' | 'exception'
   logId?: Ulid
 }
-export type ResponseEventWithMessage<FINDER> = ResponseEvent & {
+export type ResponseSuccessEvent = ResponseBaseEvent & {
+  rt: 'success'
+}
+export type ResponseAltEvent = ResponseBaseEvent & {
+  rt: 'alt'
+}
+export type ResponseExceptionEvent = ResponseBaseEvent & {
+  rt: 'exception'
+}
+
+export type ResponseEvent = ResponseSuccessEvent | ResponseAltEvent | ResponseExceptionEvent
+
+export type ResponseEventWithMessage<FINDER extends (lang: SupportLang) => string> = ResponseEvent & {
   msg: FINDER
 }
 // export type ExceptionEvent = { x: string }

@@ -3,7 +3,7 @@ import { MockUserAccounts, MockProducts } from '@me/mocks'
 import { expectUsecaseLine } from '@me/common'
 
 describe('(listRecommendProducts) ', () => {
-  describe('多言語対応', () => {
+  describe('多言語対応メッセージが取得できることを確認', () => {
     it('SupportLangの言語が指定された場合、対応した文字列が返却される', async () => {
       const res = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'hoge' } })
       expect(res.msg('ja')).toEqual('検索が成功しました')
@@ -60,9 +60,9 @@ describe('検討、検証用テストコード', () => {
   // 以下 検討、検証用コード
   it('settleCart - 戻りのイベントの網羅性のチェック', async () => {
     //TODO 戻りのイベントが追加された場合の網羅性をチェックするためのテストの書き方の検討
-    const inputs = [{ c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] }] as const
+    // const inputs = [{ c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] }] as const
 
-    const res = await settleCart(inputs[0])
+    const res = await settleCart({ c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] })
 
     switch (res.r) {
       case 'CartSettleSuccess':
@@ -78,7 +78,6 @@ describe('検討、検証用テストコード', () => {
       default:
         const check: never = res
     }
-    expect(res).not.toBeNull()
 
     // response type で ある程度型を絞ってから、具体的なイベントを更に絞り込んでいくときのやり方
     switch (res.rt) {
@@ -97,6 +96,14 @@ describe('検討、検証用テストコード', () => {
         break
       default:
         const check: never = res
+    }
+
+    // success 以外はまとめて処理するときのやり方
+    switch (res.rt) {
+      case 'success':
+        break
+      default:
+        console.log('logId=', res.logId)
     }
 
     expect(res).not.toBeNull()

@@ -1,4 +1,4 @@
-import { AllEvent, QuerySuccessEvent, purchaseApi, isGuest } from '@me/common'
+import { commonFinder, QuerySuccessEvent, purchaseApi, isGuest } from '@me/common'
 import {
   ListProductsInput,
   ListProductsEvent,
@@ -12,7 +12,6 @@ import {
 } from '@me/purchase'
 
 import { getLogger } from 'log4js'
-import { commonFinder } from '../../common/src/common'
 const logger = getLogger('usecases/purchase')
 
 export const listRecommendProducts = async (e: ListProductsEvent) => {
