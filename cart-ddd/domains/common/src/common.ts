@@ -90,7 +90,7 @@ export const isGuest = (account: UserAccount | GuestAccount): account is GuestAc
   return 'guest' in account
 }
 
-export type CreateUserAccountEvent = ResponseEvent & { r: 'CreateUserAccount'; rt: 'success'; input: { name: string } }
+export type CreateUserAccountEvent = { c: 'CreateUserAccount'; input: { name: string } }
 
 export type CreateUserAccountSuccessEvent = ResponseEvent & {
   r: 'CreateUserAccountSuccess'

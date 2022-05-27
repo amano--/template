@@ -9,7 +9,9 @@ import {
 } from '../index'
 
 import { getLogger } from 'log4js'
-const logger = getLogger('domains/purchase/usecases')
+
+//const logger = getLogger(__filename)
+const logger = getLogger('domains/purchase/usecases/cart')
 
 export const listRecommendProducts = async (e: ListProductsEvent) => {
   logger.info('listRecommendProducts :', 'e :', e)

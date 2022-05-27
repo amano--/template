@@ -1,3 +1,4 @@
+// TODO import 周りをいい感じにする
 import {
   defaultLangKey,
   PickMessageValues,
@@ -6,7 +7,7 @@ import {
   isSupportLang,
   defaultUseAtNotSupportLangKey,
   LangAny,
-} from './common'
+} from '@me/common/src/messages/common'
 
 const ja = { settleCartFail: '決済が失敗しました' } as const
 const en = { settleCartFail: 'settle fail' } as const
