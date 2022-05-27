@@ -8,10 +8,10 @@ import {
   CartSettleEtcFailEvent,
   ListProductsInput,
   CartSettleFailByInsufficientFundsEvent,
+  CartSettleFailByCardExpiredEvent,
 } from '@me/purchase'
 
 import { getLogger } from 'log4js'
-import { CartSettleFailByCardExpiredEvent } from '../../../purchase/src/index'
 import { Temporal } from '@js-temporal/polyfill'
 const logger = getLogger('mocks/purchase/api')
 

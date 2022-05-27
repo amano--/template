@@ -1,4 +1,4 @@
-import { commonFinder, QuerySuccessEvent, purchaseApi, isGuest } from '@me/common'
+import { QuerySuccessEvent, purchaseApi, isGuest, messageFindersForCommon, newQuerySuccessEvent } from '@me/common'
 import {
   ListProductsInput,
   ListProductsEvent,
@@ -21,12 +21,13 @@ export const listRecommendProducts = async (e: ListProductsEvent) => {
 
   logger.info('listRecommendProducts :', 'products=', products)
 
-  return Promise.resolve<QuerySuccessEvent<Product>>({
-    r: 'QuerySuccess',
-    rt: 'success',
-    msg: commonFinder.querySuccess,
-    list: products,
-  })
+  return Promise.resolve(newQuerySuccessEvent(products))
+  //   <QuerySuccessEvent<Product>>({
+  //   r: 'QuerySuccess',
+  //   rt: 'success',
+  //   msg: messageFindersForCommon.querySuccess,
+  //   list: products,
+  // })
 }
 
 export const addCart = async (e: CartAddEvent) => {

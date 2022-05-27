@@ -2,7 +2,7 @@ import { ulid } from 'ulidx'
 import { Temporal } from '@js-temporal/polyfill'
 // import { string } from 'fp-ts'
 import { MockUserAccountIdType } from './tbd_for_code_completion_from_mock'
-import { createMessageFinder, SupportLang } from './messages/common'
+import { createMessageFinder, MessageFinder, messageFindersForCommon } from '@me/common'
 
 export type Ulid = string
 
@@ -22,12 +22,6 @@ export type CommandLog = { logId?: Ulid }
 
 // const querySuccess = createCommonMessageFinder('querySuccess')
 
-/**
- * サーバーのレスポンスに使用する 出力用イベント
- *
- * @param  r TaggedUnionのタグとして使用するため、ユニークなイベント名を設定する。BoundedContextでユニークかシステムでユニークにするかはTBD。キー名はresponse の頭文字。
- * @param rt キー名はresponse type の略。success 正常フロー alt 代替フロー exception 例外フロー
- */
 export type ResponseBaseEvent = {
   r: string
   logId?: Ulid
@@ -42,9 +36,15 @@ export type ResponseExceptionEvent = ResponseBaseEvent & {
   rt: 'exception'
 }
 
+/**
+ * サーバーのレスポンスに使用する 出力用イベント
+ *
+ * @param  r TaggedUnionのタグとして使用するため、ユニークなイベント名を設定する。BoundedContextでユニークかシステムでユニークにするかはTBD。キー名はresponse の頭文字。
+ * @param rt キー名はresponse type の略。success 正常フロー alt 代替フロー exception 例外フロー
+ */
 export type ResponseEvent = ResponseSuccessEvent | ResponseAltEvent | ResponseExceptionEvent
 
-export type ResponseEventWithMessage<FINDER extends (lang: SupportLang) => string> = ResponseEvent & {
+export type ResponseEventWithMessage<FINDER extends MessageFinder> = ResponseEvent & {
   msg: FINDER
 }
 // export type ExceptionEvent = { x: string }
@@ -57,14 +57,20 @@ export type AllEvent = InputEvent | OutputEvent
 // type AllEvent = {
 //   [P in keyof (CommandEvent & QueryEvent & UserEvent & FetchEvent & EtcEvent)]?: string
 // }
-export const commonFinder = { querySuccess: createMessageFinder('querySuccess') }
-// export const querySuccessFinder = createCommonMessageFinder('querySuccess')
 
-export type QuerySuccessEvent<DATA> = ResponseEventWithMessage<typeof commonFinder['querySuccess']> & {
+export type QuerySuccessEvent<DATA> = ResponseEventWithMessage<typeof messageFindersForCommon['querySuccess']> & {
   r: 'QuerySuccess'
   rt: 'success'
   list: DATA[]
 }
+
+export const newQuerySuccessEvent = <DATA>(list: DATA[]): QuerySuccessEvent<DATA> => ({
+  r: 'QuerySuccess',
+  rt: 'success',
+  msg: messageFindersForCommon.querySuccess,
+  list,
+})
+
 export type PagedQuerySuccessEvent<DATA> = QuerySuccessEvent<DATA> & {
   r: 'PagedQuerySuccess'
   //TODO ページングに関する情報を精査し正しく設定

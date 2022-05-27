@@ -21,6 +21,7 @@ export const isSupportLang = (arg: string): arg is SupportLang => {
 
 // UI層から任意の文字列で渡せるように型を足している
 export type LangAny = SupportLang | (string & {})
+export type MessageFinder<MSG = string> = (lang: LangAny) => MSG
 
 export type PickMessageValues<
   KEY extends keyof MESSAGES[DefaultLangKey],
@@ -34,3 +35,5 @@ export const createMessageFinder =
     isSupportLang(lang) ? messages[lang][key] : messages[defaultUseAtNotSupportLangKey][key]
 
 // type A = PickMessageValues<'querySuccess', MessagesAllType>
+
+export const messageFindersForCommon = { querySuccess: createMessageFinder('querySuccess') }

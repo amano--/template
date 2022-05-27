@@ -82,6 +82,7 @@ describe('検討、検証用テストコード', () => {
     // response type で ある程度型を絞ってから、具体的なイベントを更に絞り込んでいくときのやり方
     switch (res.rt) {
       case 'success':
+        // res.r === 'CartSettleSuccess'
         break
       case 'alt':
         break

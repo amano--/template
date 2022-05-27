@@ -1,8 +1,15 @@
-import { GuestAccount, Ulid, UserAccount } from '@me/common'
+import { Temporal } from '@js-temporal/polyfill'
+import {
+  GuestAccount,
+  Ulid,
+  UserAccount,
+  ResponseExceptionEvent,
+  ResponseAltEvent,
+  ResponseSuccessEvent,
+  MockProductIdType,
+} from '@me/common'
 
 import { getLogger } from 'log4js'
-import { Temporal } from '@js-temporal/polyfill'
-import { ResponseEvent, MockProductIdType } from '@me/common'
 const logger = getLogger('domains/purchase')
 
 // TBD テストデータを設定する時補完ができるように実験的に型を設定している。基本は string
@@ -19,37 +26,36 @@ export type ListProductsEvent = { q: 'ListProducts'; input: ListProductsInput }
 
 export type CartAddEvent = { c: 'CartAdd'; productId: ProductId } //save: 'batch';
 export type CartAddEventLog = CartAddEvent & { logId: Ulid }
-export type CartAddSuccessEvent = ResponseEvent & { r: 'CartAddSuccess'; rt: 'success' }
-export type CartAddProductOutOfStockEvent = ResponseEvent & {
+export type CartAddSuccessEvent = ResponseSuccessEvent & { r: 'CartAddSuccess' }
+export type CartAddProductOutOfStockEvent = ResponseAltEvent & {
   r: 'CartAddProductOutOfStock'
-  rt: 'alt'
   list: Product[]
 }
 
 export type CartSettleEvent = { c: 'CartSettle'; account: UserAccount | GuestAccount; list: readonly Product[] }
 
-export type CartSettleSuccessEvent = ResponseEvent & { r: 'CartSettleSuccess'; rt: 'success' }
+export type CartSettleSuccessEvent = ResponseSuccessEvent & { r: 'CartSettleSuccess' }
 
 // TBD 上記の汎用的なエラーではなく、エラーを詳細に把握させたい場合のやり方の検証用イベント
-export type CartSettleFailByInsufficientFundsEvent = ResponseEvent & {
+export type CartSettleFailByInsufficientFundsEvent = ResponseExceptionEvent & {
   r: 'CartSettleFailByInsufficientFunds'
-  rt: 'exception'
+  // rt: 'exception'
   // 差額
   differenceAmount: number
 }
 
-export type CartSettleFailByCardExpiredEvent = ResponseEvent & {
+export type CartSettleFailByCardExpiredEvent = ResponseExceptionEvent & {
   r: 'CartSettleFailByCardExpired'
-  rt: 'exception'
+  // rt: 'exception'
   // TBD Temporal の日付型を検証するためあまり意味のないプロパティを設定してみたｗ
   oldDate: Temporal.ZonedDateTime
 }
 
-export type CartSettleEtcFailEvent = ResponseEvent & { r: 'CartSettleEtcFail'; rt: 'exception' }
+export type CartSettleEtcFailEvent = ResponseExceptionEvent & { r: 'CartSettleEtcFail' }
 
-export type NaviToUserEntryEvent = ResponseEvent & {
+export type NaviToUserEntryEvent = ResponseAltEvent & {
   r: 'NaviToUserEntry'
-  rt: 'alt'
+  // rt: 'alt'
   // TBD domain層から 外側のインフラ層の情報を返すことの是非
   path: string
   callBy: { settleCart: CartSettleEvent }
