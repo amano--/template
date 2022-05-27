@@ -1,5 +1,5 @@
 {
-  "name": "@me/usecases",
+  "name": "@me/scenarios",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",

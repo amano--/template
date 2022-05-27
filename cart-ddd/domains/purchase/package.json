@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@me/common": "*",
-    "@me/ad": "*",
     "log4js": "^6.4.6"
   },
   "devDependencies": {

@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "clients/*",
-    "configs/*",
-    "libs/*",
     "domains/*",
+    "libs/*",
+    "configs/*",
+
+    "clients/*",
     "servers/*"  ],
   "scripts": {
     "build": "turbo run build",

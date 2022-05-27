@@ -1,4 +1,4 @@
-import { expectUsecaseLine } from '@me/common'
+import { expectUsecaseLine } from '../index'
 import { createAccount } from './createUser'
 
 describe('createAccount', () => {

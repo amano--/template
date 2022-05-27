@@ -1,4 +1,4 @@
-import { CreateUserAccountEvent, commonApi } from '@me/common'
+import { CreateUserAccountEvent, commonApi } from '../index'
 
 // import {  } from '@me/common/src/api'
 

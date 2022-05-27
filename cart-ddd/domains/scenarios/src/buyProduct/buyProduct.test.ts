@@ -1,15 +1,17 @@
-import { selectAd } from '../selectAd'
-import { listRecommendProducts, addCart, settleCart } from '../purchase'
+// import { selectAd } from '../selectAd'
+import { listRecommendProducts, addCart, settleCart } from '@me/purchase'
+
 import { getLogger } from 'log4js'
 import { execUsecases, PickUsecasesTestParams, Ulid, purchaseApi, expectUsecases } from '@me/common'
 
-const logger = getLogger('saga/buyProduct')
+const logger = getLogger('scenarios/buyProduct')
 
-const buyProduct = { selectAd, listRecommendProducts, addCart, settleCart } as const
+//selectAd,
+const buyProduct = { listRecommendProducts, addCart, settleCart } as const
 type TestParams = PickUsecasesTestParams<typeof buyProduct>
 
 const success: TestParams = {
-  selectAd: { in: { q: 'AdSelect' }, out: { r: 'AdToPurchaseNavi' } },
+  // selectAd: { in: { q: 'AdSelect' }, out: { r: 'AdToPurchaseNavi' } },
   listRecommendProducts: {
     in: { q: 'ListProducts', input: { keyword: 'hoge fuga' } },
     out: { list: [{ productId: 'normal' }, { productId: 'outOfStock' }] },
@@ -21,7 +23,7 @@ const success: TestParams = {
   },
 }
 
-describe('(saga) ユーザーが商品を購入する', () => {
+describe('(buyProduct) ユーザーが商品を購入する', () => {
   // it('正常系 - ベタ書き', async () => {
   //   const naviEvent = await selectAd({ q: 'AdSelect', fromType: 'iphone' })
   //   expect(naviEvent).not.toBeNull()

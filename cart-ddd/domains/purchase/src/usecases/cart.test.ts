@@ -1,4 +1,4 @@
-import { addCart, settleCart, listRecommendProducts } from './purchase'
+import { addCart, settleCart, listRecommendProducts } from './cart'
 import { MockUserAccounts, MockProducts } from '@me/mocks'
 import { expectUsecaseLine } from '@me/common'
 
