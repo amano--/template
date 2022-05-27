@@ -58,21 +58,38 @@ export type AllEvent = InputEvent | OutputEvent
 //   [P in keyof (CommandEvent & QueryEvent & UserEvent & FetchEvent & EtcEvent)]?: string
 // }
 
-export type QuerySuccessEvent<DATA> = ResponseEventWithMessage<typeof messageFindersForCommon['querySuccess']> & {
-  r: 'QuerySuccess'
+export type SingleQuerySuccessEvent<DATUM> = ResponseEventWithMessage<
+  typeof messageFindersForCommon['querySuccess']
+> & {
+  r: 'SingleQuerySuccess'
+  rt: 'success'
+  datum: DATUM
+}
+
+export const newSingleQuerySuccessEvent = <DATUM>(datum: DATUM): SingleQuerySuccessEvent<DATUM> => ({
+  r: 'SingleQuerySuccess',
+  rt: 'success',
+  msg: messageFindersForCommon.querySuccess,
+  datum,
+})
+
+export type ListQuerySuccessEvent<DATA> = ResponseEventWithMessage<typeof messageFindersForCommon['querySuccess']> & {
+  r: 'ListQuerySuccess'
   rt: 'success'
   list: DATA[]
 }
 
-export const newQuerySuccessEvent = <DATA>(list: DATA[]): QuerySuccessEvent<DATA> => ({
-  r: 'QuerySuccess',
+export const newListQuerySuccessEvent = <DATA>(list: DATA[]): ListQuerySuccessEvent<DATA> => ({
+  r: 'ListQuerySuccess',
   rt: 'success',
   msg: messageFindersForCommon.querySuccess,
   list,
 })
 
-export type PagedQuerySuccessEvent<DATA> = QuerySuccessEvent<DATA> & {
+export type PagedQuerySuccessEvent<DATA> = ListQuerySuccessEvent<DATA> & {
   r: 'PagedQuerySuccess'
+  rt: 'success'
+
   //TODO ページングに関する情報を精査し正しく設定
   max: number
   count: number

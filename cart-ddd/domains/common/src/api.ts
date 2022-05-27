@@ -1,5 +1,8 @@
 import { commonApiMock, commonApiProductionSample, purchaseApiMock } from '@me/mocks'
 
-export const purchaseApi = process.env.NODE_ENV === 'production' ? purchaseApiMock : purchaseApiMock
+//const isProduction: true = true
+const isProduction = process.env.NODE_ENV === 'production'
 
-export const commonApi = process.env.NODE_ENV === 'production' ? commonApiProductionSample : commonApiMock
+export const commonApi = isProduction ? commonApiProductionSample : commonApiMock
+
+export const purchaseApi = isProduction ? purchaseApiMock : purchaseApiMock
