@@ -21,7 +21,7 @@ describe('(addCart) ユーザーは商品をカートに追加する', () => {
     await expectUsecaseLine(addCart, { c: 'CartAdd', productId: 'normal' }, { r: 'CartAddSuccess' })
   })
 
-  it('品切れ状態の場合', async () => {
+  it('品切れ状態の商品を選んだ場合', async () => {
     await expectUsecaseLine(addCart, { c: 'CartAdd', productId: 'outOfStock' }, { r: 'CartAddProductOutOfStock' })
   })
 })
@@ -36,7 +36,12 @@ describe('(settleCart) ユーザーはカートを決済する', () => {
   })
 
   it('ゲストの場合、新規会員登録画面へのNaviイベントが返る', async () => {
-    await expectUsecaseLine(settleCart, { ...success, account: MockUserAccounts.guestNormal }, { r: 'NaviToUserEntry' })
+    await expectUsecaseLine(
+      settleCart,
+      { ...success, account: MockUserAccounts.guestNormal },
+      { r: 'NaviToUserEntry' }
+      // { type: 'shallowEqual' }
+    )
   })
 
   it('残高不足のユーザの場合', async () => {

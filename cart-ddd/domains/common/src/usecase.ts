@@ -59,13 +59,24 @@ export type PickOutEventFromUsecaseLine<A extends UsecaseLineAny> = A extends (e
 // type A = typeof line
 
 //TODO 本来なら devDependencies に分離するべきテスト用メソッドだが、面倒なのでここにとりあえず置く
+type ExpectOptions = { type: 'partialMatch' } | { type: 'shallowEqual' }
+
 export const expectUsecaseLine = async <A extends UsecaseLineAny>(
-  line: A,
-  expectedIn: PickInEventFromUsecaseLine<A>,
-  expectedOut: Partial<PickOutEventFromUsecaseLine<A>>
+  usecaseLine: A,
+  input: PickInEventFromUsecaseLine<A>,
+  expectedOut: Partial<PickOutEventFromUsecaseLine<A>>,
+  expectOption: ExpectOptions = { type: 'partialMatch' }
 ) => {
-  const results = await line(expectedIn)
-  expect(results).toMatchObject(expectedOut)
+  const results = await usecaseLine(input)
+
+  switch (expectOption.type) {
+    case 'shallowEqual':
+      expect(results).toEqual(expectedOut)
+      break
+
+    default:
+      expect(results).toMatchObject(expectedOut)
+  }
   return results as Partial<PickOutEventFromUsecaseLine<A>>
 }
 
