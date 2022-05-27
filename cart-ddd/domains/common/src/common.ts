@@ -73,20 +73,20 @@ export const newSingleQuerySuccessEvent = <DATUM>(datum: DATUM): SingleQuerySucc
   datum,
 })
 
-export type ListQuerySuccessEvent<DATA> = ResponseEventWithMessage<typeof messageFindersForCommon['querySuccess']> & {
+export type ListQuerySuccessEvent<T> = ResponseSuccessEvent & {
   r: 'ListQuerySuccess'
-  rt: 'success'
-  list: DATA[]
+  message: typeof messageFindersForCommon.querySuccess
+  list: T[]
 }
 
-export const newListQuerySuccessEvent = <DATA>(list: DATA[]): ListQuerySuccessEvent<DATA> => ({
+export const newListQuerySuccessEvent = <T>(list: T[]): ListQuerySuccessEvent<T> => ({
   r: 'ListQuerySuccess',
   rt: 'success',
-  msg: messageFindersForCommon.querySuccess,
+  message: messageFindersForCommon.querySuccess,
   list,
 })
 
-export type PagedQuerySuccessEvent<DATA> = ListQuerySuccessEvent<DATA> & {
+export type PagedQuerySuccessEvent<T> = ListQuerySuccessEvent<T> & {
   r: 'PagedQuerySuccess'
   rt: 'success'
 

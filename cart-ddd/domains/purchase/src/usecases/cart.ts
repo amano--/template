@@ -2,11 +2,11 @@ import { purchaseApi, isGuest, newListQuerySuccessEvent } from '@me/common'
 import {
   ListProductsEvent,
   CartAddEvent,
-  CartAddSuccessEvent,
-  CartAddProductOutOfStockEvent,
   CartSettleEvent,
   NaviToUserEntryEvent,
-} from '../index'
+  newCartAddSuccessEvent,
+  newCartAddProductOutOfStockEvent,
+} from '../event'
 
 import { getLogger } from 'log4js'
 
@@ -18,7 +18,7 @@ export const listRecommendProducts = async (e: ListProductsEvent) => {
 
   const products = await purchaseApi.listProducts(e.input)
 
-  logger.info('listRecommendProducts :', 'products=', products)
+  logger.info('listRecommendProducts : ', 'products=', products)
 
   return Promise.resolve(newListQuerySuccessEvent(products))
   //   <QuerySuccessEvent<Product>>({
@@ -34,19 +34,12 @@ export const addCart = async (e: CartAddEvent) => {
   const counts = await purchaseApi.findProductStock([e.productId])
 
   if (!counts.some((v) => v.count === 0)) {
-    return Promise.resolve<CartAddSuccessEvent>({
-      r: 'CartAddSuccess',
-      rt: 'success',
-    })
+    return Promise.resolve(newCartAddSuccessEvent())
   }
 
   const products = await purchaseApi.listRelatedProducts([e.productId])
 
-  return Promise.resolve<CartAddProductOutOfStockEvent>({
-    r: 'CartAddProductOutOfStock',
-    rt: 'alt',
-    list: products,
-  })
+  return Promise.resolve(newCartAddProductOutOfStockEvent(products))
 }
 
 export const settleCart = async (e: CartSettleEvent) => {

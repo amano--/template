@@ -7,9 +7,12 @@ import {
   ResponseAltEvent,
   ResponseSuccessEvent,
   MockProductIdType,
+  ResponseEventWithMessage,
+  ResponseEvent,
 } from '@me/common'
 
 import { getLogger } from 'log4js'
+import { messageFindersForPurchase } from './messages'
 const logger = getLogger('domains/purchase')
 
 // TBD テストデータを設定する時補完ができるように実験的に型を設定している。基本は string
@@ -26,11 +29,30 @@ export type ListProductsEvent = { q: 'ListProducts'; input: ListProductsInput }
 
 export type CartAddEvent = { c: 'CartAdd'; productId: ProductId } //save: 'batch';
 export type CartAddEventLog = CartAddEvent & { logId: Ulid }
-export type CartAddSuccessEvent = ResponseSuccessEvent & { r: 'CartAddSuccess' }
+// export type CartAddSuccessEvent = ResponseSuccessEvent & { r: 'CartAddSuccess' }
+export type CartAddSuccessEvent = ResponseSuccessEvent & {
+  r: 'CartAddSuccess'
+  message: typeof messageFindersForPurchase.cartAddSuccess
+}
+
+const defaultCartAddSuccessEvent = {
+  r: 'CartAddSuccess',
+  rt: 'success',
+  message: messageFindersForPurchase.cartAddSuccess,
+} as const
+
+export const newCartAddSuccessEvent = (): CartAddSuccessEvent => defaultCartAddSuccessEvent
+
 export type CartAddProductOutOfStockEvent = ResponseAltEvent & {
   r: 'CartAddProductOutOfStock'
   list: Product[]
 }
+
+export const newCartAddProductOutOfStockEvent = (list: Product[]): CartAddProductOutOfStockEvent => ({
+  r: 'CartAddProductOutOfStock',
+  rt: 'alt',
+  list,
+})
 
 export type CartSettleEvent = { c: 'CartSettle'; account: UserAccount | GuestAccount; list: readonly Product[] }
 
