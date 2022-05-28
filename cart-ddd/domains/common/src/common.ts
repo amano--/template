@@ -2,7 +2,7 @@ import { ulid } from 'ulidx'
 import { Temporal } from '@js-temporal/polyfill'
 // import { string } from 'fp-ts'
 import { MockUserAccountIdType } from './tbd_for_code_completion_from_mock'
-import { createMessageFinder, MessageFinder, messageFindersForCommon } from '@me/common'
+import { MessageFinder, messageFindersForCommon } from '@me/common'
 
 export type Ulid = string
 
@@ -44,9 +44,9 @@ export type ResponseExceptionEvent = ResponseBaseEvent & {
  */
 export type ResponseEvent = ResponseSuccessEvent | ResponseAltEvent | ResponseExceptionEvent
 
-export type ResponseEventWithMessage<FINDER extends MessageFinder> = ResponseEvent & {
-  msg: FINDER
-}
+// export type ResponseEventWithMessage<FINDER extends MessageFinder> = ResponseEvent & {
+//   msg: FINDER
+// }
 // export type ExceptionEvent = { x: string }
 // export type EtcEvent = { e: string } & UnsaveEvent
 
@@ -58,31 +58,29 @@ export type AllEvent = InputEvent | OutputEvent
 //   [P in keyof (CommandEvent & QueryEvent & UserEvent & FetchEvent & EtcEvent)]?: string
 // }
 
-export type SingleQuerySuccessEvent<DATUM> = ResponseEventWithMessage<
-  typeof messageFindersForCommon['querySuccess']
-> & {
+export type SingleQuerySuccessEvent<T> = ResponseSuccessEvent & {
   r: 'SingleQuerySuccess'
-  rt: 'success'
-  datum: DATUM
+  message: typeof messageFindersForCommon.querySuccess
+  datum: T
 }
 
-export const newSingleQuerySuccessEvent = <DATUM>(datum: DATUM): SingleQuerySuccessEvent<DATUM> => ({
+export const newSingleQuerySuccessEvent = <T>(datum: T): SingleQuerySuccessEvent<T> => ({
   r: 'SingleQuerySuccess',
   rt: 'success',
-  msg: messageFindersForCommon.querySuccess,
+  message: messageFindersForCommon.querySuccess,
   datum,
 })
 
 export type ListQuerySuccessEvent<T> = ResponseSuccessEvent & {
   r: 'ListQuerySuccess'
-  message: typeof messageFindersForCommon.querySuccess
+  message: typeof messageFindersForCommon.listQuerySuccess
   list: T[]
 }
 
 export const newListQuerySuccessEvent = <T>(list: T[]): ListQuerySuccessEvent<T> => ({
   r: 'ListQuerySuccess',
   rt: 'success',
-  message: messageFindersForCommon.querySuccess,
+  message: messageFindersForCommon.listQuerySuccess,
   list,
 })
 

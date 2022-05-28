@@ -1,9 +1,14 @@
-import { BoundedContext, BoundedContextKey } from '../boundedContext'
-const ja = { querySuccess: '検索が成功しました' } as const
+const ja = {
+  querySuccess: '検索が成功しました',
+  listQuerySuccess: (args: { count: number }) => `${args.count}件 検索されました`,
+} as const
 // export type MessagesType = typeof baseMessage
 // export type MessageKey = keyof typeof baseMessage
 
-const en = { querySuccess: 'query success' } as const
+const en = {
+  querySuccess: 'query success',
+  listQuerySuccess: (args: { count: number }) => `${args.count} searched`,
+} as const
 
 const messages = { ja, en } as const
 
@@ -30,10 +35,13 @@ export type PickMessageValues<
 > = MESSAGES[LANG][KEY]
 
 export const createMessageFinder =
-  (key: MessageKey) =>
-  (lang: LangAny = defaultLangKey): PickMessageValues<MessageKey, typeof messages> =>
+  <K extends MessageKey>(key: K) =>
+  (lang: LangAny = defaultLangKey): PickMessageValues<K, typeof messages> =>
     isSupportLang(lang) ? messages[lang][key] : messages[defaultUseAtNotSupportLangKey][key]
 
 // type A = PickMessageValues<'querySuccess', MessagesAllType>
 
-export const messageFindersForCommon = { querySuccess: createMessageFinder('querySuccess') }
+export const messageFindersForCommon = {
+  querySuccess: createMessageFinder('querySuccess'),
+  listQuerySuccess: createMessageFinder('listQuerySuccess'),
+}
