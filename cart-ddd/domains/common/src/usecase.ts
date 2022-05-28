@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { OutputEvent } from './common'
+import { OutputEvent } from './event'
 // import { string } from 'fp-ts'
 
 export type UsecaseLine<IN, OUT> = (e: IN) => Promise<OUT>
