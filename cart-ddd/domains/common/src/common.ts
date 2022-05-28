@@ -24,7 +24,7 @@ export type CommandLog = { logId?: Ulid }
 
 export type ResponseBaseEvent = {
   r: string
-  logId?: Ulid
+  // logId?: Ulid
 }
 export type ResponseSuccessEvent = ResponseBaseEvent & {
   rt: 'success'
@@ -36,13 +36,21 @@ export type ResponseExceptionEvent = ResponseBaseEvent & {
   rt: 'exception'
 }
 
+export type ResponseCommandSuccessEvent = ResponseSuccessEvent & {
+  logId: Ulid
+}
+
 /**
  * サーバーのレスポンスに使用する 出力用イベント
  *
  * @param  r TaggedUnionのタグとして使用するため、ユニークなイベント名を設定する。BoundedContextでユニークかシステムでユニークにするかはTBD。キー名はresponse の頭文字。
  * @param rt キー名はresponse type の略。success 正常フロー alt 代替フロー exception 例外フロー
  */
-export type ResponseEvent = ResponseSuccessEvent | ResponseAltEvent | ResponseExceptionEvent
+export type ResponseEvent =
+  | ResponseSuccessEvent
+  | ResponseAltEvent
+  | ResponseExceptionEvent
+  | ResponseCommandSuccessEvent
 
 // export type ResponseEventWithMessage<FINDER extends MessageFinder> = ResponseEvent & {
 //   msg: FINDER

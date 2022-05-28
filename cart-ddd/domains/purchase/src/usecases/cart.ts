@@ -54,5 +54,9 @@ export const settleCart = async (e: CartSettleEvent) => {
     })
   }
 
+  // if (false) {
+  //   return Promise.resolve({ r: 'Hoge', rt: 'success', hoge: 'hoge' } as const)
+  // }
+
   return await purchaseApi.settleCart({ ...e, account: e.account })
 }

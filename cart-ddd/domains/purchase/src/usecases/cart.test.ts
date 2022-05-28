@@ -65,7 +65,8 @@ describe('検討、検証用テストコード', () => {
   // 以下 検討、検証用コード
   it('settleCart - 戻りのイベントの網羅性のチェック', async () => {
     //TODO 戻りのイベントが追加された場合の網羅性をチェックするためのテストの書き方の検討
-    // const inputs = [{ c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] }] as const
+    // const inputs = { c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] } as const
+    // const x: 'a' | 'b' | 'c' = 'a'
 
     const res = await settleCart({ c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] })
 
@@ -73,13 +74,17 @@ describe('検討、検証用テストコード', () => {
       case 'CartSettleSuccess':
         break
       case 'NaviToUserEntry':
+        console.log('res.path=', res.path)
         break
       case 'CartSettleFailByCardExpired':
         break
       case 'CartSettleFailByInsufficientFunds':
+        console.log('res.differenceAmount=', res.differenceAmount)
         break
       case 'CartSettleEtcFail':
         break
+      // case 'Hoge':
+      //   break
       default:
         const check: never = res
     }
@@ -90,6 +95,7 @@ describe('検討、検証用テストコード', () => {
         // res.r === 'CartSettleSuccess'
         break
       case 'alt':
+        console.log('res.r=', res.r)
         break
       case 'exception':
         if (res.r === 'CartSettleFailByInsufficientFunds') {
