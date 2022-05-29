@@ -33,12 +33,13 @@ export const addCart = async (e: CartAddEvent) => {
   logger.info('addCart :', 'e=', e)
   const counts = await purchaseApi.findProductStock([e.productId])
 
-  if (!counts.some((v) => v.count === 0)) {
+  // 品切れ状態の商品でなかったら成功
+  if (counts.findIndex((v) => v.count === 0) < 0) {
     return Promise.resolve(newCartAddSuccessEvent())
   }
 
+  // 品切れ状態の商品だった場合関連商品を表示
   const products = await purchaseApi.listRelatedProducts([e.productId])
-
   return Promise.resolve(newCartAddProductOutOfStockEvent(products))
 }
 

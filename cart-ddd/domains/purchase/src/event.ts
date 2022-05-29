@@ -13,6 +13,7 @@ import {
 
 import { getLogger } from 'log4js'
 import { messageFindersForPurchase } from './messages'
+import { ResponseCommandSuccessEvent } from '../../common/src/event'
 const logger = getLogger('domains/purchase')
 
 // TBD テストデータを設定する時補完ができるように実験的に型を設定している。基本は string
@@ -56,7 +57,7 @@ export const newCartAddProductOutOfStockEvent = (list: Product[]): CartAddProduc
 
 export type CartSettleEvent = { c: 'CartSettle'; account: UserAccount | GuestAccount; list: readonly Product[] }
 
-export type CartSettleSuccessEvent = ResponseSuccessEvent & { r: 'CartSettleSuccess' }
+export type CartSettleSuccessEvent = ResponseCommandSuccessEvent & { r: 'CartSettleSuccess' }
 
 // TBD 上記の汎用的なエラーではなく、エラーを詳細に把握させたい場合のやり方の検証用イベント
 export type CartSettleFailByInsufficientFundsEvent = ResponseExceptionEvent & {
@@ -70,7 +71,7 @@ export type CartSettleFailByCardExpiredEvent = ResponseExceptionEvent & {
   r: 'CartSettleFailByCardExpired'
   // rt: 'exception'
   // TBD Temporal の日付型を検証するためあまり意味のないプロパティを設定してみたｗ
-  oldDate: Temporal.ZonedDateTime
+  expireDate: Temporal.ZonedDateTime
 }
 
 export type CartSettleEtcFailEvent = ResponseExceptionEvent & { r: 'CartSettleEtcFail' }

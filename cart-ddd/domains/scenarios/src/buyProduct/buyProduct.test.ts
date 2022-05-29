@@ -34,11 +34,10 @@ describe('(buyProduct) ユーザーが商品を購入する', () => {
   it('正常系 - execUsecases でまとめて実行、テスト', async () => {
     const results = await execUsecases(buyProduct, success)
 
-    // Object.values(results).forEach((res) => {
-    //   console.log(JSON.stringify(res, null, 2))
-    //   // console.dir(res)
-    //   expect(res.actual).toMatchObject(res.expected)
-    // })
+    Object.values(results).forEach((res) => {
+      console.log(JSON.stringify(res, null, 2))
+      expect(res.actual).toMatchObject(res.expected)
+    })
   })
 })
 
@@ -73,7 +72,7 @@ describe('* (settleCart) カートを決済する', () => {
           out: { r: 'NaviToUserEntry' },
         },
       })
-      console.log(results.settleCart.actual)
+      console.log(JSON.stringify(results.settleCart.actual, null, 2))
 
       const event = results.settleCart.actual
       if (event.r === 'NaviToUserEntry') {

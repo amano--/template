@@ -13,7 +13,6 @@ import {
 
 import { getLogger } from 'log4js'
 import { Temporal } from '@js-temporal/polyfill'
-import { CARD_EXPIRE_DATE } from '..'
 const logger = getLogger('mocks/purchase/api')
 
 const simpleProducts = { normal: { productId: 'normal' }, outOfStock: { productId: 'outOfStock' } } as const
@@ -56,7 +55,7 @@ const mutations = {
       return Promise.resolve<CartSettleFailByCardExpiredEvent>({
         r: 'CartSettleFailByCardExpired',
         rt: 'exception',
-        expireDate: Temporal.ZonedDateTime.from(CARD_EXPIRE_DATE),
+        expireDate: Temporal.ZonedDateTime.from('2000-01-01T09:00:00+09:00[Asia/Tokyo]'),
       })
     }
 
@@ -106,3 +105,4 @@ const queries = {
 }
 
 export const purchaseApiMock = { ...mutations, ...queries }
+export const settleApiMock = { ...mutations, ...queries }

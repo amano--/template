@@ -1,4 +1,4 @@
-import { addCart, settleCart, listRecommendProducts } from './cart'
+import { addCart, settleCart, listRecommendProducts } from './purchase'
 import { MockUserAccounts, MockProducts } from '@me/mocks'
 import { expectUsecaseLine } from '@me/common'
 
@@ -6,12 +6,12 @@ describe('(listRecommendProducts) ', () => {
   describe('多言語対応メッセージが取得できることを確認', () => {
     it('SupportLangの言語が指定された場合、対応した文字列が返却される', async () => {
       const res = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'hoge' } })
-      expect(res.message('ja')({ count: 10 })).toEqual('10件 検索されました')
-      expect(res.message('en')({ count: res.list.length })).toEqual('2 searched')
+      expect(res.msg('ja')).toEqual('検索が成功しました')
+      expect(res.msg('en')).toEqual('query success')
     })
     it('SupportLangの言語以外が指定された場合、英語メッセージが返却される', async () => {
       const res = await listRecommendProducts({ q: 'ListProducts', input: { keyword: 'hoge' } })
-      expect(res.message('fr')({ count: 10 })).toEqual('10 searched')
+      expect(res.msg('fr')).toEqual('query success')
     })
   })
 })
@@ -40,7 +40,7 @@ describe('(settleCart) ユーザーはカートを決済する', () => {
       settleCart,
       { ...success, account: MockUserAccounts.guestNormal },
       { r: 'NaviToUserEntry' }
-      // ,{ type: 'shallowEqual' }
+      // { type: 'shallowEqual' }
     )
   })
 
@@ -65,8 +65,7 @@ describe('検討、検証用テストコード', () => {
   // 以下 検討、検証用コード
   it('settleCart - 戻りのイベントの網羅性のチェック', async () => {
     //TODO 戻りのイベントが追加された場合の網羅性をチェックするためのテストの書き方の検討
-    // const inputs = { c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] } as const
-    // const x: 'a' | 'b' | 'c' = 'a'
+    // const inputs = [{ c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] }] as const
 
     const res = await settleCart({ c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] })
 
@@ -74,17 +73,13 @@ describe('検討、検証用テストコード', () => {
       case 'CartSettleSuccess':
         break
       case 'NaviToUserEntry':
-        console.log('res.path=', res.path)
         break
       case 'CartSettleFailByCardExpired':
         break
       case 'CartSettleFailByInsufficientFunds':
-        console.log('res.differenceAmount=', res.differenceAmount)
         break
       case 'CartSettleEtcFail':
         break
-      // case 'Hoge':
-      //   break
       default:
         const check: never = res
     }
@@ -95,7 +90,6 @@ describe('検討、検証用テストコード', () => {
         // res.r === 'CartSettleSuccess'
         break
       case 'alt':
-        console.log('res.r=', res.r)
         break
       case 'exception':
         if (res.r === 'CartSettleFailByInsufficientFunds') {
@@ -115,8 +109,7 @@ describe('検討、検証用テストコード', () => {
       case 'success':
         break
       default:
-        console.log('r=', res.r)
-      // console.log('logId=', res.logId)
+        console.log('logId=', res.logId)
     }
 
     expect(res).not.toBeNull()
