@@ -5,9 +5,13 @@ import { Money, isMoney, newLogId, ResponseCommandSuccessEvent, ResponseExceptio
 import { Temporal } from '@js-temporal/polyfill'
 
 import { getLogger } from 'log4js'
+import { SupportCurrency } from '../../../common/src/event'
 const logger = getLogger('mocks/settle/index')
 
 export type SettleProviderId = 'stripe'
+export const defaultSettleProvider: SettleProviderId = 'stripe'
+export const defaultSettleCurrency: SupportCurrency = 'JPY'
+
 export type SettleAccount = { settleAccountId: string }
 // export type RawMoney = { currency: 'USD' | 'JPY'; amount: number }
 
@@ -21,13 +25,13 @@ export type SettleEvent = {
 export const newSettleEvent = (
   account: SettleAccount,
   price: Money | number,
-  provider: SettleProviderId = 'stripe'
+  provider: SettleProviderId = defaultSettleProvider
 ): SettleEvent => {
   return {
     c: 'RawSettle',
     provider,
     account,
-    price: !isMoney(price) ? { currency: 'JPY', amount: price } : price,
+    price: !isMoney(price) ? { currency: defaultSettleCurrency, amount: price } : price,
   }
 }
 
@@ -79,4 +83,4 @@ export type RawSettleEtcExceptionEvent = ResponseExceptionEvent & {
 // // type CartSettleEtcFailEvent = ResponseExceptionEvent & { r: 'CartSettleEtcFail' }
 
 // TODO 決済プロバイダーの複数対応の設定等の仕様検討
-export const settleApiMock = { defaultProvider: 'stripe', ...stripeApiMock } as const
+export const settleApiMock = stripeApiMock //{ ... } as const

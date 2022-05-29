@@ -34,7 +34,7 @@ const mutations = {
     logger.info('settleCart: ', 'e=', e)
 
     // TODO 今は適当に合計金額を算出
-    const total = e.list.reduce((sum, productPrice) => sum + 1234, 0)
+    const total = e.list.reduce((sum) => sum + 1234, 0)
     return settleApi.settle(newSettleEvent({ settleAccountId: e.account.userId }, total))
   },
 }
