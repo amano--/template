@@ -94,9 +94,6 @@ describe('検討、検証用テストコード', () => {
       case 'success':
         // res.r === 'CartSettleSuccess'
         break
-      case 'alt':
-        console.log('res.r=', res.r)
-        break
       case 'exception':
         if (res.r === 'CartSettleFailByInsufficientFunds') {
           console.log('res.differenceAmount=', res.differenceAmount)
@@ -105,6 +102,10 @@ describe('検討、検証用テストコード', () => {
           console.log('res.oldDate=', res.expireDate)
         }
 
+        break
+
+      case 'navi':
+        console.log('res.r=', res.r)
         break
       default:
         const check: never = res

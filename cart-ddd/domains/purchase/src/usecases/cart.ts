@@ -1,17 +1,65 @@
-import { purchaseApi, isGuest, newListQuerySuccessEvent } from '@me/common'
 import {
-  ListProductsEvent,
-  CartAddEvent,
-  CartSettleEvent,
-  NaviToUserEntryEvent,
-  newCartAddSuccessEvent,
-  newCartAddProductOutOfStockEvent,
-} from '../event'
+  purchaseApi,
+  isGuest,
+  newListQuerySuccessEvent,
+  Ulid,
+  ResponseSuccessEvent,
+  ResponseAltEvent,
+  UserAccount,
+  GuestAccount,
+  ResponseCommandSuccessEvent,
+  ResponseExceptionEvent,
+  ResponseNaviEvent,
+} from '@me/common'
+import { Temporal } from '@js-temporal/polyfill'
 
-import { getLogger } from 'log4js'
+import { Product, ProductId } from '../purchase'
+import { messageFindersForPurchase } from '../messages'
 
 //const logger = getLogger(__filename)
+import { getLogger } from 'log4js'
 const logger = getLogger('domains/purchase/usecases/cart')
+
+type ListProductsInput = { keyword: string }
+
+type ListProductsEvent = { q: 'ListProducts'; input: ListProductsInput }
+
+type CartAddEvent = { c: 'CartAdd'; productId: ProductId } //save: 'batch';
+type CartAddEventLog = CartAddEvent & { logId: Ulid }
+// type CartAddSuccessEvent = ResponseSuccessEvent & { r: 'CartAddSuccess' }
+type CartAddSuccessEvent = ResponseSuccessEvent & {
+  r: 'CartAddSuccess'
+  message: typeof messageFindersForPurchase.cartAddSuccess
+}
+
+const defaultCartAddSuccessEvent = {
+  r: 'CartAddSuccess',
+  rt: 'success',
+  message: messageFindersForPurchase.cartAddSuccess,
+} as const
+
+const newCartAddSuccessEvent = (): CartAddSuccessEvent => defaultCartAddSuccessEvent
+
+type CartAddProductOutOfStockEvent = ResponseAltEvent & {
+  r: 'CartAddProductOutOfStock'
+  list: Product[]
+}
+
+const newCartAddProductOutOfStockEvent = (list: Product[]): CartAddProductOutOfStockEvent => ({
+  r: 'CartAddProductOutOfStock',
+  rt: 'alt',
+  list,
+})
+
+type CartSettleEvent = { c: 'CartSettle'; account: UserAccount | GuestAccount; list: readonly Product[] }
+
+type NaviToUserEntryEvent = ResponseNaviEvent & {
+  r: 'NaviToUserEntry'
+  // rt: 'alt'
+  // TBD domain層から 外側のインフラ層の情報を返すことの是非
+  // path: string
+  callBy: { settleCart: CartSettleEvent }
+}
 
 export const listRecommendProducts = async (e: ListProductsEvent) => {
   logger.info('listRecommendProducts :', 'e :', e)
@@ -33,7 +81,7 @@ export const addCart = async (e: CartAddEvent) => {
   logger.info('addCart :', 'e=', e)
   const counts = await purchaseApi.findProductStock([e.productId])
 
-  // 品切れ状態の商品でなかったら成功
+  // 品切れ状態の商品がなかったら成功
   if (counts.findIndex((v) => v.count === 0) < 0) {
     return Promise.resolve(newCartAddSuccessEvent())
   }
@@ -49,8 +97,9 @@ export const settleCart = async (e: CartSettleEvent) => {
   if (isGuest(e.account)) {
     return Promise.resolve<NaviToUserEntryEvent>({
       r: 'NaviToUserEntry',
-      rt: 'alt',
-      path: '/user/account/entry',
+      rt: 'navi',
+      viewId: 'UserCreateAccount',
+      // path: '/user/account/entry',
       callBy: { settleCart: e },
     })
   }

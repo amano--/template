@@ -1,22 +1,17 @@
-import { newLogId, ResponseCommandSuccessEvent, ResponseExceptionEvent, UserAccount } from '@me/common'
-import {
-  CartSettleEvent,
-  CartSettleSuccessEvent,
-  CartSettleEtcFailEvent,
-  CartSettleFailByInsufficientFundsEvent,
-  CartSettleFailByCardExpiredEvent,
-} from '@me/purchase'
+import { newLogId } from '@me/common'
 
 import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'
 import { CARD_EXPIRE_DATE } from '../../constants'
-import { RawSettleEvent, RawSettleSuccessEvent, RawSettleCardExpiredEvent } from '../index'
+import { RawSettleEtcExceptionEvent, RawSettleSuccessEvent } from '../index'
+import { RawSettleEvent, RawSettleFailByCardExpiredEvent, RawSettleFailByInsufficientFundsEvent } from '../index'
+
 const logger = getLogger('mocks/settle/stripe/api')
 
-type StripeSettleEvent = RawSettleEvent
-type StripeSettleSuccessEvent = RawSettleSuccessEvent
+// type StripeSettleEvent = RawSettleEvent
+// type StripeSettleSuccessEvent = RawSettleSuccessEvent
 
-type StripeSettleCardExpiredEvent = RawSettleCardExpiredEvent
+// type StripeSettleCardExpiredEvent = RawSettleFailByCardExpiredEvent
 
 const mutations = {
   // saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
@@ -26,20 +21,43 @@ const mutations = {
   //     logId: newLogId(),
   //   })
   // },
-  settle: (e: StripeSettleEvent) => {
+  settle: (e: RawSettleEvent) => {
     logger.info('settle: ', 'e=', e)
     //TODO 今は適当に実装
-    const fail = false
-    if (fail) {
-      return Promise.resolve<StripeSettleCardExpiredEvent>({
-        r: 'RawSettleCardExpired',
+    if (e.account.settleAccountId === 'poor') {
+      return Promise.resolve<RawSettleFailByInsufficientFundsEvent>({
+        r: 'RawSettleFailByInsufficientFunds',
         rt: 'exception',
         provider: 'stripe',
+        rawLogId: newLogId(),
+        differenceAmount: 999,
+      })
+    }
+
+    if (e.account.settleAccountId === 'cardExpired') {
+      return Promise.resolve<RawSettleFailByCardExpiredEvent>({
+        r: 'RawSettleFailByCardExpired',
+        rt: 'exception',
+        provider: 'stripe',
+        rawLogId: newLogId(),
+
         expireDate: Temporal.ZonedDateTime.from(CARD_EXPIRE_DATE),
       })
     }
 
-    return Promise.resolve<StripeSettleSuccessEvent>({
+    //TODO 後で分岐を実装
+    const fail = false
+    if (fail) {
+      return Promise.resolve<RawSettleEtcExceptionEvent>({
+        r: 'RawSettleEtcException',
+        rt: 'exception',
+        provider: 'stripe',
+
+        errorMessage: 'etc error',
+      })
+    }
+
+    return Promise.resolve<RawSettleSuccessEvent>({
       r: 'RawSettleSuccess',
       rt: 'success',
       provider: 'stripe',
@@ -47,8 +65,28 @@ const mutations = {
       logId: newLogId(),
     })
   },
+  // const fail = false
+  // if (fail) {
+  //   return Promise.resolve<RawSettleFailByCardExpiredEvent>({
+  //     r: 'RawSettleFailByCardExpired',
+  //     rt: 'exception',
+  //     provider: 'stripe',
+  //           rawLogId: newLogId(),
+
+  //     expireDate: Temporal.ZonedDateTime.from(CARD_EXPIRE_DATE),
+  //   })
+  // }
+
+  // return Promise.resolve<RawSettleFailByInsufficientFundsEvent>({
+  //   r: 'RawSettleFailByInsufficientFunds',
+  //   rt: 'exception',
+  //   provider: 'stripe',
+  //   rawLogId: newLogId(),
+  //   differenceAmount:999
+  // })
+  // },
 }
 
 const queries = {}
 
-export const stripeApiMock = { ...mutations, ...queries }
+export const stripeApiMock = { ...mutations, ...queries } as const

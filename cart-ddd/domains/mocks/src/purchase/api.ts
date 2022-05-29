@@ -1,19 +1,7 @@
-import { isGuest, newLogId, UserAccount } from '@me/common'
-import {
-  Product,
-  PurchaseCommandEvent,
-  CartSettleEvent,
-  ProductId,
-  CartSettleSuccessEvent,
-  CartSettleEtcFailEvent,
-  ListProductsInput,
-  CartSettleFailByInsufficientFundsEvent,
-  CartSettleFailByCardExpiredEvent,
-} from '@me/purchase'
+import { newLogId, UserAccount, settleApi } from '@me/common'
+import { Product, PurchaseCommandEvent, CartSettleEvent, ProductId, ListProductsInput } from '@me/purchase'
 
 import { getLogger } from 'log4js'
-import { Temporal } from '@js-temporal/polyfill'
-import { CARD_EXPIRE_DATE } from '..'
 const logger = getLogger('mocks/purchase/api')
 
 const simpleProducts = { normal: { productId: 'normal' }, outOfStock: { productId: 'outOfStock' } } as const
@@ -44,36 +32,43 @@ const mutations = {
   settleCart: (e: CartSettleEvent & { account: UserAccount }) => {
     logger.info('settleCart: ', 'e=', e)
 
-    if (e.account.userId === 'poor') {
-      return Promise.resolve<CartSettleFailByInsufficientFundsEvent>({
-        r: 'CartSettleFailByInsufficientFunds',
-        rt: 'exception',
-        differenceAmount: 1,
-      })
-    }
-
-    if (e.account.userId === 'cardExpired') {
-      return Promise.resolve<CartSettleFailByCardExpiredEvent>({
-        r: 'CartSettleFailByCardExpired',
-        rt: 'exception',
-        expireDate: Temporal.ZonedDateTime.from(CARD_EXPIRE_DATE),
-      })
-    }
-
-    //TODO 後で分岐を実装
-    const fail = false
-    if (fail) {
-      return Promise.resolve<CartSettleEtcFailEvent>({
-        r: 'CartSettleEtcFail',
-        rt: 'exception',
-      })
-    }
-
-    return Promise.resolve<CartSettleSuccessEvent>({
-      r: 'CartSettleSuccess',
-      rt: 'success',
-      logId: newLogId(),
+    return settleApi.settle({
+      c: 'RawSettle',
+      account: e.account,
+      provider: 'stripe',
+      price: { currency: 'JPY', amount: 1122 },
     })
+    // if (e.account.userId === 'poor') {
+    //   return Promise.resolve<RawSettleFailByInsufficientFundsEvent>({
+    //     r: 'RawSettleFailByInsufficientFunds',
+    //     rt: 'exception',
+
+    //     differenceAmount: 1,
+    //   })
+    // }
+
+    // if (e.account.userId === 'cardExpired') {
+    //   return Promise.resolve<CartSettleFailByCardExpiredEvent>({
+    //     r: 'CartSettleFailByCardExpired',
+    //     rt: 'exception',
+    //     expireDate: Temporal.ZonedDateTime.from(CARD_EXPIRE_DATE),
+    //   })
+    // }
+
+    // //TODO 後で分岐を実装
+    // const fail = false
+    // if (fail) {
+    //   return Promise.resolve<CartSettleEtcFailEvent>({
+    //     r: 'CartSettleEtcFail',
+    //     rt: 'exception',
+    //   })
+    // }
+
+    // return Promise.resolve<CartSettleSuccessEvent>({
+    //   r: 'CartSettleSuccess',
+    //   rt: 'success',
+    //   logId: newLogId(),
+    // })
   },
 }
 

@@ -3,6 +3,7 @@ import { Temporal } from '@js-temporal/polyfill'
 // import { string } from 'fp-ts'
 import { MockUserAccountIdType } from './tbd_for_code_completion_from_mock'
 import { MessageFinder, messageFindersForCommon } from '@me/common'
+import { AllViewId } from './boundedContext'
 
 export type Ulid = string
 
@@ -36,6 +37,11 @@ export type ResponseExceptionEvent = ResponseBaseEvent & {
   rt: 'exception'
 }
 
+export type ResponseNaviEvent = ResponseBaseEvent & {
+  rt: 'navi'
+  viewId: AllViewId
+}
+
 export type ResponseCommandSuccessEvent = ResponseSuccessEvent & {
   logId: Ulid
 }
@@ -50,6 +56,7 @@ export type ResponseEvent =
   | ResponseSuccessEvent
   | ResponseAltEvent
   | ResponseExceptionEvent
+  | ResponseNaviEvent
   | ResponseCommandSuccessEvent
 
 // export type ResponseEventWithMessage<FINDER extends MessageFinder> = ResponseEvent & {
@@ -101,4 +108,10 @@ export type PagedQuerySuccessEvent<T> = ListQuerySuccessEvent<T> & {
   count: number
   pageCount: number
   pageStep: number
+}
+
+export type SupportCurrency = 'JPY' | 'USD'
+export type Money = { currency: SupportCurrency; amount: number }
+export const isMoney = (arg: any): arg is Money => {
+  return 'currency' in arg && 'amount' in arg
 }
