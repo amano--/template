@@ -7,25 +7,25 @@ import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'
 const logger = getLogger('mocks/settle/index')
 
-export type RawSettleProviderId = 'stripe'
-export type RawSettleAccount = { settleAccountId: string }
+export type SettleProviderId = 'stripe'
+export type SettleAccount = { settleAccountId: string }
 // export type RawMoney = { currency: 'USD' | 'JPY'; amount: number }
 
-export type RawSettleEvent = {
+export type SettleEvent = {
   c: 'RawSettle'
-  provider: RawSettleProviderId
-  account: RawSettleAccount
+  provider: SettleProviderId
+  account: SettleAccount
   price: Money
 }
 
-export const newRawSettleEvent = (
-  account: RawSettleAccount,
+export const newSettleEvent = (
+  account: SettleAccount,
   price: Money | number,
-  provider: RawSettleProviderId = 'stripe'
-): RawSettleEvent => {
+  provider: SettleProviderId = 'stripe'
+): SettleEvent => {
   return {
     c: 'RawSettle',
-    provider: 'stripe',
+    provider,
     account,
     price: !isMoney(price) ? { currency: 'JPY', amount: price } : price,
   }
@@ -33,13 +33,13 @@ export const newRawSettleEvent = (
 
 export type RawSettleSuccessEvent = ResponseCommandSuccessEvent & {
   r: 'RawSettleSuccess'
-  provider: RawSettleProviderId
+  provider: SettleProviderId
   rawLogId: string
 }
 
 export type RawSettleFailByCardExpiredEvent = ResponseExceptionEvent & {
   r: 'RawSettleFailByCardExpired'
-  provider: RawSettleProviderId
+  provider: SettleProviderId
   rawLogId: string
   expireDate: Temporal.ZonedDateTime
 }
@@ -47,7 +47,7 @@ export type RawSettleFailByCardExpiredEvent = ResponseExceptionEvent & {
 export type RawSettleFailByInsufficientFundsEvent = ResponseExceptionEvent & {
   r: 'RawSettleFailByInsufficientFunds'
   rt: 'exception'
-  provider: RawSettleProviderId
+  provider: SettleProviderId
   rawLogId: string
   // 差額
   differenceAmount: number
@@ -55,7 +55,7 @@ export type RawSettleFailByInsufficientFundsEvent = ResponseExceptionEvent & {
 
 export type RawSettleEtcExceptionEvent = ResponseExceptionEvent & {
   r: 'RawSettleEtcException'
-  provider: RawSettleProviderId
+  provider: SettleProviderId
   errorMessage: string
 }
 

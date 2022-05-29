@@ -32,7 +32,7 @@ describe('(settleCart) ユーザーはカートを決済する', () => {
 
   // settleCart の戻り値のイベントを網羅するようにテストをかく
   it('成功の場合', async () => {
-    await expectUsecaseLine(settleCart, success, { r: 'CartSettleSuccess' })
+    await expectUsecaseLine(settleCart, success, { r: 'RawSettleSuccess' })
   })
 
   it('ゲストの場合、新規会員登録画面へのNaviイベントが返る', async () => {
@@ -48,7 +48,7 @@ describe('(settleCart) ユーザーはカートを決済する', () => {
     await expectUsecaseLine(
       settleCart,
       { ...success, account: MockUserAccounts.poor },
-      { r: 'CartSettleFailByInsufficientFunds' }
+      { r: 'RawSettleFailByInsufficientFunds' }
     )
   })
 
@@ -56,7 +56,7 @@ describe('(settleCart) ユーザーはカートを決済する', () => {
     await expectUsecaseLine(
       settleCart,
       { ...success, account: MockUserAccounts.cardExpired },
-      { r: 'CartSettleFailByCardExpired' }
+      { r: 'RawSettleFailByCardExpired' }
     )
   })
 })
@@ -68,20 +68,25 @@ describe('検討、検証用テストコード', () => {
     // const inputs = { c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] } as const
     // const x: 'a' | 'b' | 'c' = 'a'
 
-    const res = await settleCart({ c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] })
+    const res = await settleCart({
+      c: 'CartSettle',
+      account: MockUserAccounts.normal,
+      list: [MockProducts.normal, MockProducts.relate1],
+    })
+    console.log('res=', res)
 
     switch (res.r) {
-      case 'CartSettleSuccess':
+      case 'RawSettleSuccess':
         break
       case 'NaviToUserEntry':
-        console.log('res.path=', res.path)
+        console.log('res.viewId=', res.viewId)
         break
-      case 'CartSettleFailByCardExpired':
+      case 'RawSettleFailByCardExpired':
         break
-      case 'CartSettleFailByInsufficientFunds':
+      case 'RawSettleFailByInsufficientFunds':
         console.log('res.differenceAmount=', res.differenceAmount)
         break
-      case 'CartSettleEtcFail':
+      case 'RawSettleEtcException':
         break
       // case 'Hoge':
       //   break
@@ -95,11 +100,11 @@ describe('検討、検証用テストコード', () => {
         // res.r === 'CartSettleSuccess'
         break
       case 'exception':
-        if (res.r === 'CartSettleFailByInsufficientFunds') {
+        if (res.r === 'RawSettleFailByInsufficientFunds') {
           console.log('res.differenceAmount=', res.differenceAmount)
         }
-        if (res.r === 'CartSettleFailByCardExpired') {
-          console.log('res.oldDate=', res.expireDate)
+        if (res.r === 'RawSettleFailByCardExpired') {
+          console.log('res.expireDate=', res.expireDate)
         }
 
         break

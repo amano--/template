@@ -51,7 +51,7 @@ const newCartAddProductOutOfStockEvent = (list: Product[]): CartAddProductOutOfS
   list,
 })
 
-type CartSettleEvent = { c: 'CartSettle'; account: UserAccount | GuestAccount; list: readonly Product[] }
+export type CartSettleEvent = { c: 'CartSettle'; account: UserAccount | GuestAccount; list: readonly Product[] }
 
 type NaviToUserEntryEvent = ResponseNaviEvent & {
   r: 'NaviToUserEntry'

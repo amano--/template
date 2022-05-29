@@ -1,7 +1,8 @@
 import { newLogId, UserAccount, settleApi } from '@me/common'
-import { Product, PurchaseCommandEvent, CartSettleEvent, ProductId, ListProductsInput } from '@me/purchase'
+import { Product, PurchaseCommandEvent, ProductId, ListProductsInput, CartSettleEvent } from '@me/purchase'
 
 import { getLogger } from 'log4js'
+import { newSettleEvent, SettleEvent } from '../settle/index'
 const logger = getLogger('mocks/purchase/api')
 
 const simpleProducts = { normal: { productId: 'normal' }, outOfStock: { productId: 'outOfStock' } } as const
@@ -28,47 +29,13 @@ const mutations = {
   },
 
   // TODO UserAccount | GuestAccount から GuestAccount のうまい抜き方の調査
-  // settleCart: (e: Omit<CartSettleEvent, 'account'> & { account: UserAccount }) => {
+  // settleCart: (e: Omit<CartSettleEvent, 'account'> & { account: UserAccount })
   settleCart: (e: CartSettleEvent & { account: UserAccount }) => {
     logger.info('settleCart: ', 'e=', e)
 
-    return settleApi.settle({
-      c: 'RawSettle',
-      account: e.account,
-      provider: 'stripe',
-      price: { currency: 'JPY', amount: 1122 },
-    })
-    // if (e.account.userId === 'poor') {
-    //   return Promise.resolve<RawSettleFailByInsufficientFundsEvent>({
-    //     r: 'RawSettleFailByInsufficientFunds',
-    //     rt: 'exception',
-
-    //     differenceAmount: 1,
-    //   })
-    // }
-
-    // if (e.account.userId === 'cardExpired') {
-    //   return Promise.resolve<CartSettleFailByCardExpiredEvent>({
-    //     r: 'CartSettleFailByCardExpired',
-    //     rt: 'exception',
-    //     expireDate: Temporal.ZonedDateTime.from(CARD_EXPIRE_DATE),
-    //   })
-    // }
-
-    // //TODO 後で分岐を実装
-    // const fail = false
-    // if (fail) {
-    //   return Promise.resolve<CartSettleEtcFailEvent>({
-    //     r: 'CartSettleEtcFail',
-    //     rt: 'exception',
-    //   })
-    // }
-
-    // return Promise.resolve<CartSettleSuccessEvent>({
-    //   r: 'CartSettleSuccess',
-    //   rt: 'success',
-    //   logId: newLogId(),
-    // })
+    // TODO 今は適当に合計金額を算出
+    const total = e.list.reduce((sum, productPrice) => sum + 1234, 0)
+    return settleApi.settle(newSettleEvent({ settleAccountId: e.account.userId }, total))
   },
 }
 

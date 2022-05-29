@@ -4,6 +4,7 @@ import { Temporal } from '@js-temporal/polyfill'
 import { MockUserAccountIdType } from './tbd_for_code_completion_from_mock'
 import { MessageFinder, messageFindersForCommon } from '@me/common'
 import { AllViewId } from './boundedContext'
+import { number } from 'fp-ts'
 
 export type Ulid = string
 
@@ -113,5 +114,5 @@ export type PagedQuerySuccessEvent<T> = ListQuerySuccessEvent<T> & {
 export type SupportCurrency = 'JPY' | 'USD'
 export type Money = { currency: SupportCurrency; amount: number }
 export const isMoney = (arg: any): arg is Money => {
-  return 'currency' in arg && 'amount' in arg
+  return !Number.isInteger(arg) && 'currency' in arg && 'amount' in arg
 }

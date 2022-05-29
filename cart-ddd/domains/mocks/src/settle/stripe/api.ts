@@ -4,7 +4,7 @@ import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'
 import { CARD_EXPIRE_DATE } from '../../constants'
 import { RawSettleEtcExceptionEvent, RawSettleSuccessEvent } from '../index'
-import { RawSettleEvent, RawSettleFailByCardExpiredEvent, RawSettleFailByInsufficientFundsEvent } from '../index'
+import { SettleEvent, RawSettleFailByCardExpiredEvent, RawSettleFailByInsufficientFundsEvent } from '../index'
 
 const logger = getLogger('mocks/settle/stripe/api')
 
@@ -21,7 +21,7 @@ const mutations = {
   //     logId: newLogId(),
   //   })
   // },
-  settle: (e: RawSettleEvent) => {
+  settle: (e: SettleEvent) => {
     logger.info('settle: ', 'e=', e)
     //TODO 今は適当に実装
     if (e.account.settleAccountId === 'poor') {
