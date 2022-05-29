@@ -9,20 +9,14 @@ import {
 
 import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'
-import { CARD_EXPIRE_DATE } from '../..'
+import { CARD_EXPIRE_DATE } from '../../constants'
+import { RawSettleEvent, RawSettleSuccessEvent, RawSettleCardExpiredEvent } from '../index'
 const logger = getLogger('mocks/settle/stripe/api')
 
-type StripeAccount = {}
-type Money = { amount: number }
+type StripeSettleEvent = RawSettleEvent
+type StripeSettleSuccessEvent = RawSettleSuccessEvent
 
-type StripeSettleEvent = { c: 'StripeSettle'; account: StripeAccount; price: Money }
-
-type StripeSettleSuccessEvent = ResponseCommandSuccessEvent & { r: 'StripeSettleSuccess'; logIdByStripe: string }
-
-type StripeCardExpiredEvent = ResponseExceptionEvent & {
-  r: 'StripeCardExpired'
-  expireDate: Temporal.ZonedDateTime
-}
+type StripeSettleCardExpiredEvent = RawSettleCardExpiredEvent
 
 const mutations = {
   // saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
@@ -37,42 +31,24 @@ const mutations = {
     //TODO 今は適当に実装
     const fail = false
     if (fail) {
-      return Promise.resolve<StripeCardExpiredEvent>({
-        r: 'StripeCardExpired',
+      return Promise.resolve<StripeSettleCardExpiredEvent>({
+        r: 'RawSettleCardExpired',
         rt: 'exception',
+        provider: 'stripe',
         expireDate: Temporal.ZonedDateTime.from(CARD_EXPIRE_DATE),
       })
     }
 
     return Promise.resolve<StripeSettleSuccessEvent>({
-      r: 'StripeSettleSuccess',
+      r: 'RawSettleSuccess',
       rt: 'success',
-      logIdByStripe: newLogId(),
+      provider: 'stripe',
+      rawLogId: newLogId(),
       logId: newLogId(),
     })
   },
 }
 
-const queries = {
-  // findProductStock: async (input: [ProductId]): Promise<{ count: number }[]> => {
-  //   logger.info('findProductStock: ', 'input=', input)
-  //   const results = input.map((id) => {
-  //     // 品切れ状態の設定
-  //     if (id === 'outOfStock') {
-  //       return { count: 0 }
-  //     }
-  //     return { count: 3 }
-  //   })
-  //   return Promise.resolve(results)
-  // },
-  // listProducts: async (input: ListProductsInput): Promise<Product[]> => {
-  //   logger.info('listProducts: ', 'input=', input)
-  //   return Promise.resolve(Object.values(simpleProducts))
-  // },
-  // listRelatedProducts: async (input: [ProductId]): Promise<Product[]> => {
-  //   logger.info('listRelatedProducts : input=', input)
-  //   return Promise.resolve(Object.values(relatedProducts))
-  // },
-}
+const queries = {}
 
 export const stripeApiMock = { ...mutations, ...queries }
