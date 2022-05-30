@@ -20,9 +20,9 @@ import { messageFindersForPurchase } from '../messages'
 import { getLogger } from 'log4js'
 const logger = getLogger('domains/purchase/usecases/cart')
 
-type ListProductsInput = { keyword: string }
+type ListRecommendProductsInput = { keyword: string }
 
-type ListProductsEvent = { q: 'ListProducts'; input: ListProductsInput }
+type ListRecommendProductsEvent = { q: 'ListRecommendProducts'; input: ListRecommendProductsInput }
 
 type CartAddEvent = { c: 'CartAdd'; productId: ProductId } //save: 'batch';
 type CartAddEventLog = CartAddEvent & { logId: Ulid }
@@ -61,7 +61,7 @@ type NaviToUserEntryEvent = ResponseNaviEvent & {
   callBy: { settleCart: CartSettleEvent }
 }
 
-export const listRecommendProducts = async (e: ListProductsEvent) => {
+export const listRecommendProducts = async (e: ListRecommendProductsEvent) => {
   logger.info('listRecommendProducts :', 'e :', e)
 
   const products = await purchaseApi.listProducts(e.input)

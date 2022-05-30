@@ -3,15 +3,15 @@ import { newLogId } from '@me/common'
 import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'
 import { CARD_EXPIRE_DATE } from '../../constants'
-import { RawSettleEtcExceptionEvent, RawSettleSuccessEvent } from '../index'
-import { SettleEvent, RawSettleFailByCardExpiredEvent, RawSettleFailByInsufficientFundsEvent } from '../index'
+import { SettleEtcExceptionEvent, SettleSuccessEvent } from '../index'
+import { SettleEvent, SettleFailByCardExpiredEvent, SettleFailByInsufficientFundsEvent } from '../index'
 
 const logger = getLogger('mocks/settle/stripe/api')
 
-// type StripeSettleEvent = RawSettleEvent
-// type StripeSettleSuccessEvent = RawSettleSuccessEvent
+// type StripeSettleEvent = SettleEvent
+// type StripeSettleSuccessEvent = SettleSuccessEvent
 
-// type StripeSettleCardExpiredEvent = RawSettleFailByCardExpiredEvent
+// type StripeSettleCardExpiredEvent = SettleFailByCardExpiredEvent
 
 const mutations = {
   // saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
@@ -25,8 +25,8 @@ const mutations = {
     logger.info('settle: ', 'e=', e)
     //TODO 今は適当に実装
     if (e.account.settleAccountId === 'poor') {
-      return Promise.resolve<RawSettleFailByInsufficientFundsEvent>({
-        r: 'RawSettleFailByInsufficientFunds',
+      return Promise.resolve<SettleFailByInsufficientFundsEvent>({
+        r: 'SettleFailByInsufficientFunds',
         rt: 'exception',
         provider: 'stripe',
         rawLogId: newLogId(),
@@ -35,8 +35,8 @@ const mutations = {
     }
 
     if (e.account.settleAccountId === 'cardExpired') {
-      return Promise.resolve<RawSettleFailByCardExpiredEvent>({
-        r: 'RawSettleFailByCardExpired',
+      return Promise.resolve<SettleFailByCardExpiredEvent>({
+        r: 'SettleFailByCardExpired',
         rt: 'exception',
         provider: 'stripe',
         rawLogId: newLogId(),
@@ -48,8 +48,8 @@ const mutations = {
     //TODO 後で分岐を実装
     const fail = false
     if (fail) {
-      return Promise.resolve<RawSettleEtcExceptionEvent>({
-        r: 'RawSettleEtcException',
+      return Promise.resolve<SettleEtcExceptionEvent>({
+        r: 'SettleEtcException',
         rt: 'exception',
         provider: 'stripe',
 
@@ -57,8 +57,8 @@ const mutations = {
       })
     }
 
-    return Promise.resolve<RawSettleSuccessEvent>({
-      r: 'RawSettleSuccess',
+    return Promise.resolve<SettleSuccessEvent>({
+      r: 'SettleSuccess',
       rt: 'success',
       provider: 'stripe',
       rawLogId: newLogId(),
@@ -67,8 +67,8 @@ const mutations = {
   },
   // const fail = false
   // if (fail) {
-  //   return Promise.resolve<RawSettleFailByCardExpiredEvent>({
-  //     r: 'RawSettleFailByCardExpired',
+  //   return Promise.resolve<SettleFailByCardExpiredEvent>({
+  //     r: 'SettleFailByCardExpired',
   //     rt: 'exception',
   //     provider: 'stripe',
   //           rawLogId: newLogId(),
@@ -77,8 +77,8 @@ const mutations = {
   //   })
   // }
 
-  // return Promise.resolve<RawSettleFailByInsufficientFundsEvent>({
-  //   r: 'RawSettleFailByInsufficientFunds',
+  // return Promise.resolve<SettleFailByInsufficientFundsEvent>({
+  //   r: 'SettleFailByInsufficientFunds',
   //   rt: 'exception',
   //   provider: 'stripe',
   //   rawLogId: newLogId(),

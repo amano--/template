@@ -1,11 +1,16 @@
 import { stripeApiMock } from './stripe/api'
 
-import { Money, isMoney, newLogId, ResponseCommandSuccessEvent, ResponseExceptionEvent, UserAccount } from '@me/common'
+import {
+  Money,
+  isMoney,
+  newLogId,
+  ResponseCommandSuccessEvent,
+  ResponseExceptionEvent,
+  SupportCurrency,
+} from '@me/common'
 
 import { Temporal } from '@js-temporal/polyfill'
-
 import { getLogger } from 'log4js'
-import { SupportCurrency } from '../../../common/src/event'
 const logger = getLogger('mocks/settle/index')
 
 export type SettleProviderId = 'stripe'
@@ -16,7 +21,7 @@ export type SettleAccount = { settleAccountId: string }
 // export type RawMoney = { currency: 'USD' | 'JPY'; amount: number }
 
 export type SettleEvent = {
-  c: 'RawSettle'
+  c: 'Settle'
   provider: SettleProviderId
   account: SettleAccount
   price: Money
@@ -28,28 +33,28 @@ export const newSettleEvent = (
   provider: SettleProviderId = defaultSettleProvider
 ): SettleEvent => {
   return {
-    c: 'RawSettle',
+    c: 'Settle',
     provider,
     account,
     price: !isMoney(price) ? { currency: defaultSettleCurrency, amount: price } : price,
   }
 }
 
-export type RawSettleSuccessEvent = ResponseCommandSuccessEvent & {
-  r: 'RawSettleSuccess'
+export type SettleSuccessEvent = ResponseCommandSuccessEvent & {
+  r: 'SettleSuccess'
   provider: SettleProviderId
   rawLogId: string
 }
 
-export type RawSettleFailByCardExpiredEvent = ResponseExceptionEvent & {
-  r: 'RawSettleFailByCardExpired'
+export type SettleFailByCardExpiredEvent = ResponseExceptionEvent & {
+  r: 'SettleFailByCardExpired'
   provider: SettleProviderId
   rawLogId: string
   expireDate: Temporal.ZonedDateTime
 }
 
-export type RawSettleFailByInsufficientFundsEvent = ResponseExceptionEvent & {
-  r: 'RawSettleFailByInsufficientFunds'
+export type SettleFailByInsufficientFundsEvent = ResponseExceptionEvent & {
+  r: 'SettleFailByInsufficientFunds'
   rt: 'exception'
   provider: SettleProviderId
   rawLogId: string
@@ -57,8 +62,8 @@ export type RawSettleFailByInsufficientFundsEvent = ResponseExceptionEvent & {
   differenceAmount: number
 }
 
-export type RawSettleEtcExceptionEvent = ResponseExceptionEvent & {
-  r: 'RawSettleEtcException'
+export type SettleEtcExceptionEvent = ResponseExceptionEvent & {
+  r: 'SettleEtcException'
   provider: SettleProviderId
   errorMessage: string
 }

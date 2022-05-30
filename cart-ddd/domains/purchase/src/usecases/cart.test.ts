@@ -32,7 +32,7 @@ describe('(settleCart) ユーザーはカートを決済する', () => {
 
   // settleCart の戻り値のイベントを網羅するようにテストをかく
   it('成功の場合', async () => {
-    await expectUsecaseLine(settleCart, success, { r: 'RawSettleSuccess' })
+    await expectUsecaseLine(settleCart, success, { r: 'SettleSuccess' })
   })
 
   it('ゲストの場合、新規会員登録画面へのNaviイベントが返る', async () => {
@@ -48,7 +48,7 @@ describe('(settleCart) ユーザーはカートを決済する', () => {
     await expectUsecaseLine(
       settleCart,
       { ...success, account: MockUserAccounts.poor },
-      { r: 'RawSettleFailByInsufficientFunds' }
+      { r: 'SettleFailByInsufficientFunds' }
     )
   })
 
@@ -56,7 +56,7 @@ describe('(settleCart) ユーザーはカートを決済する', () => {
     await expectUsecaseLine(
       settleCart,
       { ...success, account: MockUserAccounts.cardExpired },
-      { r: 'RawSettleFailByCardExpired' }
+      { r: 'SettleFailByCardExpired' }
     )
   })
 })
@@ -68,6 +68,11 @@ describe('検討、検証用テストコード', () => {
     // const inputs = { c: 'CartSettle', account: MockUserAccounts.normal, list: [MockProducts.normal] } as const
     // const x: 'a' | 'b' | 'c' = 'a'
 
+    // const o: { tag: 'a'; a: string } | { tag: 'b'; b: string } | { tag: 'c'; c: 'c' | 'ccb' } = {
+    //   tag: 'c',
+    //   c: 'ccb',
+    // }
+
     const res = await settleCart({
       c: 'CartSettle',
       account: MockUserAccounts.normal,
@@ -76,17 +81,17 @@ describe('検討、検証用テストコード', () => {
     console.log('res=', res)
 
     switch (res.r) {
-      case 'RawSettleSuccess':
+      case 'SettleSuccess':
         break
       case 'NaviToUserEntry':
         console.log('res.viewId=', res.viewId)
         break
-      case 'RawSettleFailByCardExpired':
+      case 'SettleFailByCardExpired':
         break
-      case 'RawSettleFailByInsufficientFunds':
+      case 'SettleFailByInsufficientFunds':
         console.log('res.differenceAmount=', res.differenceAmount)
         break
-      case 'RawSettleEtcException':
+      case 'SettleEtcException':
         break
       // case 'Hoge':
       //   break
@@ -100,15 +105,13 @@ describe('検討、検証用テストコード', () => {
         // res.r === 'CartSettleSuccess'
         break
       case 'exception':
-        if (res.r === 'RawSettleFailByInsufficientFunds') {
+        if (res.r === 'SettleFailByInsufficientFunds') {
           console.log('res.differenceAmount=', res.differenceAmount)
         }
-        if (res.r === 'RawSettleFailByCardExpired') {
+        if (res.r === 'SettleFailByCardExpired') {
           console.log('res.expireDate=', res.expireDate)
         }
-
         break
-
       case 'navi':
         console.log('res.r=', res.r)
         break
@@ -119,6 +122,8 @@ describe('検討、検証用テストコード', () => {
     // success 以外はまとめて処理するときのやり方
     switch (res.rt) {
       case 'success':
+        // case 'navi':
+        console.log('res=', res)
         break
       default:
         console.log('r=', res.r)

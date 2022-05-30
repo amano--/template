@@ -12,13 +12,13 @@ type TestParams = PickUsecasesTestParams<typeof buyProduct>
 const success: TestParams = {
   // selectAd: { in: { q: 'AdSelect' }, out: { r: 'AdToPurchaseNavi' } },
   listRecommendProducts: {
-    in: { q: 'ListProducts', input: { keyword: 'hoge fuga' } },
+    in: { q: 'ListRecommendProducts', input: { keyword: 'hoge fuga' } },
     out: { list: [{ productId: 'normal' }, { productId: 'outOfStock' }] },
   },
   addCart: { in: { c: 'CartAdd', productId: 'normal' }, out: { r: 'CartAddSuccess' } },
   settleCart: {
     in: { c: 'CartSettle', account: { userId: 'normal', name: 'Bronze聖闘士' }, list: [{ productId: 'normal' }] },
-    out: { r: 'CartSettleSuccess' },
+    out: { r: 'SettleSuccess' },
   },
 }
 
