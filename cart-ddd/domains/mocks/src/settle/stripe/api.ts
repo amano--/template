@@ -6,8 +6,7 @@ import { CARD_EXPIRE_DATE } from '../../constants'
 import { SettleEtcExceptionEvent, SettleSuccessEvent } from '../index'
 import { SettleEvent, SettleFailByCardExpiredEvent, SettleFailByInsufficientFundsEvent } from '../index'
 
-const logger = getLogger('mocks/settle/stripe/api')
-
+const logger = getLogger('mocks/settle/stripe/api') //
 // type StripeSettleEvent = SettleEvent
 // type StripeSettleSuccessEvent = SettleSuccessEvent
 
