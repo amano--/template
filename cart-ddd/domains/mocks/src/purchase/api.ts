@@ -37,6 +37,7 @@ const mutations = {
     // TODO ユーザー属性ごとの計算
     // TODO できれば通貨レートの反映
     // TODO 今は適当に合計金額を算出
+
     const total = e.list.reduce((sum) => sum + 1111, 0)
 
     return settleApi.settle(newSettleEvent({ settleAccountId: e.account.userId }, total))
