@@ -113,7 +113,7 @@ export type PagedQuerySuccessEvent<T> = ListQuerySuccessEvent<T> & {
 
 export type SupportCurrency = 'JPY' | 'USD'
 export type Money = { currency: SupportCurrency; amount: number }
-// [ TypeScriptの型定義から型ガードを自動生成する type-predicates-generator の紹介 ](https://zenn.dev/kimuson/articles/type_predicates_generator)
+
 export const isMoney = (arg: unknown): arg is Money => {
   return typeof arg === 'object' && arg !== null && 'currency' in arg && 'amount' in arg
 }
