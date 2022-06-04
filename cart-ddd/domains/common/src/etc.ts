@@ -12,3 +12,10 @@ export const isMoney = (arg: unknown): arg is Money => {
     typeof (arg as Money).amount === 'number'
   )
 }
+
+export const newMoney = (amount: number): Money => {
+  return {
+    currency: 'JPY',
+    amount,
+  }
+}

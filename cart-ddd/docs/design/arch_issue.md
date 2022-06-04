@@ -61,6 +61,13 @@ api の実装を mock と production を切り替える際 productionの引数�
   createAccount: (e: CreateUserAccountEvent & { productionOnlyParam?: string }) => {
 
 
+本番、テスト、CI 時の環境設定
+
+  ログ出力の抑制
+  api の Mock実装と 本番実装の切り替え
+
+テストの一括実行
+
 []()
 []()
 []()

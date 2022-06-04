@@ -7,6 +7,7 @@ import {
   ResponseCommandSuccessEvent,
   ResponseExceptionEvent,
   SupportCurrency,
+  newMoney,
 } from '@me/common'
 
 import { Temporal } from '@js-temporal/polyfill'
@@ -15,7 +16,7 @@ const logger = getLogger('mocks/settle/index')
 
 export type SettleProviderId = 'stripe'
 export const defaultSettleProvider: SettleProviderId = 'stripe'
-export const defaultSettleCurrency: SupportCurrency = 'JPY'
+// export const defaultSettleCurrency: SupportCurrency = 'JPY'
 
 export type SettleAccount = { settleAccountId: string }
 // export type RawMoney = { currency: 'USD' | 'JPY'; amount: number }
@@ -36,7 +37,7 @@ export const newSettleEvent = (
     c: 'Settle',
     provider,
     account,
-    price: !isMoney(price) ? { currency: defaultSettleCurrency, amount: price } : price,
+    price: isMoney(price) ? price : newMoney(price),
   }
 }
 

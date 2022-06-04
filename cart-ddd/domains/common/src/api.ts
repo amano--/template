@@ -1,10 +1,10 @@
-import { commonApiMock, commonApiProductionSample, purchaseApiMock, settleApiMock } from '@me/mocks'
+import { commonApiMock, commonApiProductionSample } from '../mocks'
 
-//const isProduction: true = true
+// TBD mock apiの管理、公開、切り替え方法の検討
 const isProduction = process.env.NODE_ENV === 'production'
 
-export const commonApi = isProduction ? commonApiProductionSample : commonApiMock
+export const apiCommon = isProduction ? commonApiProductionSample : commonApiMock
 
-export const settleApi = isProduction ? settleApiMock : settleApiMock
+// export const apiSettle = isProduction ? settleApiMock : settleApiMock
 
-export const purchaseApi = isProduction ? purchaseApiMock : purchaseApiMock
+// export const apiPurchase = isProduction ? purchaseApiMock : purchaseApiMock

@@ -1,5 +1,3 @@
-import { expectUsecaseLine } from '../index'
-import { createAccount } from './createUser'
 import { isMoney, Money } from './etc'
 
 describe('etc', () => {

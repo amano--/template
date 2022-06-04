@@ -1,4 +1,4 @@
-import { CreateUserAccountEvent, commonApi } from '../index'
+import { CreateUserAccountEvent, apiCommon } from '../index'
 
 // import {  } from '@me/common/src/api'
 
@@ -7,7 +7,7 @@ const logger = getLogger('usecases/createUser')
 
 export const createAccount = async (e: CreateUserAccountEvent) => {
   logger.info('createAccount : ', 'e=', e)
-  return await commonApi.createAccount(e)
+  return await apiCommon.createAccount(e)
 }
 
 // TODO 後で実装

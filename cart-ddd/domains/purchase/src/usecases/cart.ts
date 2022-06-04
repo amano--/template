@@ -1,5 +1,4 @@
 import {
-  purchaseApi,
   isGuest,
   newListQuerySuccessEvent,
   Ulid,
@@ -13,7 +12,7 @@ import {
 } from '@me/common'
 import { Temporal } from '@js-temporal/polyfill'
 
-import { Product, ProductId } from '../purchase'
+import { Product, ProductId, apiPurchase } from '../index'
 import { messageFindersForPurchase } from '../messages'
 
 //const logger = getLogger(__filename)
@@ -64,7 +63,7 @@ type NaviToUserEntryEvent = ResponseNaviEvent & {
 export const listRecommendProducts = async (e: ListRecommendProductsEvent) => {
   logger.info('listRecommendProducts :', 'e :', e)
 
-  const products = await purchaseApi.listProducts(e.input)
+  const products = await apiPurchase.listProducts(e.input)
 
   logger.info('listRecommendProducts : ', 'products=', products)
 
@@ -79,7 +78,7 @@ export const listRecommendProducts = async (e: ListRecommendProductsEvent) => {
 
 export const addCart = async (e: CartAddEvent) => {
   logger.info('addCart :', 'e=', e)
-  const counts = await purchaseApi.findProductStock([e.productId])
+  const counts = await apiPurchase.findProductStock([e.productId])
 
   // 品切れ状態の商品がなかったら成功
   if (counts.findIndex((v) => v.count === 0) < 0) {
@@ -87,7 +86,7 @@ export const addCart = async (e: CartAddEvent) => {
   }
 
   // 品切れ状態の商品だった場合関連商品を表示
-  const products = await purchaseApi.listRelatedProducts([e.productId])
+  const products = await apiPurchase.listRelatedProducts([e.productId])
   return Promise.resolve(newCartAddProductOutOfStockEvent(products))
 }
 
@@ -108,5 +107,5 @@ export const settleCart = async (e: CartSettleEvent) => {
   //   return Promise.resolve({ r: 'Hoge', rt: 'success', hoge: 'hoge' } as const)
   // }
 
-  return await purchaseApi.settleCart({ ...e, account: e.account })
+  return await apiPurchase.settleCart({ ...e, account: e.account })
 }
