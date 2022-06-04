@@ -2,7 +2,8 @@ import { newLogId, UserAccount } from '@me/common'
 import { Product, PurchaseCommandEvent, ProductId, ListProductsInput, CartSettleEvent } from '../src/index'
 
 import { getLogger } from 'log4js'
-import { newSettleEvent, SettleEvent } from '../settle/index'
+import { apiSettle, newSettleEvent, SettleEvent } from '@me/settle'
+import { MockProducts } from './products'
 const logger = getLogger('purchase/mocks/api')
 
 const mutations = {
@@ -49,13 +50,13 @@ const queries = {
   listProducts: async (input: ListProductsInput): Promise<Product[]> => {
     logger.info('listProducts: ', 'input=', input)
 
-    return Promise.resolve(Object.values(simpleProducts))
+    return Promise.resolve(Object.values([MockProducts.normal, MockProducts.relate1]))
   },
 
   listRelatedProducts: async (input: [ProductId]): Promise<Product[]> => {
     logger.info('listRelatedProducts : input=', input)
 
-    return Promise.resolve(Object.values(relatedProducts))
+    return Promise.resolve(Object.values([MockProducts.relate1, MockProducts.relate2]))
   },
 }
 

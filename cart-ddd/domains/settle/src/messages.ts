@@ -22,12 +22,12 @@ const en = {
 const messages = { ja, en } as const
 type MessageKey = keyof typeof messages[DefaultLangKey]
 
-export const createMessageFinderForPurchase =
+export const createMessageFinderForSettle =
   <K extends MessageKey>(key: K) =>
   (lang: LangAny = defaultLangKey): PickMessageValues<K, typeof messages> =>
     isSupportLang(lang) ? messages[lang][key] : messages[defaultUseAtNotSupportLangKey][key]
 
-export const messageFindersForPurchase = { cartAddSuccess: createMessageFinderForPurchase('cartAddSuccess') }
+export const messageFindersForPurchase = { cartAddSuccess: createMessageFinderForSettle('cartAddSuccess') }
 
 // export const findPurchaseMessage = (
 //   key: MessageKey,
