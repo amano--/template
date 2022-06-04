@@ -1,5 +1,6 @@
 export * from './messages'
 export * from './boundedContext'
+export * from './etc'
 export * from './event'
 export * from './user'
 

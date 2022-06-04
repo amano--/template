@@ -110,10 +110,3 @@ export type PagedQuerySuccessEvent<T> = ListQuerySuccessEvent<T> & {
   pageCount: number
   pageStep: number
 }
-
-export type SupportCurrency = 'JPY' | 'USD'
-export type Money = { currency: SupportCurrency; amount: number }
-
-export const isMoney = (arg: unknown): arg is Money => {
-  return typeof arg === 'object' && arg !== null && 'currency' in arg && 'amount' in arg
-}
