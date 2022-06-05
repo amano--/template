@@ -1,2 +1,2 @@
 export * from './settles'
-export * from './apiSettleForStripeMock'
+export * from './apiSettleMockForStripe'

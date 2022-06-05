@@ -13,7 +13,7 @@ const success: TestParams = {
   // selectAd: { in: { q: 'AdSelect' }, out: { r: 'AdToPurchaseNavi' } },
   listRecommendProducts: {
     in: { q: 'ListRecommendProducts', input: { keyword: 'hoge fuga' } },
-    out: { list: [{ productId: 'normal' }, { productId: 'outOfStock' }] },
+    out: { list: [{ productId: 'normal' }, { productId: 'relate1' }] },
   },
   addCart: { in: { c: 'CartAdd', productId: 'normal' }, out: { r: 'CartAddSuccess' } },
   settleCart: {
