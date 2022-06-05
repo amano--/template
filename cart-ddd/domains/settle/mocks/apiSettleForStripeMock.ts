@@ -3,8 +3,8 @@ import { newLogId } from '@me/common'
 import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'
 import { CARD_EXPIRE_DATE } from './constants'
-import { SettleEtcExceptionEvent, SettleSuccessEvent } from '../src/settle/types'
-import { SettleEvent, SettleFailByCardExpiredEvent, SettleFailByInsufficientFundsEvent } from '../src/settle/types'
+import { SettleEtcExceptionEvent, SettleSuccessEvent } from '../src/types'
+import { SettleEvent, SettleFailByCardExpiredEvent, SettleFailByInsufficientFundsEvent } from '../src/types'
 
 const logger = getLogger('settle/mocks/stripe/api') //
 // type StripeSettleEvent = SettleEvent
@@ -88,4 +88,4 @@ const mutations = {
 
 const queries = {}
 
-export const apiSettleForStripeMock = { ...mutations, ...queries } as const
+export const apiSettleMockForStripe = { ...mutations, ...queries } as const
