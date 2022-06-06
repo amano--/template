@@ -1,4 +1,4 @@
-import { newLogId } from '@me/common'
+import { newLogId } from '@alike-ca/common'
 
 import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'

@@ -9,7 +9,7 @@ import {
   ResponseCommandSuccessEvent,
   ResponseExceptionEvent,
   ResponseNaviEvent,
-} from '@me/common'
+} from '@alike-ca/common'
 import { Temporal } from '@js-temporal/polyfill'
 
 import { Product, ProductId, apiPurchase } from '../index'
@@ -19,7 +19,7 @@ import { messageFindersForPurchase } from '../messages'
 import { getLogger } from 'log4js'
 const logger = getLogger('domains/purchase/usecases/cart')
 
-type ListRecommendProductsInput = { keyword: string }
+export type ListRecommendProductsInput = { keyword: string }
 
 type ListRecommendProductsEvent = { q: 'ListRecommendProducts'; input: ListRecommendProductsInput }
 

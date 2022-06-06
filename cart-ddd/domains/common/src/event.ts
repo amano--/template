@@ -1,8 +1,7 @@
 import { ulid } from 'ulidx'
 import { Temporal } from '@js-temporal/polyfill'
 // import { string } from 'fp-ts'
-import { MockUserAccountIdType } from './tbd_for_code_completion_from_mock'
-import { MessageFinder, messageFindersForCommon } from '@me/common'
+import { MessageFinder, messageFindersForCommon } from '@alike-ca/common'
 import { AllViewId } from './boundedContext'
 import { number } from 'fp-ts'
 

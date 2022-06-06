@@ -7,7 +7,7 @@ import {
   isSupportLang,
   defaultUseAtNotSupportLangKey,
   LangAny,
-} from '@me/common/src/messages/common'
+} from '@alike-ca/common/src/messages/common'
 
 const ja = {
   cartAddSuccess: 'カートに商品が追加されました',

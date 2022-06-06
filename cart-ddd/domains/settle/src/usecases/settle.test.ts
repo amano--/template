@@ -1,4 +1,4 @@
-import { expectUsecaseLine, newMoney } from '@me/common'
+import { expectUsecaseLine, newMoney } from '@alike-ca/common'
 import { settle } from './settle'
 
 describe('settle', () => {

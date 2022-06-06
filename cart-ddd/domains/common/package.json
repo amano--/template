@@ -1,5 +1,5 @@
 {
-  "name": "@me/common",
+  "name": "@alike-ca/common",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -15,8 +15,6 @@
     "@js-temporal/polyfill": "^0.4.1",
     "@types/lodash": "^4.14.182",
     "fp-ts": "^2.12.1",
-    "just-map-object": "^2.1.1",
-    "just-safe-get": "^4.0.1",
     "log4js": "^6.5.2",
     "ulidx": "^0.3.0"
   },

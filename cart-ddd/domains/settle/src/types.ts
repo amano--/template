@@ -1,4 +1,4 @@
-import { Money, isMoney, ResponseCommandSuccessEvent, ResponseExceptionEvent, newMoney } from '@me/common'
+import { Money, isMoney, ResponseCommandSuccessEvent, ResponseExceptionEvent, newMoney } from '@alike-ca/common'
 
 import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'
