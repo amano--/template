@@ -22,6 +22,8 @@ describe('useRelatedProductList', () => {
   it('render hook', async () => {
     const { result } = renderHook(() => useRelatedProductList({ productId: 'outOfStock' }), { wrapper })
 
+    expect(result.current).toEqual(undefined)
+
     await waitFor(() => {
       expect(result.current).toEqual([{ productId: 'relate1' }, { productId: 'relate2' }])
     })
