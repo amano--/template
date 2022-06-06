@@ -1,5 +1,5 @@
 {
-  "name": "@me/mocks",
+  "name": "@alike-ca/mocks",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -12,9 +12,9 @@
   },
 
   "dependencies": {
-    "@me/common": "*",
-    "@me/ad": "*",
-    "@me/purchase": "*",
+    "@alike-ca/common": "*",
+    "@alike-ca/ad": "*",
+    "@alike-ca/purchase": "*",
     "log4js": "^6.4.6"
   },
 

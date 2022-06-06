@@ -1,6 +1,6 @@
 // import { selectAd } from '../selectAd'
-import { listRecommendProducts, addCart, settleCart } from '@me/purchase'
-import { execUsecases, PickUsecasesTestParams, expectUsecases } from '@me/common'
+import { listRecommendProducts, addCart, settleCart } from '@alike-ca/purchase'
+import { execUsecases, PickUsecasesTestParams, expectUsecases } from '@alike-ca/common'
 
 import { getLogger } from 'log4js'
 const logger = getLogger('scenarios/buyProduct')

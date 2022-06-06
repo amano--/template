@@ -1,1 +1,1 @@
-export type { MockUserAccountIdType, MockProductIdType } from '@me/mocks'
+export type { MockUserAccountIdType, MockProductIdType } from '@alike-ca/mocks'

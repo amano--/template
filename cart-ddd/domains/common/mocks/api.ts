@@ -3,7 +3,7 @@ import {
   CreateUserAccountSuccessEvent,
   CreateUserAccountDuplicatedExceptionEvent,
   newLogId,
-} from '@me/common'
+} from '@alike-ca/common'
 
 import { getLogger } from 'log4js'
 const logger = getLogger('mocks/common/api')

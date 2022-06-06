@@ -1,5 +1,5 @@
 {
-  "name": "@me/ad",
+  "name": "@alike-ca/ad",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -21,7 +21,7 @@
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "@babel/preset-typescript": "^7.16.7",
-    "@me/mocks": "*",
+    "@alike-ca/mocks": "*",
     "@next/eslint-plugin-next": "^12.1.6",
     "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.22.0",

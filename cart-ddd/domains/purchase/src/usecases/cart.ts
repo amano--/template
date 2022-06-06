@@ -9,7 +9,7 @@ import {
   ResponseCommandSuccessEvent,
   ResponseExceptionEvent,
   ResponseNaviEvent,
-} from '@me/common'
+} from '@alike-ca/common'
 import { Temporal } from '@js-temporal/polyfill'
 
 import { Product, ProductId, apiPurchase } from '../index'

@@ -1,4 +1,4 @@
-import { GuestAccount, UserAccount } from '@me/common'
+import { GuestAccount, UserAccount } from '@alike-ca/common'
 
 const users = {
   normal: { userId: 'normal', name: 'normal' },

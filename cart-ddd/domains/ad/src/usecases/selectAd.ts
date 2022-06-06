@@ -1,6 +1,6 @@
 // import { ulid, decodeTime } from 'ulidx'
 
-import { AdSelectEvent, AdToPurchaseNaviEvent, adApi } from '@me/ad'
+import { AdSelectEvent, AdToPurchaseNaviEvent, adApi } from '@alike-ca/ad'
 
 import { getLogger } from 'log4js'
 const logger = getLogger('usecases/ad')

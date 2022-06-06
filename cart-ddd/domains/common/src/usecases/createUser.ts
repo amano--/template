@@ -1,6 +1,6 @@
 import { CreateUserAccountEvent, apiCommon } from '../index'
 
-// import {  } from '@me/common/src/api'
+// import {  } from '@alike-ca/common/src/api'
 
 import { getLogger } from 'log4js'
 const logger = getLogger('usecases/createUser')

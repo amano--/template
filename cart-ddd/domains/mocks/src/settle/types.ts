@@ -8,7 +8,7 @@ import {
   ResponseExceptionEvent,
   SupportCurrency,
   newMoney,
-} from '@me/common'
+} from '@alike-ca/common'
 
 import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'

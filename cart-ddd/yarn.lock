@@ -1255,7 +1255,7 @@
     "jsbi" "^4.1.0"
     "tslib" "^2.3.1"
 
-"@me/common@*", "@me/common@file:/Users/me/dev/now/template/cart-ddd/domains/common":
+"@alike-ca/common@*", "@alike-ca/common@file:/Users/me/dev/now/template/cart-ddd/domains/common":
   "resolved" "file:domains/common"
   "version" "0.0.0"
   dependencies:
@@ -1267,19 +1267,19 @@
     "log4js" "^6.5.2"
     "ulidx" "^0.3.0"
 
-"@me/purchase@file:/Users/me/dev/now/template/cart-ddd/domains/purchase":
+"@alike-ca/purchase@file:/Users/me/dev/now/template/cart-ddd/domains/purchase":
   "resolved" "file:domains/purchase"
   "version" "0.0.0"
   dependencies:
-    "@me/common" "*"
-    "@me/settle" "*"
+    "@alike-ca/common" "*"
+    "@alike-ca/settle" "*"
     "log4js" "^6.4.6"
 
-"@me/settle@*", "@me/settle@file:/Users/me/dev/now/template/cart-ddd/domains/settle":
+"@alike-ca/settle@*", "@alike-ca/settle@file:/Users/me/dev/now/template/cart-ddd/domains/settle":
   "resolved" "file:domains/settle"
   "version" "0.0.0"
   dependencies:
-    "@me/common" "*"
+    "@alike-ca/common" "*"
     "log4js" "^6.4.6"
 
 "@next/env@12.0.8":

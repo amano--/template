@@ -1,6 +1,6 @@
 import { purchaseUsecase } from './createUser'
 // import { purchaseMock } from '../../mocks/src/purchase/index';
-import { adMock } from '@me/mocks'
+import { adMock } from '@alike-ca/mocks'
 
 describe('selectAd', () => {
   it('test simple', () => {

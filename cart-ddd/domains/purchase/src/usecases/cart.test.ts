@@ -1,6 +1,6 @@
 import { addCart, settleCart, listRecommendProducts } from './cart'
-import { MockUserAccounts, MockProducts } from '@me/mocks'
-import { expectUsecaseLine } from '@me/common'
+import { MockUserAccounts, MockProducts } from '@alike-ca/mocks'
+import { expectUsecaseLine } from '@alike-ca/common'
 
 describe('(listRecommendProducts) ', () => {
   describe('多言語対応メッセージが取得できることを確認', () => {

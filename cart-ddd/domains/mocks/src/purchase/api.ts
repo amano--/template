@@ -1,5 +1,5 @@
-import { newLogId, UserAccount, apiSettle } from '@me/common'
-import { Product, PurchaseCommandEvent, ProductId, ListProductsInput, CartSettleEvent } from '@me/purchase'
+import { newLogId, UserAccount, apiSettle } from '@alike-ca/common'
+import { Product, PurchaseCommandEvent, ProductId, ListProductsInput, CartSettleEvent } from '@alike-ca/purchase'
 
 import { getLogger } from 'log4js'
 import { newSettleEvent, SettleEvent } from '../settle/types'

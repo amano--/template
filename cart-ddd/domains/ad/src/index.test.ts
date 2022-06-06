@@ -1,6 +1,6 @@
 import { purchaseHoge } from '.'
 // import { purchaseMock } from '../../mocks/src/purchase/index';
-import { purchaseMock } from '@me/mocks'
+import { purchaseMock } from '@alike-ca/mocks'
 
 describe('simple test', () => {
   it('dom draw', () => {

@@ -1,8 +1,8 @@
-import { newLogId, UserAccount } from '@me/common'
+import { newLogId, UserAccount } from '@alike-ca/common'
 import { Product, PurchaseCommandEvent, ProductId, ListProductsInput, CartSettleEvent } from '../src/index'
 
 import { getLogger } from 'log4js'
-import { apiSettle, newSettleEvent, SettleEvent } from '@me/settle'
+import { apiSettle, newSettleEvent, SettleEvent } from '@alike-ca/settle'
 import { MockProducts } from './products'
 const logger = getLogger('purchase/mocks/api')
 

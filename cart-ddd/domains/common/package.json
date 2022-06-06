@@ -1,5 +1,5 @@
 {
-  "name": "@me/common",
+  "name": "@alike-ca/common",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
