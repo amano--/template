@@ -1,7 +1,7 @@
 import React from 'react'
 import { NextComponentType, NextPageContext } from 'next'
 import { NextRouter } from 'next/router'
-import { ChakraProvider } from '@chakra-ui/react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 // // 1. Import the extendTheme function
 // import { extendTheme } from '@chakra-ui/react'
@@ -16,6 +16,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 // }
 
 // const theme = extendTheme({ colors })
+const queryClient = new QueryClient()
 
 export type AppRenderProps = {
   pageProps: object
@@ -26,8 +27,8 @@ export type AppRenderProps = {
 
 export default function App({ Component, pageProps }: AppRenderProps) {
   return (
-    <ChakraProvider>
+    <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
-    </ChakraProvider>
+    </QueryClientProvider>
   )
 }

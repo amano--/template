@@ -1,5 +1,7 @@
 import * as React from 'react'
-export const Button = () => {
+
+type Props = { hoge?: string }
+export const Button = (props: Props) => {
   console.log('')
 
   return (

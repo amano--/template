@@ -1,5 +1,5 @@
+import { MockUserAccountIdType } from '../mocks'
 import { CommandLog, ResponseEvent } from './event'
-import { MockUserAccountIdType } from './tbd_for_code_completion_from_mock'
 
 export type UserId = MockUserAccountIdType
 

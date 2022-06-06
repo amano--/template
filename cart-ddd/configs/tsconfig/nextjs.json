@@ -15,7 +15,7 @@
     "module": "esnext",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "noErrorTruncation": true
   },
   "include": ["src","mocks", "next-env.d.ts"],

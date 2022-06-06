@@ -1,20 +1,20 @@
-import { newLogId, UserAccount } from '@alike-ca/common'
-import { Product, PurchaseCommandEvent, ProductId, ListProductsInput, CartSettleEvent } from '../src/index'
+import { UserAccount } from '@alike-ca/common'
+import { Product, ProductId, CartSettleEvent, ListRecommendProductsInput } from '../src/index'
 
 import { getLogger } from 'log4js'
-import { apiSettle, newSettleEvent, SettleEvent } from '@alike-ca/settle'
+import { apiSettle, newSettleEvent } from '@alike-ca/settle'
 import { MockProducts } from './products'
 const logger = getLogger('purchase/mocks/api')
 
 const mutations = {
-  saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
-    logger.info('saveEvent: ', 'e=', e)
+  // saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {
+  //   logger.info('saveEvent: ', 'e=', e)
 
-    return Promise.resolve({
-      ...e,
-      logId: newLogId(),
-    })
-  },
+  //   return Promise.resolve({
+  //     ...e,
+  //     logId: newLogId(),
+  //   })
+  // },
 
   // TODO UserAccount | GuestAccount から GuestAccount のうまい抜き方の調査
   // settleCart: (e: Omit<CartSettleEvent, 'account'> & { account: UserAccount })
@@ -47,7 +47,7 @@ const queries = {
     return Promise.resolve(results)
   },
 
-  listProducts: async (input: ListProductsInput): Promise<Product[]> => {
+  listProducts: async (input: ListRecommendProductsInput): Promise<Product[]> => {
     logger.info('listProducts: ', 'input=', input)
 
     return Promise.resolve(Object.values([MockProducts.normal, MockProducts.relate1]))

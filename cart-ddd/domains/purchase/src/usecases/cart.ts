@@ -19,7 +19,7 @@ import { messageFindersForPurchase } from '../messages'
 import { getLogger } from 'log4js'
 const logger = getLogger('domains/purchase/usecases/cart')
 
-type ListRecommendProductsInput = { keyword: string }
+export type ListRecommendProductsInput = { keyword: string }
 
 type ListRecommendProductsEvent = { q: 'ListRecommendProducts'; input: ListRecommendProductsInput }
 
