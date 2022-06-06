@@ -52,7 +52,7 @@ describe('* (addCart) カートに登録する', () => {
         },
       })
 
-      // response event が Union型で その詳細までテストしたい場合 if や switch で型の絞り込みをしてから、expect する
+      // response event が Union型なので その詳細までテストしたい場合 if や switch で型の絞り込みをしてから、expect する
       const event = results.addCart.actual
       if (event.r === 'CartAddProductOutOfStock') {
         expect(event.list).toEqual([{ productId: 'relate1' }, { productId: 'relate2' }])

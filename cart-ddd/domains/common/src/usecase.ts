@@ -1,7 +1,3 @@
-// import { map, get } from 'lodash-es'
-import map from 'just-map-object'
-import get from 'just-safe-get'
-
 import { OutputEvent } from './event'
 // import { string } from 'fp-ts'
 
@@ -36,16 +32,13 @@ export const execUsecases = async <A extends Usecases<A>, B extends PickUsecases
   usecases: A,
   testParams: B
 ): Promise<PickUsecasesExecResults<A>> => {
-  const results = map(usecases, async (f, name): Promise<[string, any]> => {
-    const param = get(testParams, name)
-
-    // console.log(name, param)
-
-    //Object.setPrototypeOf({},name)
-    return [name, { input: param.in, expected: param.out, actual: await f(param.in) }]
+  // TODO as any でごまかしていることへの対処
+  const results = Object.entries(usecases).map(async ([key, usecaseLine]: [string, UsecaseLineAny]) => {
+    const param = (testParams as any)[key]
+    return [key, { input: param.in, expected: param.out, actual: await usecaseLine(param.in) }]
   })
-
-  const res = Object.fromEntries(await Promise.all(results))
+  const res = Object.fromEntries(await Promise.all(results as any))
+  // console.log({ res })
   return res as PickUsecasesExecResults<A>
 }
 
