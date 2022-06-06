@@ -1,21 +1,9 @@
-import React from 'react'
+// import React from 'react'
 import { NextComponentType, NextPageContext } from 'next'
 import { NextRouter } from 'next/router'
 import { ChakraProvider } from '@chakra-ui/react'
 
-// // 1. Import the extendTheme function
-// import { extendTheme } from '@chakra-ui/react'
-
-// // 2. Extend the theme to include custom colors, fonts, etc
-// const colors = {
-//   brand: {
-//     900: '#1a365d',
-//     800: '#153e75',
-//     700: '#2a69ac',
-//   },
-// }
-
-// const theme = extendTheme({ colors })
+import theme from '../src/theme'
 
 export type AppRenderProps = {
   pageProps: object
@@ -23,11 +11,12 @@ export type AppRenderProps = {
   Component: NextComponentType<NextPageContext, AppRenderProps, object>
   router: NextRouter
 }
-
-export default function App({ Component, pageProps }: AppRenderProps) {
+//参考 [ Next.jsでChakraUIを使用しようとしたら useSystemColorMode のエラーが出たので解決 ](https://zenn.dev/estra/articles/nextjs-chakraui-error-usesysmtecolormode)
+function MyApp({ Component, pageProps }: AppRenderProps) {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Component {...pageProps} />
     </ChakraProvider>
   )
 }
+export default MyApp

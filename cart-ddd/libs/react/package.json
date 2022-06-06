@@ -7,6 +7,11 @@
   "types": "./src/index.tsx",
   "license": "MIT",
 
+   "dependencies": {
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-icons": "^4.4.0"
+  },
    "devDependencies": {
     "config-min": "*",
     "tsconfig": "*",

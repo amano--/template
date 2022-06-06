@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 import { Button as MyBtn } from '@alike-ca/react-libs'
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, Button, Heading } from '@chakra-ui/react'
 
