@@ -2,13 +2,22 @@
   "name": "alike-ca",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
+  "workspaces": {
+    "packages": [
     "domains/*",
     "libs/*",
     "configs/*",
 
     "clients/*",
     "servers/*"  ],
+    "nohoist": [
+      "@emotion/core/types",
+      "**/@emotion/core/types",
+      "**/@types/theme-ui",
+      "**/@types/theme-ui/**",
+      "**/@types/theme-ui__components"
+    ]
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
