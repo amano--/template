@@ -1,4 +1,7 @@
-import * as _ from 'lodash'
+// import { map, get } from 'lodash-es'
+import map from 'just-map-object'
+import get from 'just-safe-get'
+
 import { OutputEvent } from './event'
 // import { string } from 'fp-ts'
 
@@ -33,8 +36,8 @@ export const execUsecases = async <A extends Usecases<A>, B extends PickUsecases
   usecases: A,
   testParams: B
 ): Promise<PickUsecasesExecResults<A>> => {
-  const results = _.map(usecases, async (f, name): Promise<[string, any]> => {
-    const param = _.get(testParams, name)
+  const results = map(usecases, async (f, name): Promise<[string, any]> => {
+    const param = get(testParams, name)
 
     // console.log(name, param)
 
