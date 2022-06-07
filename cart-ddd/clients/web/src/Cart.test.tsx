@@ -12,7 +12,7 @@ describe('simple test', () => {
     const domText = prettyDOM(target.baseElement)
     console.log(domText)
 
-    expect(domText).toContain('Boop')
+    expect(domText).toContain('outOfStock')
   })
 })
 
@@ -27,8 +27,5 @@ describe('useRelatedProductList', () => {
     await waitFor(() => {
       expect(result.current).toEqual([{ productId: 'relate1' }, { productId: 'relate2' }])
     })
-
-    //   await rerender()
-    //   expect(result.current).toContain('Boop')
   })
 })

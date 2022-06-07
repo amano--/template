@@ -42,6 +42,25 @@ export const useRelatedProductList = (props: { productId: ProductId }) => {
 //   return undefined
 // }
 
+export const RelateProductsPanel: FC<{ list: Product[] }> = (props) => {
+  return (
+    <div>
+      {props.list.map((product) => (
+        <>
+          <h4>{product.productId}</h4>
+
+          <button
+            onClick={async () => {
+              // const res = await addCart({ c: 'CartAdd', productId: props.productId })
+              // const relateList = res.r === 'CartAddProductOutOfStock' ? res.list : undefined
+            }}
+          />
+        </>
+      ))}
+    </div>
+  )
+}
+
 export const ProductPanel: React.FC<Product> = (props) => {
   return (
     <div>

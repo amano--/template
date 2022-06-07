@@ -177,6 +177,7 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
+    // '\\.[jt]sx?$': 'babel-jest',
     '\\.[jt]sx?$': 'ts-jest',
     // '\\.css$': 'some-css-transformer',
   },

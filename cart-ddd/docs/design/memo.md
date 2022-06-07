@@ -37,3 +37,13 @@ Page query 実装
   キャンペーン中
   タイムセール中
   
+コンポーネントの命名規則
+  XxxPanel
+
+
+ユーザー操作による状態変化の実装方法
+  イベントハンドラ内に実装
+  Hook分離
+    fetch hook に mount 時 fetch させないようにする?
+  renderHook
+  
