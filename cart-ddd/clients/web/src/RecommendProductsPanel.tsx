@@ -1,29 +1,48 @@
 import React, { FC } from 'react'
 import { useQuery } from 'react-query'
-import { addCart, Product, ProductId } from '@alike-ca/purchase'
+import { addCart, listRecommendProducts, Product, ProductId } from '@alike-ca/purchase'
+import { UsecaseLineAny } from '@alike-ca/common'
 
-export const useRelatedProductList = ({
+type RecommendProductsPanelState = Awaited<ReturnType<typeof listRecommendProducts>> | undefined
+
+export const createUsecaseLineHook =
+  <UC extends UsecaseLineAny>(usecaseLine: UC, baseEvent: Partial<Parameters<UC>[0]>) =>
+  (fetchEnabled?: boolean, ...args: any): Awaited<ReturnType<UC>> | undefined => {
+    const event = { ...baseEvent, ...args }
+    const cacheKey = JSON.stringify(event) ?? ''
+    const enabled = cacheKey !== '' || fetchEnabled
+
+    const res = useQuery(cacheKey, (ctx) => usecaseLine(event), {
+      enabled,
+    })
+
+    if (res.isFetched) {
+      return res.data!
+    }
+
+    return undefined
+  }
+
+export const a = createUsecaseLineHook(listRecommendProducts, {
+  q: 'ListRecommendProducts',
+  input: { keyword: 'hoge' },
+} as const)
+
+export const useRecommendProductsPanel = ({
   productId,
   fetchEnabled: enabled = true,
 }: {
   productId: ProductId
   fetchEnabled?: boolean
-}) => {
-  const event = { c: 'CartAdd', productId } as const
+}): RecommendProductsPanelState => {
+  const event = { q: 'ListRecommendProducts', input: { keyword: 'hoge' } } as const
   const cacheKey = JSON.stringify(event)
-  // const testRes = {
-  //   r: 'CartAddProductOutOfStock',
-  //   hoge: 'hoge foo',
-  //   list: [{ productId: 'ssss' }],
-  // } as const
+  const res = useQuery(cacheKey, (ctx) => listRecommendProducts(event), {
+    enabled,
+  })
 
-  // const r = { isFetched: true, data: testRes }
-  //const r = useQuery(event.c, () => testRes)
-  const r = useQuery(cacheKey, (ctx) => addCart(event), { enabled })
-
-  if (r.isFetched) {
-    const res = r.data!
-    return res.r === 'CartAddProductOutOfStock' ? res.list : undefined
+  if (res.isFetched) {
+    return res.data
   }
 
   return undefined

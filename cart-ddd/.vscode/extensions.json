@@ -17,8 +17,7 @@
       "mosapride.zenkaku", //全角の空白文字を可視化
 
       // React 関連
-      // ReactComponent を Previewできるようになる
-      "zenclabs.reactpreview",
+      "zenclabs.preview",// ReactComponent を Previewできるようになる
 
       // TypeScript 関連のプラグイン
       "pmneo.tsimporter",

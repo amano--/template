@@ -20,12 +20,25 @@ describe('useRelatedProductList', () => {
   const wrapper = (props: any) => <QueryClientProvider client={new QueryClient()}>{props.children}</QueryClientProvider>
 
   it('render hook', async () => {
-    const { result } = renderHook(() => useRelatedProductList({ productId: 'outOfStock' }), { wrapper })
+    const { result } = renderHook(() => useRelatedProductList({ productId: 'outOfStock' }), {
+      wrapper,
+    })
 
     expect(result.current).toEqual(undefined)
 
     await waitFor(() => {
       expect(result.current).toEqual([{ productId: 'relate1' }, { productId: 'relate2' }])
+    })
+  })
+  it('mount時 fetch しないことを確認', async () => {
+    const { result } = renderHook(() => useRelatedProductList({ productId: 'outOfStock', fetchEnabled: false }), {
+      wrapper,
+    })
+
+    expect(result.current).toEqual(undefined)
+
+    await waitFor(() => {
+      expect(result.current).toEqual(undefined)
     })
   })
 })
