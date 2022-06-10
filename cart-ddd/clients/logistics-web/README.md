@@ -1,3 +1,10 @@
+
+
+[ vite-solid-tailwind-starter ](https://github.com/wobsoriano/vite-solid-tailwind-starter) をベースに構築
+
+
+
+
 # Vite + Solid + Tailwind CSS starter
 
 Inspired by [posva's](https://github.com/posva) [vite-tailwind-starter](https://github.com/posva/vite-tailwind-starter)
