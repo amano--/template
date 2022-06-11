@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Error = {
-    code: number;
-    message: string;
+export type Tag = {
+    id?: number;
+    name?: string;
 };
 

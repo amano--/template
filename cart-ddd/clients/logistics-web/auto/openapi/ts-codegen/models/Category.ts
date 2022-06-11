@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type NewPet = {
-    name: string;
-    tag?: string;
+export type Category = {
+    id?: number;
+    name?: string;
 };
 
