@@ -1,0 +1,11 @@
+title: ShippingMethodByHattori
+x-stoplight:
+  id: 38s95zidlhlom
+type: object
+properties:
+  id:
+    type: string
+  label:
+    type: string
+  hattori:
+    type: string
