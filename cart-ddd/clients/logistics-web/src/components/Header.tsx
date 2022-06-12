@@ -1,19 +1,17 @@
-import { Component } from 'solid-js';
+import { Component } from 'solid-js'
 
-interface Props {
+export interface HeaderProps {
   title: string
 }
 
-const Header: Component<Props> = (props) => {
+export const Header: Component<HeaderProps> = (props) => {
   return (
-    <header class="bg-white shadow">
+    <header class="bg-red-400 shadow">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold leading-tight text-gray-900">
-          {props.title}
-        </h1>
+        <h1 class="text-3xl font-bold leading-tight text-gray-900">{props.title} AAA</h1>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+// export default Header;

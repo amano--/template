@@ -1,5 +1,5 @@
-import { Component } from 'solid-js';
-import Header from '../components/Header'
+import { Component } from 'solid-js'
+import { Header } from '../components/Header'
 
 const Home: Component = () => {
   return (
@@ -17,7 +17,7 @@ const Home: Component = () => {
         </div>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

@@ -1,5 +1,5 @@
-import { Component } from 'solid-js';
-import Header from '../components/Header'
+import { Component } from 'solid-js'
+import { Header } from '../components/Header'
 
 const About: Component = () => {
   return (
@@ -23,10 +23,7 @@ const About: Component = () => {
                 </h2>
                 <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                   All the code present here is part of a free sample from{' '}
-                  <a
-                    href="https://tailwindui.com"
-                    class="text-indigo-600 underline hover:text-indigo-500"
-                  >
+                  <a href="https://tailwindui.com" class="text-indigo-600 underline hover:text-indigo-500">
                     Tailwind UI
                   </a>{' '}
                   but, you don't need it.
@@ -55,7 +52,7 @@ const About: Component = () => {
         </div>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default About;
+export default About
