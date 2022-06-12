@@ -3,13 +3,14 @@ import { createRoot } from 'solid-js'
 import { insert, template, createComponent } from 'solid-js/web'
 
 export const decorators = [
-  (Story) =>
-    createRoot(() => {
-      console.log('.storybook/preview.js : Story = ', Story)
+  (Story) => {
+    return createRoot(() => {
+      // console.log('.storybook/preview.js : Story = ', Story)
       const element = template('<div/>').cloneNode(true)
       insert(element, createComponent(Story, {}))
       return element
-    }),
+    })
+  },
 ]
 
 export const parameters = {

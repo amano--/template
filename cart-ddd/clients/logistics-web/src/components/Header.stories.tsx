@@ -11,6 +11,8 @@
 // }
 
 import { Story, Meta } from '@storybook/html'
+import { createRoot } from 'solid-js'
+import { createComponent, insert, template } from 'solid-js/web'
 import { Header, HeaderProps } from './Header'
 // import { ComponentMeta, StoryObj } from '@storybook/html'
 
@@ -19,6 +21,16 @@ export default {
   argTypes: {
     count: { control: 'number' },
   },
+  // decorators: [
+  //   (Story) => {
+  //     return createRoot(() => {
+  //       console.log('.storybook/preview.js : Story = ', Story)
+  //       const element = template('<div/>').cloneNode(true)
+  //       insert(element, createComponent(Story, {}))
+  //       return element
+  //     })
+  //   },
+  // ],
 } as Meta
 
 const Template: Story<HeaderProps> = (args) => <Header {...args} />
