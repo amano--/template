@@ -5,20 +5,17 @@ module.exports = {
   core: {
     builder: '@storybook/builder-vite',
   },
-
   framework: '@storybook/html',
-
-  stories: ['../src/**/*.stories.tsx'],
-
   addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-interactions'],
+  features: {
+    storyStoreV7: true,
+    previewCsfV3: true,
+  },
 
   async viteFinal(config, { configType }) {
     config.plugins.unshift(Solid({ hot: false }))
 
     return config
-  },
-  features: {
-    storyStoreV7: true,
   },
 }
 // module.exports = {

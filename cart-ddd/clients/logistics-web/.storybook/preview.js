@@ -1,19 +1,23 @@
-import { render } from 'solid-js/web'
-
-let disposeStory
+// 参考 https://codesandbox.io/s/qx2r0?file=/.storybook/preview.js:0-456
+import { createRoot } from 'solid-js'
+import { insert, template, createComponent } from 'solid-js/web'
 
 export const decorators = [
-  (Story) => {
-    if (disposeStory) {
-      disposeStory()
-    }
-    const root = document.getElementById('root')
-    const solid = document.createElement('div')
-
-    solid.setAttribute('id', 'solid-root')
-    root.appendChild(solid)
-    disposeStory = render(Story, solid)
-    return solid
-    // return createRoot(() => Story()); // do not work correctly https://github.com/solidjs/solid/issues/553
-  },
+  (Story) =>
+    createRoot(() => {
+      console.log('.storybook/preview.js : Story = ', Story)
+      const element = template('<div/>').cloneNode(true)
+      insert(element, createComponent(Story, {}))
+      return element
+    }),
 ]
+
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+}
