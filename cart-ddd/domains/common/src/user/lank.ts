@@ -41,7 +41,7 @@ const list = {
 
 const typeCheckLank: { [P: string]: UserLank } = list
 
-export type UserLankKey = keyof typeof list
+export type UserLankTag = keyof typeof list
 
 // type Hoge<A extends Record<string, unknown>> = A extends Record<infer K, infer V> ? { K: V } : never
 // type A = Hoge<typeof UserLanks>
@@ -55,8 +55,8 @@ const sliceByKey = (key: string, obj: Record<string, unknown>, direction: 'under
   return Object.fromEntries(res)
 }
 
-const get = <K extends UserLankKey>(key: K) => list[key]
-const overLankKeys = <K extends UserLankKey>(key: K) => Object.keys(sliceByKey(key, list, 'over')) as [UserLankKey]
-const underLankKeys = <K extends UserLankKey>(key: K) => Object.keys(sliceByKey(key, list, 'under')) as [UserLankKey]
+const get = <K extends UserLankTag>(key: K) => list[key]
+const overLankKeys = <K extends UserLankTag>(key: K) => Object.keys(sliceByKey(key, list, 'over')) as [UserLankTag]
+const underLankKeys = <K extends UserLankTag>(key: K) => Object.keys(sliceByKey(key, list, 'under')) as [UserLankTag]
 
 export const UserLank = { list, get, overLankKeys, underLankKeys }

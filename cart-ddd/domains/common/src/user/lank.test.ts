@@ -2,7 +2,7 @@ import { UserLank } from './lank'
 
 describe('UserLank simple test', () => {
   it('get', async () => {
-    expect(UserLank.get('Silver')).toMatchObject({ utag: 'Silver' })
+    expect(UserLank.get('Silver')).toMatchObject({ ult: 'Silver' })
   })
 
   it('overLankKeys', async () => {

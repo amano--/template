@@ -1,21 +1,5 @@
-import { UserLankKey, UserLank } from '@alike-ca/common'
-/**
- *  @param smt tagged union の Keyに使用するタグ. ShippingMethod Tag の略。
- *  @param dst tagged union の Keyに使用するタグ. Delivery Spec Tag の略。
- */
-type DeliverySpec = {
-  smt: string
-  dst: string
-
-  label: string
-  desc: string
-  comment: string
-  allowLank: [UserLankKey]
-  priceMin: number
-  priceMax: number
-  estimatedTime: number
-  estimatedTimeDesc: string
-}
+import { UserLank } from '@alike-ca/common'
+import { DeliverySpec } from './ShippingMethod'
 
 type Doraemon = DeliverySpec & {
   smt: 'doraemon'
@@ -24,7 +8,7 @@ type Doraemon = DeliverySpec & {
   yojigenPocket: () => string
 }
 
-const dora: Doraemon = {
+const dora = {
   smt: 'doraemon',
   dst: 'dora',
   label: 'ドラえもん配送',
@@ -37,7 +21,7 @@ const dora: Doraemon = {
   estimatedTimeDesc: 'オプション次第で時間はどうとでもなるので、0時間とさせていただきました',
 
   yojigenPocket: () => 'はい、タケコプター',
-}
+} as const
 
 type Suneo = DeliverySpec & {
   smt: 'doraemon'
@@ -47,7 +31,7 @@ type Suneo = DeliverySpec & {
   summonMama: () => string
 }
 
-const suneo: Suneo = {
+const suneo = {
   smt: 'doraemon',
   dst: 'suneo',
   label: 'スネ夫のクール宅急便',
@@ -60,31 +44,10 @@ const suneo: Suneo = {
   estimatedTimeDesc: '無意味に値段が高いだけで、配送時間は至って普通です。マニア向けのプランになっております',
 
   summonMama: () => 'スネちゃま、おこずかいあげる',
-}
+} as const
 
-type ShippingMethodByDoraemon = Doraemon | Suneo
-type ShippingMethodByDoraemonKey = ShippingMethodByDoraemon['dst']
+export const packageScopeForDeliverySpecsByDoraemon = { dora, suneo }
+const forTypeCheck: { [P: string]: DeliverySpec } = packageScopeForDeliverySpecsByDoraemon
 
-type Gufu = DeliverySpec & {
-  smt: 'gundam'
-  dst: 'gufu'
-  // 個別typeの固有メソッドが呼べることを確認するためだけの適当なメソッド
-  zakutoHaChigau: () => string
-}
-
-type Gundam = DeliverySpec & {
-  smt: 'gundam'
-  dst: 'gundam'
-
-  // 個別typeの固有メソッドが呼べることを確認するためだけの適当なメソッド
-  beamSaber: () => string
-}
-type ShippingMethodByGundam = Gufu | Gundam
-type ShippingMethodByGundamKey = ShippingMethodByGundam['dst']
-
-export type ShippingMethod = ShippingMethodByDoraemon | ShippingMethodByGundam
-export type ShippingMethodKey = ShippingMethod['smt']
-
-const get = <SMT extends ShippingMethodKey,DST extends ShippingMethodKey >(key: SMT) => lanks[key]
-
-export const ShippingMethod = {}
+export type ShippingMethodByDoraemon = Doraemon | Suneo
+export type ShippingMethodByDoraemonKey = ShippingMethodByDoraemon['dst']
