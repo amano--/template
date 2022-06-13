@@ -8,12 +8,12 @@ type Gufu = DeliverySpec & {
   zakutoHaChigau: () => string
 }
 
-const gufu = {
+const gufu: Gufu = {
   smt: 'gundam',
   dst: 'gufu',
   label: 'スネ夫のクール宅急便',
   desc: 'クールな態度で配送するだけなので、なまものを送っても普通に腐るのでご注意ください',
-  allowLank: UserLank.overLankKeys('Gold'),
+  allowLanks: UserLank.overLankKeys('Bronze'),
   comment: 'コスト度外視のゴージャスな配送を目指します',
   priceMin: 1_0000,
   priceMax: 10_0000,
@@ -21,7 +21,7 @@ const gufu = {
   estimatedTimeDesc: '無意味に値段が高いだけで、配送時間は至って普通です。マニア向けのプランになっております',
 
   zakutoHaChigau: () => 'ザクとは違うのだよ、ザクとは',
-} as const
+} //as const
 
 type Gundam = DeliverySpec & {
   smt: 'gundam'
@@ -31,12 +31,12 @@ type Gundam = DeliverySpec & {
   naguttane: () => string
 }
 
-const gundam = {
+const gundam: Gundam = {
   smt: 'gundam',
   dst: 'gundam',
   label: 'スネ夫のクール宅急便',
   desc: 'クールな態度で配送するだけなので、なまものを送っても普通に腐るのでご注意ください',
-  allowLank: UserLank.overLankKeys('Gold'),
+  allowLanks: UserLank.overLankKeys('Gold'),
   comment: 'コスト度外視のゴージャスな配送を目指します',
   priceMin: 1_0000,
   priceMax: 10_0000,
@@ -44,9 +44,9 @@ const gundam = {
   estimatedTimeDesc: '無意味に値段が高いだけで、配送時間は至って普通です。マニア向けのプランになっております',
 
   naguttane: () => '殴ったね、ジオングにも殴られたことないのに',
-} as const
+} //as const
 
-export const packageScopeForDeliverySpecsByGundam = { gufu, gundam }
+export const packageScopeForDeliverySpecsByGundam = { gufu, gundam } as const
 const forTypeCheck: { [P: string]: DeliverySpec } = packageScopeForDeliverySpecsByGundam
 
 export type ShippingMethodByGundam = Gufu | Gundam
