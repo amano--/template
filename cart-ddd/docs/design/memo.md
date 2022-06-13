@@ -47,3 +47,4 @@ Page query 実装
     fetch hook に mount 時 fetch させないようにする?
   renderHook
   
+コンパニオンオブジェクト的な使い方はありか?

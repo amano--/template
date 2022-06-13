@@ -187,10 +187,10 @@ components:
         - lastName
         - email
         - emailVerified
-    ShippingMethod:
-      title: ShippingMethod
+    DeliveryProvider:
+      title: DeliveryProvider
       oneOf:
-        - $ref: ../models/ShippingMethodByDoraemon.yaml
-        - $ref: ../models/ShippingMethodByHattori.yaml
+        - $ref: ../models/DeliveryProviderByDoraemon.yaml
+        - $ref: ../models/DeliveryProviderByHattori.yaml
       x-stoplight:
         id: c9m9iyhxta7gj

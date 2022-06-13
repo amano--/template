@@ -1,4 +1,4 @@
-title: 'ShippingMethod'
+title: 'DeliveryProvider'
 oneOf:
-  - $ref: ./ShippingMethodByDoraemon.yaml
-  - $ref: ./ShippingMethodByHattori.yaml
+  - $ref: ./DeliveryProviderByDoraemon.yaml
+  - $ref: ./DeliveryProviderByHattori.yaml

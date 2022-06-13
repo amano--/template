@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { ReadStream } from 'fs'
+import type { Readmtream } from 'fs'
 import type * as Types from '../../../@types'
 
 export type Methods = {
@@ -13,7 +13,7 @@ export type Methods = {
       /** Additional data to pass to server */
       additionalMetadata: string
       /** file to upload */
-      file: (File | ReadStream)
+      file: File | Readmtream
     }
   }
 }

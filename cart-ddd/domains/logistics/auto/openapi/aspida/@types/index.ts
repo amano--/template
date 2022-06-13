@@ -12,15 +12,15 @@ export type User = {
   createDate?: string | undefined
 }
 
-export type ShippingMethod = ShippingMethodByDoraemon | ShippingMethodByHattori
+export type DeliveryProvider = DeliveryProviderByDoraemon | DeliveryProviderByHattori
 
-export type ShippingMethodByDoraemon = {
+export type DeliveryProviderByDoraemon = {
   id?: string | undefined
   label?: string | undefined
   doraemon?: string | undefined
 }
 
-export type ShippingMethodByHattori = {
+export type DeliveryProviderByHattori = {
   id?: string | undefined
   label?: string | undefined
   hattori?: string | undefined

@@ -274,22 +274,22 @@
           "emailVerified"
         ]
       },
-      "ShippingMethod": {
-        "title": "ShippingMethod",
+      "DeliveryProvider": {
+        "title": "DeliveryProvider",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ShippingMethodByDoraemon"
+            "$ref": "#/components/schemas/DeliveryProviderByDoraemon"
           },
           {
-            "$ref": "#/components/schemas/ShippingMethodByHattori"
+            "$ref": "#/components/schemas/DeliveryProviderByHattori"
           }
         ],
         "x-stoplight": {
           "id": "c9m9iyhxta7gj"
         }
       },
-      "ShippingMethodByDoraemon": {
-        "title": "ShippingMethodByDoraemon",
+      "DeliveryProviderByDoraemon": {
+        "title": "DeliveryProviderByDoraemon",
         "x-stoplight": {
           "id": "3w65xbnum1ge8"
         },
@@ -306,8 +306,8 @@
           }
         }
       },
-      "ShippingMethodByHattori": {
-        "title": "ShippingMethodByHattori",
+      "DeliveryProviderByHattori": {
+        "title": "DeliveryProviderByHattori",
         "x-stoplight": {
           "id": "38s95zidlhlom"
         },

@@ -1,16 +1,16 @@
 import { UserLank } from '@alike-ca/common'
-import { DeliverySpec } from './ShippingMethod'
+import { DeliveryMethod } from '../DeliveryProvider'
 
-type DeliverySpecByDoraemon = DeliverySpec & {
-  smt: 'doraemon'
-  dst: 'dora'
+type DeliveryMethodByDoraemon = DeliveryMethod & {
+  dpt: 'doraemon'
+  dmt: 'dora'
   // 個別typeの固有メソッドが呼べることを確認するためだけの適当なメソッド
   yojigenPocket: () => string
 }
 
-const dora: DeliverySpecByDoraemon = {
-  smt: 'doraemon',
-  dst: 'dora',
+const dora: DeliveryMethodByDoraemon = {
+  dpt: 'doraemon',
+  dmt: 'dora',
   label: 'ドラえもん配送',
   desc: '主にどこでもドアによる配送になります。タイムマシンオプションを使用すると時間を指定した配送(過去指定は応相談(1億~))が可能になります',
   allowLanks: ['Platinum'],
@@ -23,17 +23,17 @@ const dora: DeliverySpecByDoraemon = {
   yojigenPocket: () => 'はい、タケコプター',
 } // as const
 
-type DeliverySpecBySuneo = DeliverySpec & {
-  smt: 'doraemon'
-  dst: 'suneo'
+type DeliveryMethodBySuneo = DeliveryMethod & {
+  dpt: 'doraemon'
+  dmt: 'suneo'
 
   // 個別typeの固有メソッドが呼べることを確認するためだけの適当なメソッド
   summonMama: () => string
 }
 
-const suneo: DeliverySpecBySuneo = {
-  smt: 'doraemon',
-  dst: 'suneo',
+const suneo: DeliveryMethodBySuneo = {
+  dpt: 'doraemon',
+  dmt: 'suneo',
   label: 'スネ夫のクール宅急便',
   desc: 'クールな態度で配送するだけなので、なまものを送っても普通に腐るのでご注意ください',
   allowLanks: UserLank.overLankKeys('Silver'),
@@ -46,8 +46,8 @@ const suneo: DeliverySpecBySuneo = {
   summonMama: () => 'スネちゃま、おこずかいあげる',
 }
 
-export const packageScopeForDeliverySpecsByDoraemon = { dora, suneo }
-const forTypeCheck: { [P: string]: DeliverySpec } = packageScopeForDeliverySpecsByDoraemon
+export const packageScopeForDeliveryMethodsByDoraemon = { dora, suneo } as const
+const forTypeCheck: { [P: string]: DeliveryMethod } = packageScopeForDeliveryMethodsByDoraemon
 
-export type ShippingMethodByDoraemon = DeliverySpecByDoraemon | DeliverySpecBySuneo
-export type ShippingMethodByDoraemonKey = ShippingMethodByDoraemon['dst']
+export type DeliveryProviderByDoraemon = DeliveryMethodByDoraemon | DeliveryMethodBySuneo
+export type DeliveryProviderByDoraemonKey = DeliveryProviderByDoraemon['dmt']
