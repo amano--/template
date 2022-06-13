@@ -1,56 +1,62 @@
-type UserLankBase = { label: string; desc: string }
+/**
+ *  @param ult tagged union の Keyに使用するタグ. user lank tag の略。
+ */
+type UserLankBase = { ult: string; label: string; desc: string }
 
-type NoneLank = { utag: 'None' } & UserLankBase
-type BronzeLank = { utag: 'Bronze' } & UserLankBase
-type SilverLank = { utag: 'Silver' } & UserLankBase
-type GoldLank = { utag: 'Gold' } & UserLankBase
-type PlatinumLank = { utag: 'Platinum' } & UserLankBase
+type NoneLank = UserLankBase & { ult: 'None' }
+type BronzeLank = UserLankBase & { ult: 'Bronze' }
+type SilverLank = UserLankBase & { ult: 'Silver' }
+type GoldLank = UserLankBase & { ult: 'Gold' }
+type PlatinumLank = UserLankBase & { ult: 'Platinum' }
 
 export type UserLank = NoneLank | BronzeLank | SilverLank | GoldLank | PlatinumLank
 
-export const UserLanks = {
+const list = {
   None: {
-    utag: 'None',
+    ult: 'None',
     label: 'ランクなし',
     desc: 'ランクなし',
   },
   Bronze: {
-    utag: 'Bronze',
+    ult: 'Bronze',
     label: 'ブロンズ',
     desc: 'ブロンズ',
   },
   Silver: {
-    utag: 'Silver',
+    ult: 'Silver',
     label: 'シルバー',
     desc: 'シルバー',
   },
   Gold: {
-    utag: 'Gold',
+    ult: 'Gold',
     label: 'ゴールド',
     desc: 'ゴールド',
   },
   Platinum: {
-    utag: 'Platinum',
+    ult: 'Platinum',
     label: 'プラチナ',
     desc: 'プラチナ',
   },
 } as const
 
-const typeCheckLank: { [P: string]: UserLank } = UserLanks
+const typeCheckLank: { [P: string]: UserLank } = list
 
-export type UserLankKey = keyof typeof UserLanks
+export type UserLankKey = keyof typeof list
 
 // type Hoge<A extends Record<string, unknown>> = A extends Record<infer K, infer V> ? { K: V } : never
 // type A = Hoge<typeof UserLanks>
 // export const split = <V, O extends { [P: keyof O]: V }>(obj: O) => Object.entries(obj)
 // const a = split(UserLanks)
 
-const splitByKey = (key: string, obj: any, direction: 'under' | 'over' = 'over') => {
+const sliceByKey = (key: string, obj: Record<string, unknown>, direction: 'under' | 'over' = 'over') => {
   const arr = Object.entries(obj)
   const start = arr.findIndex(([k]) => k === key)
   const res = direction === 'over' ? arr.slice(start, arr.length) : arr.slice(0, start + 1)
   return Object.fromEntries(res)
 }
 
-export const overLankKeys = (key: UserLankKey) => Object.keys(splitByKey(key, UserLanks, 'over')) as [UserLankKey]
-export const underLankKeys = (key: UserLankKey) => Object.keys(splitByKey(key, UserLanks, 'under')) as [UserLankKey]
+const get = <K extends UserLankKey>(key: K) => list[key]
+const overLankKeys = <K extends UserLankKey>(key: K) => Object.keys(sliceByKey(key, list, 'over')) as [UserLankKey]
+const underLankKeys = <K extends UserLankKey>(key: K) => Object.keys(sliceByKey(key, list, 'under')) as [UserLankKey]
+
+export const UserLank = { list, get, overLankKeys, underLankKeys }

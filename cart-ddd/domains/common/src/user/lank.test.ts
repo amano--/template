@@ -1,11 +1,15 @@
-import { overLankKeys, underLankKeys } from './lank'
+import { UserLank } from './lank'
 
-describe('user lank', () => {
+describe('UserLank simple test', () => {
+  it('get', async () => {
+    expect(UserLank.get('Silver')).toMatchObject({ utag: 'Silver' })
+  })
+
   it('overLankKeys', async () => {
-    expect(overLankKeys('Silver')).toEqual(['Silver', 'Gold', 'Platinum'])
+    expect(UserLank.overLankKeys('Silver')).toEqual(['Silver', 'Gold', 'Platinum'])
   })
 
   it('underLankKeys', async () => {
-    expect(underLankKeys('Silver')).toEqual(['None', 'Bronze', 'Silver'])
+    expect(UserLank.underLankKeys('Silver')).toEqual(['None', 'Bronze', 'Silver'])
   })
 })
