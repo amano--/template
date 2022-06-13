@@ -1,14 +1,14 @@
 import { UserLank } from '@alike-ca/common'
 import { DeliverySpec } from './ShippingMethod'
 
-type Gufu = DeliverySpec & {
+type DeliverySpecByGufu = DeliverySpec & {
   smt: 'gundam'
   dst: 'gufu'
   // 個別typeの固有メソッドが呼べることを確認するためだけの適当なメソッド
   zakutoHaChigau: () => string
 }
 
-const gufu: Gufu = {
+const gufu: DeliverySpecByGufu = {
   smt: 'gundam',
   dst: 'gufu',
   label: 'スネ夫のクール宅急便',
@@ -23,7 +23,7 @@ const gufu: Gufu = {
   zakutoHaChigau: () => 'ザクとは違うのだよ、ザクとは',
 } //as const
 
-type Gundam = DeliverySpec & {
+type DeliverySpecByGundam = DeliverySpec & {
   smt: 'gundam'
   dst: 'gundam'
 
@@ -31,7 +31,7 @@ type Gundam = DeliverySpec & {
   naguttane: () => string
 }
 
-const gundam: Gundam = {
+const gundam: DeliverySpecByGundam = {
   smt: 'gundam',
   dst: 'gundam',
   label: 'スネ夫のクール宅急便',
@@ -49,5 +49,5 @@ const gundam: Gundam = {
 export const packageScopeForDeliverySpecsByGundam = { gufu, gundam } as const
 const forTypeCheck: { [P: string]: DeliverySpec } = packageScopeForDeliverySpecsByGundam
 
-export type ShippingMethodByGundam = Gufu | Gundam
+export type ShippingMethodByGundam = DeliverySpecByGufu | DeliverySpecByGundam
 export type ShippingMethodByGundamKey = ShippingMethodByGundam['dst']

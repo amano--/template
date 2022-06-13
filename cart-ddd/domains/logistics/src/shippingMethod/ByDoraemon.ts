@@ -1,14 +1,14 @@
 import { UserLank } from '@alike-ca/common'
 import { DeliverySpec } from './ShippingMethod'
 
-type Doraemon = DeliverySpec & {
+type DeliverySpecByDoraemon = DeliverySpec & {
   smt: 'doraemon'
   dst: 'dora'
   // 個別typeの固有メソッドが呼べることを確認するためだけの適当なメソッド
   yojigenPocket: () => string
 }
 
-const dora: Doraemon = {
+const dora: DeliverySpecByDoraemon = {
   smt: 'doraemon',
   dst: 'dora',
   label: 'ドラえもん配送',
@@ -23,7 +23,7 @@ const dora: Doraemon = {
   yojigenPocket: () => 'はい、タケコプター',
 } // as const
 
-type Suneo = DeliverySpec & {
+type DeliverySpecBySuneo = DeliverySpec & {
   smt: 'doraemon'
   dst: 'suneo'
 
@@ -31,7 +31,7 @@ type Suneo = DeliverySpec & {
   summonMama: () => string
 }
 
-const suneo: Suneo = {
+const suneo: DeliverySpecBySuneo = {
   smt: 'doraemon',
   dst: 'suneo',
   label: 'スネ夫のクール宅急便',
@@ -49,5 +49,5 @@ const suneo: Suneo = {
 export const packageScopeForDeliverySpecsByDoraemon = { dora, suneo }
 const forTypeCheck: { [P: string]: DeliverySpec } = packageScopeForDeliverySpecsByDoraemon
 
-export type ShippingMethodByDoraemon = Doraemon | Suneo
+export type ShippingMethodByDoraemon = DeliverySpecByDoraemon | DeliverySpecBySuneo
 export type ShippingMethodByDoraemonKey = ShippingMethodByDoraemon['dst']

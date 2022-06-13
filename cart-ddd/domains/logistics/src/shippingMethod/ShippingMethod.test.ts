@@ -1,5 +1,5 @@
 import { UserLank, UserLankTag } from '@alike-ca/common'
-import { DeliverySpecTag, DeliverySpecTagAll, ShippingMethod } from './ShippingMethod'
+import { DeliverySpecTagAll, ShippingMethod } from './ShippingMethod'
 
 describe('ShippingMethod simple test', () => {
   describe('get', () => {
@@ -7,13 +7,6 @@ describe('ShippingMethod simple test', () => {
       expect(ShippingMethod.get('doraemon', 'suneo').summonMama()).toEqual('スネちゃま、おこずかいあげる')
     })
   })
-
-  // it('findByUserLank', async () => {
-  //   //TODO
-  //   console.log(ShippingMethod.list)
-  //   expect(Object.keys(ShippingMethod.findByUserLank(UserLank.get('Silver')))).toEqual(['gufu'])
-  //   expect(Object.keys(ShippingMethod.findByUserLank(UserLank.get('Platinum')))).toEqual(['dora'])
-  // })
 
   describe('findByUserLank', () => {
     // TODO テーブル形式による型情報補完のやり方
@@ -26,15 +19,21 @@ describe('ShippingMethod simple test', () => {
     //   expect(a + b).toBe(expected)
     // })
 
-    const params: [UserLankTag, DeliverySpecTagAll[]][] = [
-      ['Bronze', ['gufu']],
-      ['Silver', ['gufu', 'suneo']],
-      ['Gold', ['gufu', 'suneo', 'gundam']],
-      ['Platinum', ['gufu', 'suneo', 'gundam', 'dora']],
+    const params: { ult: UserLankTag; dsts: DeliverySpecTagAll[] }[] = [
+      { ult: 'None', dsts: [] },
+      { ult: 'Bronze', dsts: ['gufu'] },
+      { ult: 'Silver', dsts: ['gufu', 'suneo'] },
+      { ult: 'Gold', dsts: ['gufu', 'suneo', 'gundam'] },
+      { ult: 'Platinum', dsts: ['gufu', 'suneo', 'gundam', 'dora'] },
     ]
-    //TODO 正しくメッセージ表示
-    test.each(params)('lank=%i DeliverySpec=$1', (lank, expected) => {
-      expect(Object.keys(ShippingMethod.findByUserLank(UserLank.get(lank)))).toEqual(expect.arrayContaining(expected))
+    test.each(params)('UserLank=$ult expected DeliverySpec=$dsts', ({ ult, dsts }) => {
+      const res = ShippingMethod.findByUserLank(UserLank.get(ult))
+      // Object.keys(res).forEach((dst) => {
+      //   expect(dsts.some((k) => k === dst)).toBeTruthy()
+      // })
+
+      // 並び順が一定でないので、ソートし直した者同士を比較
+      expect(Object.keys(res).sort()).toEqual(dsts.sort())
     })
   })
 })
