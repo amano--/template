@@ -5,13 +5,13 @@ import { packageScopeForDeliveryProviderByGundam } from './provider/Gundam'
 /**
  *  @param dpt tagged union の Keyに使用するタグ. Delivery Provider Tag の略。
  */
-export type DeliveryProvider<T extends Record<string, DeliveryMethod>> = {
+export type DeliveryProvider<METHODS extends Record<string, DeliveryMethod>> = {
   dpt: DeliveryProviderTag
 
   label: string
   desc: string
 
-  methods: T
+  methods: METHODS
 }
 
 /**
@@ -34,12 +34,13 @@ export type DeliveryMethod = {
   estimatedTimeDesc: string
 }
 
+// 変数名 と dpt を一致させる必要がある
 const doraemon = packageScopeForDeliveryProviderByDoraemon
 const gundam = packageScopeForDeliveryProviderByGundam
+
 const list = { doraemon, gundam } as const
 const methods = { ...doraemon.methods, ...gundam.methods } as const
 
-// type DeliveryProvider = DeliveryProviderByDoraemon | DeliveryProviderByGundam
 export type DeliveryProviderTag = keyof typeof list
 export type DeliveryMethodTag<TAG extends DeliveryProviderTag> = keyof typeof list[TAG]['methods']
 // type a = DeliveryMethodTag<'gundam'>

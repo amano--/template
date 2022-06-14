@@ -1,4 +1,0 @@
-title: 'DeliveryProvider'
-oneOf:
-  - $ref: ./DeliveryProviderByDoraemon.yaml
-  - $ref: ./DeliveryProviderByHattori.yaml

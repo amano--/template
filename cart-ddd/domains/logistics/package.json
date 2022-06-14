@@ -5,6 +5,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
+    "gen_qt": "npx quicktype schemaForQuicktype.ts -o schema/models/logistics.json --lang schema",
     "lint": "npx eslint src usecases",
     "test": "npx jest"
   },
@@ -36,6 +37,7 @@
     "jest": "^28.1.0",
     "jest-allure": "^0.1.3",
     "prettier": "^2.6.2",
+    "quicktype": "^15.0.261",
     "ts-jest": "^28.0.4",
     "ts-node": "^10.7.0",
     "tsconfig": "*",
