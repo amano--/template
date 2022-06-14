@@ -28,29 +28,27 @@ paths:
                 $ref: '#/components/schemas/DeliveryOrder'
   /order:
     post:
-      summary: Create New User
+      summary: create delivery order
+      tags: []
+      responses: {}
       operationId: post-order
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeliveryOrder'
-        '400':
-          description: Missing Required Information
-      description: Create a new delivery order.
     parameters: []
 components:
   schemas:
     DeliveryMethodTagAll:
-      title: "DeliveryMethodTagAll"
-      type: "string"
-      enum: [ "dora","gufu","gundam","suneo"]
+      title: DeliveryMethodTagAll
+      type: string
+      enum:
+        - dora
+        - gufu
+        - gundam
+        - suneo
     DeliveryProviderTag:
-      title: "DeliveryProviderTag"
-      type: "string"
-      enum: ["doraemon","gundam"]
+      title: DeliveryProviderTag
+      type: string
+      enum:
+        - doraemon
+        - gundam
     DeliveryOrder:
       type: object
       x-examples: {}

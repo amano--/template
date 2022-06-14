@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-stoplight": {
+    "id": "uf745uskbam6t"
+  },
+  "definitions": {
+    "DeliveryMethodTagAll": {
+      "enum": [
+        "dora",
+        "gufu",
+        "gundam",
+        "suneo"
+      ],
+      "title": "DeliveryMethodTagAll",
+      "type": "string"
+    },
+    "DeliveryProviderTag": {
+      "enum": [
+        "doraemon",
+        "gundam"
+      ],
+      "title": "DeliveryProviderTag",
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "deliveryMethodId": {
+      "$ref": "#/definitions/DeliveryMethodTagAll"
+    },
+    "orderAt": {
+      "format": "date-time",
+      "title": "orderAt",
+      "type": "string"
+    },
+    "providerId": {
+      "$ref": "#/definitions/DeliveryProviderTag"
+    },
+    "purchaseId": {
+      "title": "purchaseId",
+      "type": "string"
+    },
+    "userId": {
+      "title": "userId",
+      "type": "string"
+    }
+  },
+  "title": "DeliveryOrder"
+}
