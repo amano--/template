@@ -1,5 +1,5 @@
 import { UserLank } from '@alike-ca/common'
-import { DeliveryMethod } from '../DeliveryProvider'
+import type { DeliveryMethod, DeliveryProvider } from '../DeliveryProvider'
 
 type DeliveryMethodByGufu = DeliveryMethod & {
   dpt: 'gundam'
@@ -46,8 +46,17 @@ const gundam: DeliveryMethodByGundam = {
   naguttane: () => '殴ったね、ジオングにも殴られたことないのに',
 } //as const
 
-export const packageScopeForDeliveryMethodsByGundam = { gufu, gundam } as const
-const forTypeCheck: { [P: string]: DeliveryMethod } = packageScopeForDeliveryMethodsByGundam
+// export const packageScopeForDeliveryMethodsByGundam = { gufu, gundam } as const
+// const forTypeCheck: { [P: string]: DeliveryMethod } = packageScopeForDeliveryMethodsByGundam
 
-export type DeliveryProviderByGundam = DeliveryMethodByGufu | DeliveryMethodByGundam
-export type DeliveryProviderByGundamKey = DeliveryProviderByGundam['dmt']
+// export type DeliveryProviderByGundam = DeliveryMethodByGufu | DeliveryMethodByGundam
+// export type DeliveryProviderByGundamKey = DeliveryProviderByGundam['dmt']
+
+const methods = { gufu, gundam } as const
+
+export const packageScopeForDeliveryProviderByGundam: DeliveryProvider<typeof methods> = {
+  dpt: 'gundam',
+  label: 'ガンダム運送',
+  desc: 'ガンダムファミリーが経営する運送会社です',
+  methods,
+} as const

@@ -1,5 +1,5 @@
 import { UserLank } from '@alike-ca/common'
-import { DeliveryMethod } from '../DeliveryProvider'
+import type { DeliveryMethod, DeliveryProvider } from '../DeliveryProvider'
 
 type DeliveryMethodByDoraemon = DeliveryMethod & {
   dpt: 'doraemon'
@@ -46,8 +46,11 @@ const suneo: DeliveryMethodBySuneo = {
   summonMama: () => 'スネちゃま、おこずかいあげる',
 }
 
-export const packageScopeForDeliveryMethodsByDoraemon = { dora, suneo } as const
-const forTypeCheck: { [P: string]: DeliveryMethod } = packageScopeForDeliveryMethodsByDoraemon
+const methods = { dora, suneo } as const
 
-export type DeliveryProviderByDoraemon = DeliveryMethodByDoraemon | DeliveryMethodBySuneo
-export type DeliveryProviderByDoraemonKey = DeliveryProviderByDoraemon['dmt']
+export const packageScopeForDeliveryProviderByDoraemon: DeliveryProvider<typeof methods> = {
+  dpt: 'doraemon',
+  label: 'ドラえもん運輸',
+  desc: 'ドラえもんファミリーが経営する運送会社です',
+  methods,
+} as const
