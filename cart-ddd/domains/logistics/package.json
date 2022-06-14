@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "gen_qt": "npx quicktype schemaForQuicktype.ts -o schema/models/logistics.json --lang schema",
+    "tjs": "npx typescript-json-schema  schema/quickType/schemaForQuicktype.ts DeliveryOrder --topRef --titles ",
     "lint": "npx eslint src usecases",
     "test": "npx jest"
   },
@@ -41,6 +41,7 @@
     "ts-jest": "^28.0.4",
     "ts-node": "^10.7.0",
     "tsconfig": "*",
-    "typescript": "~4.7.3"
+    "typescript": "~4.7.3",
+    "typescript-json-schema": "^0.53.1"
   }
 }

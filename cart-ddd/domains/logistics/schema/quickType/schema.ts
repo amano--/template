@@ -1,5 +1,4 @@
-import { DeliveryProviderTag, DeliveryMethodTagAll } from './src/delivery/DeliveryProvider'
-type HogeHoge = { hoge: string }
+import { DeliveryProviderTag, DeliveryMethodTagAll } from '../../src/delivery/DeliveryProvider'
 
 type DeliveryOrder = {
   userId: string
