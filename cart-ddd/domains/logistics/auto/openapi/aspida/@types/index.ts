@@ -1,27 +1,26 @@
 /* eslint-disable */
-export type User = {
-  /** Unique identifier for the given user. */
-  id: number
-  firstName: string
-  lastName: string
-  email: string
-  dateOfBirth?: string | undefined
-  /** Set to true if the user's email has been verified. */
-  emailVerified: boolean
-  /** The date that the user was created. */
-  createDate?: string | undefined
-}
+export type DeliveryMethodTagAll = 'dora' | 'gufu' | 'gundam' | 'suneo'
 
-export type DeliveryProvider = DeliveryProviderByDoraemon | DeliveryProviderByHattori
+export type DeliveryProviderTag = 'doraemon' | 'gundam'
 
-export type DeliveryProviderByDoraemon = {
-  id?: string | undefined
-  label?: string | undefined
-  doraemon?: string | undefined
-}
+export type DeliveryOrder = {
+  deliveryMethodId?: DeliveryMethodTagAll | undefined
 
-export type DeliveryProviderByHattori = {
-  id?: string | undefined
-  label?: string | undefined
-  hattori?: string | undefined
+  orderAt?: {
+    format?: string | undefined
+    title?: string | undefined
+    type?: string | undefined
+  } | undefined
+
+  providerId?: DeliveryProviderTag | undefined
+
+  purchaseId?: {
+    title?: string | undefined
+    type?: string | undefined
+  } | undefined
+
+  userId?: {
+    title?: string | undefined
+    type?: string | undefined
+  } | undefined
 }

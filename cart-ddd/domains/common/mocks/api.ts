@@ -3,6 +3,7 @@ import {
   CreateUserAccountSuccessEvent,
   CreateUserAccountDuplicatedExceptionEvent,
   newLogId,
+  UserLank,
 } from '@alike-ca/common'
 
 import { getLogger } from 'log4js'
@@ -35,6 +36,8 @@ const mutations = {
       rt: 'success',
       userId: newLogId(),
       name: e.input.name,
+      lank: UserLank.get('None'),
+
       logId: newLogId(),
     })
   },

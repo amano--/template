@@ -6,6 +6,7 @@ import {
 } from '@alike-ca/common'
 
 import { getLogger } from 'log4js'
+import { UserLank } from '../src/user/lank'
 const logger = getLogger('mocks/common/api')
 
 const mutations = {
@@ -23,6 +24,7 @@ const mutations = {
       rt: 'success',
       userId: newLogId(),
       name: e.input.name,
+      lank: UserLank.get('None'),
       logId: newLogId(),
       productionOnlyResult: 'productionOnlyResult',
     })

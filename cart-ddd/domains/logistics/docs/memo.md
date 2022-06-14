@@ -16,6 +16,11 @@ npm i typescript-json-schema -D
 
 [ TypeScriptの型定義からバリデーションコードを生成するツールを書いた ](https://efcl.info/2021/03/26/create-validator-ts/)
 
+```
+ npx typescript-json-schema  schema/from_ts/schema.ts DeliveryOrder --topRef --title
+ npx typescript-json-schema  schema/from_ts/schema.ts DeliveryOrder -o schema/models/dataTypesFromTJS.json --topRef --titles 
+```
+
 [  ]()
 [  ]()
 [  ]()

@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.0",
+  "x-stoplight": {
+    "id": "rv6wvga0hctia"
+  },
+  "info": {
+    "title": "schema",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/orders/{orderId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "orderId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get User Info by User ID",
+        "tags": [],
+        "operationId": "get-orders-orderId",
+        "description": "Retrieve the information of the user with the matching user ID.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryOrder"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order": {
+      "post": {
+        "summary": "Create New User",
+        "operationId": "post-order",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryOrder"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing Required Information"
+          }
+        },
+        "description": "Create a new delivery order."
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "DeliveryMethodTagAll": {
+        "title": "DeliveryMethodTagAll",
+        "type": "string",
+        "enum": [
+          "dora",
+          "gufu",
+          "gundam",
+          "suneo"
+        ]
+      },
+      "DeliveryProviderTag": {
+        "title": "DeliveryProviderTag",
+        "type": "string",
+        "enum": [
+          "doraemon",
+          "gundam"
+        ]
+      },
+      "DeliveryOrder": {
+        "type": "object",
+        "x-examples": {},
+        "title": "DeliveryOrder",
+        "properties": {
+          "deliveryMethodId": {
+            "$ref": "#/components/schemas/DeliveryMethodTagAll"
+          },
+          "orderAt": {
+            "type": "object",
+            "properties": {
+              "format": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          },
+          "providerId": {
+            "$ref": "#/components/schemas/DeliveryProviderTag"
+          },
+          "purchaseId": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          },
+          "userId": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

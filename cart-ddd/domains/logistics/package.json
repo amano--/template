@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "tjs": "npx typescript-json-schema  schema/quickType/schemaForQuicktype.ts DeliveryOrder --topRef --titles ",
+    "tjs": "npx typescript-json-schema  schema/from_ts/schema.ts DeliveryOrder --topRef --titles ",
     "lint": "npx eslint src usecases",
     "test": "npx jest"
   },
