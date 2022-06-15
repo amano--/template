@@ -48,6 +48,8 @@ Page query 実装
   renderHook
   
 コンパニオンオブジェクト的な使い方はありか?
+コンパニオンオブジェクトパターン
+
 
 ## Open API Schema とTypescript
 
