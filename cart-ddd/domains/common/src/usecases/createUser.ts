@@ -12,4 +12,3 @@ export const createAccount = async (e: CreateUserAccountEvent) => {
 
 // TODO 後で実装
 // export const createProfile = async (e: CreateUserAccountEvent) => { }
-// export const createUserLank = async (e: CreateUserAccountEvent) => {}

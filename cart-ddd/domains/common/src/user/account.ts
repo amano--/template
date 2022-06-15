@@ -5,7 +5,7 @@ import { UserLank } from './lank'
 export type UserId = MockUserAccountIdType
 
 export type UserAccount = { userId: UserId; name: string; lank: UserLank }
-export type EncryptedUserAccount = UserAccount & { encryptedPassword: string }
+// export type EncryptedUserAccount = UserAccount & { encryptedPassword: string }
 export type GuestAccount = { guest: true }
 
 export const isGuest = (account: UserAccount | GuestAccount): account is GuestAccount => {

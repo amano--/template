@@ -1,0 +1,236 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "NormalOption": {
+            "type": "object",
+            "properties": {
+                "optionTag": {
+                    "type": "string",
+                    "enum": [
+                        "Normal"
+                    ],
+                    "title": "optionTag"
+                },
+                "name": {
+                    "type": "string",
+                    "enum": [
+                        "通常オプション"
+                    ],
+                    "title": "name"
+                },
+                "okihai": {
+                    "type": "boolean",
+                    "title": "okihai"
+                }
+            },
+            "required": [
+                "name",
+                "okihai",
+                "optionTag"
+            ]
+        },
+        "DoraemonOption": {
+            "type": "object",
+            "properties": {
+                "optionTag": {
+                    "type": "string",
+                    "enum": [
+                        "Doraemon"
+                    ],
+                    "title": "optionTag"
+                },
+                "name": {
+                    "type": "string",
+                    "enum": [
+                        "ドラえもんオプション"
+                    ],
+                    "title": "name"
+                },
+                "takekoputaerPresent": {
+                    "type": "boolean",
+                    "title": "takekoputaerPresent"
+                }
+            },
+            "required": [
+                "name",
+                "optionTag",
+                "takekoputaerPresent"
+            ]
+        },
+        "DeliveryOrder": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "type": "string",
+                    "title": "userId"
+                },
+                "purchaseId": {
+                    "type": "string",
+                    "title": "purchaseId"
+                },
+                "providerId": {
+                    "enum": [
+                        "doraemon",
+                        "gundam"
+                    ],
+                    "type": "string",
+                    "title": "providerId"
+                },
+                "deliveryMethodId": {
+                    "enum": [
+                        "dora",
+                        "gufu",
+                        "gundam",
+                        "suneo"
+                    ],
+                    "type": "string",
+                    "title": "deliveryMethodId"
+                },
+                "option": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "anyOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "optionTag": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Normal"
+                                            ],
+                                            "title": "optionTag"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "enum": [
+                                                "通常オプション"
+                                            ],
+                                            "title": "name"
+                                        },
+                                        "okihai": {
+                                            "type": "boolean",
+                                            "title": "okihai"
+                                        }
+                                    },
+                                    "required": [
+                                        "name",
+                                        "okihai",
+                                        "optionTag"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "optionTag": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Doraemon"
+                                            ],
+                                            "title": "optionTag"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "enum": [
+                                                "ドラえもんオプション"
+                                            ],
+                                            "title": "name"
+                                        },
+                                        "takekoputaerPresent": {
+                                            "type": "boolean",
+                                            "title": "takekoputaerPresent"
+                                        }
+                                    },
+                                    "required": [
+                                        "name",
+                                        "optionTag",
+                                        "takekoputaerPresent"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "minItems": 1,
+                    "additionalItems": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "optionTag": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "Normal"
+                                                ],
+                                                "title": "optionTag"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "通常オプション"
+                                                ],
+                                                "title": "name"
+                                            },
+                                            "okihai": {
+                                                "type": "boolean",
+                                                "title": "okihai"
+                                            }
+                                        },
+                                        "required": [
+                                            "name",
+                                            "okihai",
+                                            "optionTag"
+                                        ]
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "optionTag": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "Doraemon"
+                                                ],
+                                                "title": "optionTag"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "ドラえもんオプション"
+                                                ],
+                                                "title": "name"
+                                            },
+                                            "takekoputaerPresent": {
+                                                "type": "boolean",
+                                                "title": "takekoputaerPresent"
+                                            }
+                                        },
+                                        "required": [
+                                            "name",
+                                            "optionTag",
+                                            "takekoputaerPresent"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "title": "option"
+                },
+                "orderAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "orderAt"
+                }
+            },
+            "required": [
+                "deliveryMethodId",
+                "option",
+                "orderAt",
+                "providerId",
+                "purchaseId",
+                "userId"
+            ]
+        }
+    }
+}
