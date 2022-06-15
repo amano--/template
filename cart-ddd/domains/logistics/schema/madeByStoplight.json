@@ -1,0 +1,237 @@
+{
+  "openapi": "3.0.0",
+  "x-stoplight": {
+    "id": "9hlfurk7f1fx4"
+  },
+  "info": {
+    "title": "s",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:6003"
+    }
+  ],
+  "paths": {
+    "/orders/{orderId}": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DeliveryOrder"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getOrdersOrderId"
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "orderId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "put": {
+        "summary": "",
+        "operationId": "putOrdersOrderId",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/order": {
+      "post": {
+        "summary": "",
+        "operationId": "postOrder",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryOrder"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NormalOption": {
+        "type": "object",
+        "properties": {
+          "optionTag": {
+            "type": "string",
+            "enum": [
+              "Normal"
+            ],
+            "title": "optionTag"
+          },
+          "name": {
+            "type": "string",
+            "enum": [
+              "通常オプション"
+            ],
+            "title": "name"
+          },
+          "okihai": {
+            "type": "boolean",
+            "title": "okihai"
+          }
+        }
+      },
+      "DoraemonOption": {
+        "type": "object",
+        "properties": {
+          "optionTag": {
+            "type": "string",
+            "enum": [
+              "Doraemon"
+            ],
+            "title": "optionTag"
+          },
+          "name": {
+            "type": "string",
+            "enum": [
+              "ドラえもんオプション"
+            ],
+            "title": "name"
+          },
+          "takekoputaerPresent": {
+            "type": "boolean",
+            "title": "takekoputaerPresent"
+          }
+        }
+      },
+      "DeliveryOrder": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "title": "userId"
+          },
+          "purchaseId": {
+            "type": "string",
+            "title": "purchaseId"
+          },
+          "providerId": {
+            "enum": [
+              "doraemon",
+              "gundam"
+            ],
+            "type": "string",
+            "title": "providerId"
+          },
+          "deliveryMethodId": {
+            "enum": [
+              "dora",
+              "gufu",
+              "gundam",
+              "suneo"
+            ],
+            "type": "string",
+            "title": "deliveryMethodId"
+          },
+          "option": {
+            "type": "array",
+            "minItems": 1,
+            "additionalItems": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "optionTag": {
+                          "type": "string",
+                          "enum": [
+                            "Normal"
+                          ],
+                          "title": "optionTag"
+                        },
+                        "name": {
+                          "type": "string",
+                          "enum": [
+                            "通常オプション"
+                          ],
+                          "title": "name"
+                        },
+                        "okihai": {
+                          "type": "boolean",
+                          "title": "okihai"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "okihai",
+                        "optionTag"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "optionTag": {
+                          "type": "string",
+                          "enum": [
+                            "Doraemon"
+                          ],
+                          "title": "optionTag"
+                        },
+                        "name": {
+                          "type": "string",
+                          "enum": [
+                            "ドラえもんオプション"
+                          ],
+                          "title": "name"
+                        },
+                        "takekoputaerPresent": {
+                          "type": "boolean",
+                          "title": "takekoputaerPresent"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "optionTag",
+                        "takekoputaerPresent"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "title": "option",
+            "items": {
+              "oneOf": []
+            }
+          },
+          "orderAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "orderAt"
+          }
+        },
+        "required": [
+          "option"
+        ]
+      }
+    }
+  }
+}

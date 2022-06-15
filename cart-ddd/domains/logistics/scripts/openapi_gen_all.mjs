@@ -3,7 +3,7 @@ $.verbose = true
 // [ Google発のJavaScriptで書けるシェル 「zx」 ](https://dev.classmethod.jp/articles/shell-zx/)
 // https://github.com/google/zx
 
-const schemaUrl = 'schema/schema.json'
+const schemaUrl = 'schema/madeByStoplight.json'
 // 'https://petstore.swagger.io/v2/swagger.json'
 
 $`rm -rf ./auto`

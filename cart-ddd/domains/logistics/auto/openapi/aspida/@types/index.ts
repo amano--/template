@@ -1,26 +1,20 @@
 /* eslint-disable */
-export type DeliveryMethodTagAll = 'dora' | 'gufu' | 'gundam' | 'suneo'
+export type NormalOption = {
+  optionTag?: 'Normal' | undefined
+  name?: '通常オプション' | undefined
+  okihai?: boolean | undefined
+}
 
-export type DeliveryProviderTag = 'doraemon' | 'gundam'
+export type DoraemonOption = {
+  optionTag?: 'Doraemon' | undefined
+  name?: 'ドラえもんオプション' | undefined
+  takekoputaerPresent?: boolean | undefined
+}
 
 export type DeliveryOrder = {
-  deliveryMethodId?: DeliveryMethodTagAll | undefined
-
-  orderAt?: {
-    format?: string | undefined
-    title?: string | undefined
-    type?: string | undefined
-  } | undefined
-
-  providerId?: DeliveryProviderTag | undefined
-
-  purchaseId?: {
-    title?: string | undefined
-    type?: string | undefined
-  } | undefined
-
-  userId?: {
-    title?: string | undefined
-    type?: string | undefined
-  } | undefined
+  userId?: string | undefined
+  purchaseId?: string | undefined
+  providerId?: 'doraemon' | 'gundam' | undefined
+  deliveryMethodId?: 'dora' | 'gufu' | 'gundam' | 'suneo' | undefined
+  orderAt?: string | undefined
 }
