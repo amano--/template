@@ -313,6 +313,7 @@ const z2 = z
 ### C系言語(Java,C#等) と関数型言語の イコール記号(=) の意味は変わる
 
 
+
  [オブジェクトリテラル]( https://typescriptbook.jp/reference/values-types-variables/object/object-literal ) から型情報は取得できますが、リフレクションAPIを使ったコードのようにランタイムから取得したインスタンスから型情
 
 [  ]()
