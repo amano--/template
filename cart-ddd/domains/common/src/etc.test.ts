@@ -1,4 +1,4 @@
-import { isMoney, Money } from './etc'
+import { Money } from './etc'
 
 describe('etc', () => {
   test.each`
@@ -8,13 +8,13 @@ describe('etc', () => {
     ${{}}                                  | ${false}
     ${[]}                                  | ${false}
     ${''}                                  | ${false}
-    ${true}                                   | ${false}
+    ${true}                                | ${false}
     ${0}                                   | ${false}
     ${100}                                 | ${false}
     ${{ currency: 'JPY' }}                 | ${false}
     ${{ currency: 'JPY', amount: '1000' }} | ${false}
     ${{ currency: 'JPY', amount: 1000 }}   | ${true}
   `('isMoney: $input -> $expected ', ({ input, expected }) => {
-    expect(isMoney(input)).toBe(expected)
+    expect(Money.isMoney(input)).toBe(expected)
   })
 })

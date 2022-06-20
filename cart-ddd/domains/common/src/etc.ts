@@ -2,7 +2,7 @@ export type SupportCurrency = 'JPY' | 'USD'
 export type Money = { currency: SupportCurrency; amount: number }
 
 // TBD 導入検討 [TypeScriptの型定義から型ガードを自動生成する type-predicates-generator の紹介](https://zenn.dev/kimuson/articles/type_predicates_generator)
-export const isMoney = (arg: unknown): arg is Money => {
+const isMoney = (arg: unknown): arg is Money => {
   return (
     typeof arg === 'object' &&
     arg !== null &&
@@ -20,4 +20,4 @@ const create = (amount: number, currency: SupportCurrency = 'JPY'): Money => {
   }
 }
 
-export const Money = { create }
+export const Money = { isMoney, create }
