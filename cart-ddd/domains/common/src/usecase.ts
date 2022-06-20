@@ -28,6 +28,20 @@ export type PickUsecasesExecResults<A extends Usecases<A>> = {
     : never
 }
 
+// export const execUsecases = async <A extends Usecases<A>, B extends PickUsecasesTestParams<A>>(
+//   usecases: A,
+//   testParams: B
+// ): Promise<PickUsecasesExecResults<A>> => {
+//   // TODO as any でごまかしていることへの対処
+//   const results = Object.entries(usecases).map(async ([key, usecaseLine]: [string, UsecaseLineAny]) => {
+//     const param = (testParams as any)[key]
+//     return [key, { input: param.in, expected: param.out, actual: await usecaseLine(param.in) }]
+//   })
+//   const res = Object.fromEntries(await Promise.all(results as any))
+//   // console.log({ res })
+//   return res as PickUsecasesExecResults<A>
+// }
+
 export const execUsecases = async <A extends Usecases<A>, B extends PickUsecasesTestParams<A>>(
   usecases: A,
   testParams: B

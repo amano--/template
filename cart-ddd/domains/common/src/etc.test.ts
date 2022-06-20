@@ -1,13 +1,15 @@
 import { isMoney, Money } from './etc'
 
 describe('etc', () => {
-  it('isMoney', async () => {
-    expect(isMoney(undefined)).toBeFalsy()
-    expect(isMoney(null)).toBeFalsy()
-    expect(isMoney(100)).toBeFalsy()
-    expect(isMoney({ currency: 'JPY' } as Money)).toBeFalsy()
-    expect(isMoney({ currency: 'JPY' } as Money)).toBeFalsy()
-    expect(isMoney({ currency: 'JPY', amount: '1000' })).toBeFalsy()
-    expect(isMoney({ currency: 'JPY', amount: 1000 } as Money)).toBeTruthy()
+  test.each`
+    input                                  | expected
+    ${undefined}                           | ${false}
+    ${null}                                | ${false}
+    ${100}                                 | ${false}
+    ${{ currency: 'JPY' }}                 | ${false}
+    ${{ currency: 'JPY', amount: '1000' }} | ${false}
+    ${{ currency: 'JPY', amount: 1000 }}   | ${true}
+  `('isMoney: $input -> $expected ', ({ input, expected }) => {
+    expect(isMoney(input)).toBe(expected)
   })
 })

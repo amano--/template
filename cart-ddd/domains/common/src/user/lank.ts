@@ -48,7 +48,7 @@ export type UserLankTag = keyof typeof list
 // export const split = <V, O extends { [P: keyof O]: V }>(obj: O) => Object.entries(obj)
 // const a = split(UserLanks)
 
-const sliceByKey = (key: string, obj: Record<string, unknown>, direction: 'under' | 'over' = 'over') => {
+const sliceByKey = <T extends Record<keyof T, unknown>>(key: keyof T, obj: T, direction: 'under' | 'over' = 'over') => {
   const arr = Object.entries(obj)
   const start = arr.findIndex(([k]) => k === key)
   const res = direction === 'over' ? arr.slice(start, arr.length) : arr.slice(0, start + 1)
@@ -59,4 +59,4 @@ const get = <K extends UserLankTag>(key: K) => list[key]
 const overLankKeys = <K extends UserLankTag>(key: K) => Object.keys(sliceByKey(key, list, 'over')) as [UserLankTag]
 const underLankKeys = <K extends UserLankTag>(key: K) => Object.keys(sliceByKey(key, list, 'under')) as [UserLankTag]
 
-export const UserLank = { list, get, overLankKeys, underLankKeys }
+export const UserLank = { list, get, overLankKeys, underLankKeys } as const
