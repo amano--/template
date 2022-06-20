@@ -5,6 +5,8 @@ describe('etc', () => {
     input                                  | expected
     ${undefined}                           | ${false}
     ${null}                                | ${false}
+    ${{}}                                  | ${false}
+    ${[]}                                  | ${false}
     ${100}                                 | ${false}
     ${{ currency: 'JPY' }}                 | ${false}
     ${{ currency: 'JPY', amount: '1000' }} | ${false}

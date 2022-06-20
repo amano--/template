@@ -36,7 +36,7 @@ const suneo: DeliveryMethodBySuneo = {
   dmt: 'suneo',
   label: 'スネ夫のクール宅急便',
   desc: 'クールな態度で配送するだけなので、なまものを送っても普通に腐るのでご注意ください',
-  allowLanks: UserLank.overLankKeys('Silver'),
+  allowLanks: UserLank.overLankTags('Silver'),
   comment: 'コスト度外視のゴージャスな配送を目指します',
   priceMin: 1_0000,
   priceMax: 10_0000,

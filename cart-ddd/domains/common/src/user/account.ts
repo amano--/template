@@ -9,7 +9,7 @@ export type UserAccount = { userId: UserId; name: string; lank: UserLank }
 export type GuestAccount = { guest: true }
 
 export const isGuest = (account: UserAccount | GuestAccount): account is GuestAccount => {
-  return 'guest' in account
+  return typeof account === 'object' && account !== null && 'guest' in account && account['guest'] === true
 }
 
 export type CreateUserAccountEvent = { c: 'CreateUserAccount'; input: { name: string } }

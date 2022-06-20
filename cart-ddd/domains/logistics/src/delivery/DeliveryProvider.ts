@@ -62,7 +62,7 @@ const get = <
 const findByUserLank = (lank: UserLankTag | UserLank) => {
   const userLankTag = typeof lank === 'string' ? lank : lank.ult
   const arr = Object.entries(methods).filter(([, v]) => v.allowLanks.some((ult) => ult === userLankTag))
-  return Object.fromEntries(arr)
+  return Object.fromEntries(arr) as Partial<typeof methods>
 }
 
 // TODO list 等の内部データ構造を公開することの是非についての検討

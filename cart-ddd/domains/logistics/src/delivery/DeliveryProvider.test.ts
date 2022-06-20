@@ -36,6 +36,7 @@ describe('DeliveryProvider simple test', () => {
       'UserLank=$ult のユーザーは $expected の配送方法が選択できる',
       ({ ult, expected }) => {
         const res = DeliveryProvider.findByUserLank(ult)
+        // const a =  Object.values(res)
         // 並び順が expected と違うので、ソートし直した者同士を比較
         expect(Object.keys(res).sort()).toEqual(expected.sort())
       }

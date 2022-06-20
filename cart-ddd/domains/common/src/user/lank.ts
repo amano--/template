@@ -56,7 +56,7 @@ const sliceByKey = <T extends Record<keyof T, unknown>>(key: keyof T, obj: T, di
 }
 
 const get = <K extends UserLankTag>(key: K) => list[key]
-const overLankKeys = <K extends UserLankTag>(key: K) => Object.keys(sliceByKey(key, list, 'over')) as [UserLankTag]
-const underLankKeys = <K extends UserLankTag>(key: K) => Object.keys(sliceByKey(key, list, 'under')) as [UserLankTag]
+const overLankTags = <K extends UserLankTag>(key: K) => Object.keys(sliceByKey(key, list, 'over')) as [UserLankTag]
+const underLankTags = <K extends UserLankTag>(key: K) => Object.keys(sliceByKey(key, list, 'under')) as [UserLankTag]
 
-export const UserLank = { list, get, overLankKeys, underLankKeys } as const
+export const UserLank = { list, get, overLankTags, underLankTags } as const

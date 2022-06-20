@@ -6,10 +6,10 @@ describe('UserLank simple test', () => {
   })
 
   it('overLankKeys', async () => {
-    expect(UserLank.overLankKeys('Silver')).toEqual(['Silver', 'Gold', 'Platinum'])
+    expect(UserLank.overLankTags('Silver')).toEqual(['Silver', 'Gold', 'Platinum'])
   })
 
   it('underLankKeys', async () => {
-    expect(UserLank.underLankKeys('Silver')).toEqual(['None', 'Bronze', 'Silver'])
+    expect(UserLank.underLankTags('Silver')).toEqual(['None', 'Bronze', 'Silver'])
   })
 })

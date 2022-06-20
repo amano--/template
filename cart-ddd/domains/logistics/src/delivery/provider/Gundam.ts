@@ -11,9 +11,9 @@ type DeliveryMethodByGufu = DeliveryMethod & {
 const gufu: DeliveryMethodByGufu = {
   dpt: 'gundam',
   dmt: 'gufu',
-  label: 'ランバ・ラルの戦馬鹿急便',
+  label: 'ランバ・ラルの いくさ馬鹿急便',
   desc: 'なぜか必ず砂漠を通って配達されるので、砂まみれになっていることがあります。返品不可',
-  allowLanks: UserLank.overLankKeys('Bronze'),
+  allowLanks: UserLank.overLankTags('Bronze'),
   comment: 'ザクとの違いをみせてやろう',
   priceMin: 1000,
   priceMax: 1_0000,
@@ -34,14 +34,15 @@ type DeliveryMethodByGundam = DeliveryMethod & {
 const gundam: DeliveryMethodByGundam = {
   dpt: 'gundam',
   dmt: 'gundam',
-  label: 'スネ夫のクール宅急便',
-  desc: 'クールな態度で配送するだけなので、なまものを送っても普通に腐るのでご注意ください',
-  allowLanks: UserLank.overLankKeys('Gold'),
-  comment: 'コスト度外視のゴージャスな配送を目指します',
-  priceMin: 1_0000,
-  priceMax: 10_0000,
-  estimatedTime: 24,
-  estimatedTimeDesc: '無意味に値段が高いだけで、配送時間は至って普通です。マニア向けのプランになっております',
+  label: 'ガンダムの宇宙世紀配送',
+  desc: 'モビルスーツのエネルギー源は核融合炉なので、それなりのコストが掛かります。',
+  allowLanks: UserLank.overLankTags('Gold'),
+  comment: '僕が一番、荷物をうまく運べるんだ。',
+  priceMin: 100_0000,
+  priceMax: 1000_0000,
+  estimatedTime: 3,
+  estimatedTimeDesc:
+    '配送経路に細い道がある場合、物損事故の対応等の理由により遅れる場合がございます。予めご承知おきください',
 
   naguttane: () => '殴ったね、ジオングにも殴られたことないのに',
 } //as const
