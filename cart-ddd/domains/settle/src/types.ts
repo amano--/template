@@ -1,4 +1,4 @@
-import { Money, isMoney, ResponseCommandSuccessEvent, ResponseExceptionEvent, newMoney } from '@alike-ca/common'
+import { Money, isMoney, ResponseCommandSuccessEvent, ResponseExceptionEvent, create } from '@alike-ca/common'
 
 import { Temporal } from '@js-temporal/polyfill'
 import { getLogger } from 'log4js'
@@ -28,7 +28,7 @@ export const newSettleEvent = (
     c: 'Settle',
     provider,
     account,
-    price: isMoney(price) ? price : newMoney(price),
+    price: isMoney(price) ? price : create(price),
   }
 }
 

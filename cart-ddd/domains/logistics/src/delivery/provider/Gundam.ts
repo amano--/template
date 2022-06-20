@@ -40,18 +40,12 @@ const gundam: DeliveryMethodByGundam = {
   comment: '僕が一番、荷物をうまく運べるんだ。',
   priceMin: 100_0000,
   priceMax: 1000_0000,
-  estimatedTime: 3,
+  estimatedTime: 1,
   estimatedTimeDesc:
     '配送経路に細い道がある場合、物損事故の対応等の理由により遅れる場合がございます。予めご承知おきください',
 
   naguttane: () => '殴ったね、ジオングにも殴られたことないのに',
-} //as const
-
-// export const packageScopeForDeliveryMethodsByGundam = { gufu, gundam } as const
-// const forTypeCheck: { [P: string]: DeliveryMethod } = packageScopeForDeliveryMethodsByGundam
-
-// export type DeliveryProviderByGundam = DeliveryMethodByGufu | DeliveryMethodByGundam
-// export type DeliveryProviderByGundamKey = DeliveryProviderByGundam['dmt']
+}
 
 const methods = { gufu, gundam } as const
 

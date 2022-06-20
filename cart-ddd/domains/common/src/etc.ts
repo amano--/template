@@ -13,9 +13,11 @@ export const isMoney = (arg: unknown): arg is Money => {
   )
 }
 
-export const newMoney = (amount: number): Money => {
+const create = (amount: number, currency: SupportCurrency = 'JPY'): Money => {
   return {
-    currency: 'JPY',
+    currency,
     amount,
   }
 }
+
+export const Money = { create }

@@ -7,6 +7,9 @@ describe('etc', () => {
     ${null}                                | ${false}
     ${{}}                                  | ${false}
     ${[]}                                  | ${false}
+    ${''}                                  | ${false}
+    ${true}                                   | ${false}
+    ${0}                                   | ${false}
     ${100}                                 | ${false}
     ${{ currency: 'JPY' }}                 | ${false}
     ${{ currency: 'JPY', amount: '1000' }} | ${false}

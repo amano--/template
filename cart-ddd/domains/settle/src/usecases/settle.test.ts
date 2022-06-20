@@ -1,4 +1,4 @@
-import { expectUsecaseLine, newMoney } from '@alike-ca/common'
+import { expectUsecaseLine, Money } from '@alike-ca/common'
 import { settle } from './settle'
 
 describe('settle', () => {
@@ -9,7 +9,7 @@ describe('settle', () => {
         c: 'Settle',
         provider: 'stripe',
         account: { settleAccountId: 'normal' },
-        price: newMoney(998),
+        price: Money.create(998),
       },
       {
         r: 'SettleSuccess',
