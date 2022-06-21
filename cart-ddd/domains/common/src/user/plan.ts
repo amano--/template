@@ -1,5 +1,5 @@
 /**
- *  @param upt tagged union の Keyに使用するタグ. user Plan tag の略。
+ *  @param upt tagged union の Keyに使用するタグ. user plan tag の略。
  */
 type UserPlanBase = { upt: UserPlanTag; label: string; desc: string }
 
@@ -13,27 +13,27 @@ export type UserPlan = NonePlan | SmallPlan | MediumPlan | LargePlan
 const list = {
   None: {
     upt: 'None',
-    label: 'ランクなし',
-    desc: 'ランクなし',
+    label: 'プランなし',
+    desc: '',
   },
   Small: {
     upt: 'Small',
-    label: 'ブロンズ',
-    desc: 'ブロンズ',
+    label: 'スモールプラン',
+    desc: '',
   },
   Medium: {
     upt: 'Medium',
-    label: 'シルバー',
-    desc: 'シルバー',
+    label: 'ミディアムプラン',
+    desc: '',
   },
   Large: {
     upt: 'Large',
-    label: 'ゴールド',
-    desc: 'ゴールド',
+    label: 'ラージプラン',
+    desc: '',
   },
 } as const
 
-const typeCheckPlan: { [P: string]: UserPlan } = list
+const forTypeCheck: { [P: string]: UserPlan } = list
 
 export type UserPlanTag = keyof typeof list
 

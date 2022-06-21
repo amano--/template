@@ -39,7 +39,7 @@ const list = {
   },
 } as const
 
-const typeCheckLank: { [P: string]: UserLank } = list
+const forTypeCheck: { [P: string]: UserLank } = list
 
 export type UserLankTag = keyof typeof list
 
