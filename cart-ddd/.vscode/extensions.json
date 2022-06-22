@@ -18,6 +18,7 @@
 
       // React 関連
       "zenclabs.preview",// ReactComponent を Previewできるようになる
+      "bradlc.vscode-tailwindcss",// Tailwind の入力補助ツール
 
       // TypeScript 関連のプラグイン
       "pmneo.tsimporter",
