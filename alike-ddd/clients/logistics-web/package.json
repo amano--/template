@@ -1,0 +1,40 @@
+{
+  "name": "@alike-ddd/logistics-web",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Starter using Vite + Solid + Tailwind CSS",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "openapi": "openapi --input https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore-expanded.json --output ./auto",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "@aspida/axios": "^1.10.2",
+    "@mdx-js/react": "^2.1.1",
+    "axios": "^0.27.2",
+    "solid-app-router": "^0.3.3",
+    "solid-js": "^1.4.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@storybook/addon-actions": "^6.5.8",
+    "@storybook/addon-essentials": "^6.5.8",
+    "@storybook/addon-interactions": "^6.5.8",
+    "@storybook/addon-links": "^6.5.8",
+    "@storybook/builder-vite": "^0.1.36",
+    "@storybook/html": "^6.5.8",
+    "@storybook/testing-library": "^0.0.12",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
+    "jest-environment-jsdom": "^28.1.0",
+    "openapi-typescript-codegen": "^0.23.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.2",
+    "ts-jest": "^28.0.4",
+    "vite": "^2.9.12",
+    "vite-plugin-solid": "^2.2.6"
+  }
+}
