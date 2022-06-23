@@ -19,7 +19,6 @@ export const createUsecaseLineHook =
     if (res.isFetched) {
       return res.data!
     }
-rm -rf localStorage
     return undefined
   }
 

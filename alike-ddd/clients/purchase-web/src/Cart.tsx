@@ -131,7 +131,7 @@ export const ProductPanel: React.FC<Product> = (props) => {
           const relateList = res.r === 'CartAddProductOutOfStock' ? res.list : undefined
         }}
       >
-        add cart{' '}
+        add cart
       </button>
     </div>
   )

@@ -6,6 +6,7 @@ export default function Web() {
     <div>
       <h1>Web</h1>
       <MyBtn />
+      <button className="btn">Hello daisyUI</button>
 
       {/* <Button>aaaa</Button> */}
       {/* <Heading>I'm a Heading</Heading> */}

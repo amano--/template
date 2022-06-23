@@ -2,6 +2,7 @@ import React from 'react'
 import { NextComponentType, NextPageContext } from 'next'
 import { NextRouter } from 'next/router'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import '../styles/globals.css'
 
 // // 1. Import the extendTheme function
 // import { extendTheme } from '@chakra-ui/react'
