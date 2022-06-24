@@ -8,6 +8,7 @@ module.exports = {
     },
   ],
   daisyui: {
+    // 参考 https://daisyui.com/docs/themes/
     themes: [
       'light',
       'dark',
