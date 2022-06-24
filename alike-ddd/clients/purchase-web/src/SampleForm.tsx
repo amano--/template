@@ -1,4 +1,6 @@
 // import React from 'react'
+import { Button, Input } from 'react-daisyui'
+
 export function SampleForm() {
   return (
     <div>
@@ -13,6 +15,9 @@ export function SampleForm() {
           <span className="label-text-alt">Alt label</span>
           <span className="label-text-alt">Alt label</span>
         </label>
+        <Input color="primary" value={'hoge hoge'} />
+        <Button color="primary">Click me!</Button>
+        <Button color="secondary">Click me!</Button>
       </div>
     </div>
   )
