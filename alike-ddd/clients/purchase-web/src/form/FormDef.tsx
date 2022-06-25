@@ -10,6 +10,8 @@ export type InputTextDef = FormDefBase & { ft: 'text' }
 
 export type ChoiceItemDef = { name: string; label: string }
 
+export type ChoiceDef = FormDefBase & { items: Record<string, ChoiceItemDef> }
+
 // //TODO items の多言語対応
 // export type ChoicePropsBase = FormPropsBase & { itemDefs: Record<string, ChoiceItemDef> }
 // export type SelectProps = ChoicePropsBase & { ft: 'select' }

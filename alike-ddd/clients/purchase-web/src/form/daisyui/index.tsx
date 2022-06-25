@@ -1,8 +1,9 @@
+import { FC } from 'react'
 import { Input, InputProps, Select, SelectProps as DUSelectProps } from 'react-daisyui'
 import { FormProps, InputTextProps, SelectProps, FormTag } from '../Form'
 
 const defaultInputTextForm: InputProps = { color: 'primary' }
-export const InputTextForm = (props: InputTextProps & InputProps) => {
+export const InputTextForm: FC<InputTextProps & InputProps> = (props) => {
   const mergedProps = { ...defaultInputTextForm, ...props }
 
   return <Input {...mergedProps} />
@@ -10,11 +11,11 @@ export const InputTextForm = (props: InputTextProps & InputProps) => {
 
 type PartialDUSelectProps = Partial<DUSelectProps<'string'>>
 const defaultSelectForm: PartialDUSelectProps = { color: 'primary' }
-export const SelectForm = (props: SelectProps & PartialDUSelectProps) => {
+export const SelectForm: FC<SelectProps & PartialDUSelectProps> = (props) => {
   const mergedProps = { ...defaultSelectForm, ...props }
 
   return (
-    <Select {...mergedProps} >
+    <Select {...mergedProps}>
       {Object.values(props.itemDefs).map((itemDef) => (
         <Select.Option key={itemDef.name} value={itemDef.name}>
           {itemDef.label}
@@ -23,6 +24,12 @@ export const SelectForm = (props: SelectProps & PartialDUSelectProps) => {
     </Select>
   )
 }
+
+// const select =
+//   (def: SelectDef, defaultProps: SelectProps) =>
+//   (props: SelectProps = { def, ...defaultProps }) => {
+//     return <SelectForm {...props} />
+//   }
 
 const formSet = { text: InputTextForm, select: SelectForm } as const
 
