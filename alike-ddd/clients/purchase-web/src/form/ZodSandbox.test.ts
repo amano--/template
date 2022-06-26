@@ -24,30 +24,19 @@ describe('simple test', () => {
     expect(res).toEqual(Normal.args)
   })
 
-  // it('invalid', async () => {
-  //   // try {
-  //   //   const res = schema.parse(InvalidAfterSubmit.args)
-  //   //   expect(res).toEqual(Normal.args)
-  //   // } catch (error) {
-  //   //   if (error instanceof ZodError) console.log(error)
-  //   // }
-  //   expect(await schema.parse(InvalidAfterSubmit.args)).toThrowError(ZodError)
-  // })
-
-  it('valid2', () => {
-    const res = schema.parse({
-      firstName: '太郎',
-      lastName: 'サンプル',
-      age: 33,
-      age2: 34,
-      email: 'sample@sample.com',
-    })
-    expect(res).toEqual({
-      firstName: '太郎',
-      lastName: 'サンプル',
-      age: 33,
-      age2: 34,
-      email: 'sample@sample.com',
-    })
+  it('invalid', async () => {
+    // TODO なぜか下記コードだとErrorをCatchできないようなので調査
+    // expect(await schema.parse(InvalidAfterSubmit.args)).toThrowError(ZodError)
+    try {
+      const res = schema.parse(InvalidAfterSubmit.args)
+      expect(false).toBeTruthy()
+    } catch (error) {
+      if (error instanceof ZodError) {
+        // console.log(error)
+        expect(error instanceof ZodError).toBeTruthy()
+      } else {
+        expect(false).toBeTruthy()
+      }
+    }
   })
 })
