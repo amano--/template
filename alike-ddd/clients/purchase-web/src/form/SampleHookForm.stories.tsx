@@ -17,12 +17,12 @@ export const Normal: RequiredStoryObj = {
   },
 }
 
-export const AfterSubmit: RequiredStoryObj = {
+export const InvalidAfterSubmit: RequiredStoryObj = {
   args: {
     firstName: '',
     lastName: '',
     age: -10,
-    age2: -10,
+    age2: 'aaa' as unknown as number,
     email: '',
   },
   play: async (ctx) => {

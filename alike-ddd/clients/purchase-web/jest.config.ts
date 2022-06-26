@@ -16,6 +16,9 @@ const customJestConfig = {
   //   '^@/pages/(.*)$': '<rootDir>/pages/$1',
   // },
   testEnvironment: 'jest-environment-jsdom',
+
+  //  @hookform/resolvers が ESM なため Jest で エラーが発生する問題の Workaround対応
+  resolver: '<rootDir>/.jest/resolver.js',
 }
 // createJestConfigを定義することによって、本ファイルで定義された設定がNext.jsの設定に反映されます
 module.exports = createJestConfig(customJestConfig)

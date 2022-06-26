@@ -34,11 +34,8 @@ Page query 実装
 
 商品をカートに追加する
   品切れ
-  キャンペーン中
-    Campaign
-    Coupon
-  タイムセール中
-  
+
+
 コンポーネントの命名規則
   XxxPanel
 

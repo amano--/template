@@ -10,16 +10,24 @@ export const schema = z.object({
   lastName: z.string().max(5),
   email: z.string().min(1, { message: 'Required' }),
   age: z.number().min(10),
-  age2: z
-    .string()
-    // カスタムバリデーション
-    .refine((v) => {
-      return !isNaN(Number(v))
-    }, 'error message')
-    // 値を変換
-    .transform((v) => {
-      return Number(v)
-    }),
+  age2: z.number().or(
+    z
+      .string()
+      .refine((v) => {
+        return !isNaN(Number(v))
+      }, 'error message')
+      .transform(Number)
+  ),
+
+  // .string()
+  // // カスタムバリデーション
+  // .refine((v) => {
+  //   return !isNaN(Number(v))
+  // }, 'error message')
+  // // 値を変換
+  // .transform((v) => {
+  //   return Number(v)
+  // }),
 })
 
 export type Schema = z.infer<typeof schema>
@@ -30,6 +38,7 @@ export const SampleHookForm: FC<Schema> = (props) => {
     handleSubmit,
     formState: { errors },
   } = useForm<Schema>({
+    defaultValues: props,
     resolver: zodResolver(schema),
   })
   // const onSubmit: SubmitHandler<Schema> = (data) => console.log(data)
@@ -37,15 +46,15 @@ export const SampleHookForm: FC<Schema> = (props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      firstName : <Input color="primary" value={props.firstName} {...register('firstName')} />
+      firstName : <Input color="primary" {...register('firstName')} />
       {errors.firstName?.message && <p>{errors.firstName?.message}</p>}
-      lastName :<Input color="primary" value={props.lastName} {...register('lastName')} />
+      lastName :<Input color="primary" {...register('lastName')} />
       {errors.lastName?.message && <p>{errors.lastName?.message}</p>}
-      email : <Input color="primary" value={props.email} {...register('email')} />
+      email : <Input color="primary" {...register('email')} />
       {errors.email?.message && <p>{errors.email?.message}</p>}
-      age :<Input color="primary" type="number" value={props.age} {...register('age')} />
+      age :<Input color="primary" type="number" {...register('age')} />
       {errors.age?.message && <p>{errors.age?.message}</p>}
-      age2 :<Input color="primary" type="text" value={props.age2} {...register('age2')} />
+      age2 :<Input color="primary" type="text" {...register('age2')} />
       {errors.age2?.message && <p>{errors.age2?.message}</p>}
       <Button color="primary" type="submit">
         送信
