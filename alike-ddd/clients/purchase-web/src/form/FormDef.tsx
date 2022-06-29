@@ -1,6 +1,9 @@
 export type FormDefBase = { name: string; label: string; required: boolean }
 export type InputTextDef = FormDefBase & { ft: 'text' }
 
+import { Form as DaisyuiForm } from './daisyui'
+export type ComponentLibraryTag = 'daisyui'
+
 // //TODO label の多言語対応
 // export type FormPropsBase = { name: string; label: string }
 
@@ -47,7 +50,38 @@ const gender: SelectDef<typeof genderItems> = {
   items: genderItems,
 }
 
-const a: Record<string, FormDef> = { name, gender }
+const form: Record<string, FormDef> = { name, gender }
+
+const defaultComponentLibraryTag = 'daisyui'
+export const Form = defaultComponentLibraryTag == 'daisyui' ? DaisyuiForm : DaisyuiForm
+
+const createForm = (def: FormDef, componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
+  switch (componentLibraryTag) {
+    case 'daisyui':
+      return DaisyuiForm(def)
+    //網羅性のチェックのためのコード
+    default:
+      const forExhaustiveCheck: never = componentLibraryTag
+  }
+}
+
+export const createForms = <T extends Record<string, FormDef>>(
+  defs: T,
+  componentLibraryTag: ComponentLibraryTag = 'daisyui'
+) => {
+  const arr = Object.entries(defs).map(([key, def]) => [key, createForm(def, componentLibraryTag)])
+
+  return Object.fromEntries(arr) //as Record<keyof T,>
+  // defs.
+  // switch (componentLibraryTag) {
+  //   case 'daisyui':
+  //     return DaisyuiForm
+
+  //   //網羅性のチェックのためのコード
+  //   default:
+  //     const forExhaustiveCheck: never = componentLibraryTag
+  // }
+}
 
 // export type ChoiceItemDef<K, V> = { name: K; label: V }
 
