@@ -1,13 +1,14 @@
+/* eslint-disable react/function-component-definition */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react'
 import { Input, InputProps, Select, SelectProps as DUSelectProps } from 'react-daisyui'
 import { FormProps, InputTextProps, SelectProps } from '../Form'
 import { ChoiceItemDef, FormDef, InputTextDef, PickFcSetFromDefSet, SelectDef } from '../FormDef'
 
 const defaultInputTextForm: InputProps = { color: 'primary' }
-export const InputTextForm: (defaultDef: InputTextDef) => FC<InputTextProps & InputProps> =
-  (defaultDef: InputTextDef) =>
-  ({ def = defaultDef, ...props }) => {
-    const mergedProps = { ...defaultInputTextForm, ...props }
+export const InputTextForm = //: (defaultDef: InputTextDef) => (props: InputTextProps & InputProps) => JSX.Element =
+  (defaultDef: InputTextDef) => (props: InputTextProps & InputProps) => {
+    const mergedProps = { ...defaultInputTextForm, ...defaultDef, ...props }
 
     return <Input {...mergedProps} />
   }
@@ -47,9 +48,9 @@ export const formComponentSetByDaisyUI = { text: InputTextForm, select: SelectFo
 export const Form = (def: FormDef) => {
   switch (def.ft) {
     case 'text':
-      return formComponentSetByDaisyUI['text'](def)
+      return formComponentSetByDaisyUI.text(def)
     case 'select':
-      return formComponentSetByDaisyUI['select'](def)
+      return formComponentSetByDaisyUI.select(def)
     case 'radio':
       return () => <></>
 
@@ -66,6 +67,7 @@ export const Form = (def: FormDef) => {
 export const createForms = <T extends Record<string, FormDef>>(defs: T) => {
   const arr = Object.entries(defs).map(([key, def]) => [key, Form(def)])
   //TODO 型チェックエラーのごまかしの解消
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return Object.fromEntries(arr as any) as PickFcSetFromDefSet<T, typeof formComponentSetByDaisyUI>
 }
 

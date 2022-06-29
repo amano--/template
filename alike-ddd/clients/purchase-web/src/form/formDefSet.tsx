@@ -1,5 +1,4 @@
-import { formComponentSetByDaisyUI } from './daisyui'
-import { createForms, InputTextDef, PickFcSetFromDefSet, SelectDef } from './FormDef'
+import { createForms, InputTextDef, SelectDef } from './FormDef'
 
 const name: InputTextDef = {
   ft: 'text',
@@ -17,10 +16,10 @@ const gender: SelectDef<typeof genderItems> = {
   required: false,
   items: genderItems,
 }
-const forms = { name, gender } as const
+export const formDefs = { name, gender } as const
 
-type Set = PickFcSetFromDefSet<typeof forms, typeof formComponentSetByDaisyUI>
+// type Set = PickFcSetFromDefSet<typeof forms, typeof formComponentSetByDaisyUI>
 
-const Forms: Set = createForms(forms)
+// const Forms = createForms(formDefs)
 
-const Name = Forms.name
+// const Name = <Forms.name />

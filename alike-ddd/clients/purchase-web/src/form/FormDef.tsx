@@ -2,8 +2,9 @@ export type FormDefBase = { name: string; label: string; required: boolean }
 export type InputTextDef = FormDefBase & { ft: 'text' }
 
 import { FC } from 'react'
-import { Form as FormByDaisyui, createForms as createFormsByDaisyui } from './daisyui'
-import { FormProps, FormTag } from './Form'
+import { Form as FormByDaisyui, createForms as createFormsByDaisyui, formComponentSetByDaisyUI } from './daisyui'
+import { FormTag } from './Form'
+import { formDefs } from './formDefSet'
 export type ComponentLibraryTag = 'daisyui'
 
 // //TODO label の多言語対応
@@ -39,10 +40,34 @@ const defaultComponentLibraryTag = 'daisyui'
 
 export const Form = defaultComponentLibraryTag == 'daisyui' ? FormByDaisyui : FormByDaisyui
 
+// type Name = typeof forms.name
+// type PickFcFromDef<DEF extends FormDef, FC> = FC extends (props: infer IN) => JSX.Element
+//   ? (props: Partial<IN>) => JSX.Element
+//   : never
+// type a = PickFcFromDef<Name, (props: { hoge: string }) => JSX.Element>
+
+type Name = typeof formDefs.name
+type PickFcTypeByDefFromFormComponentSet<DEF extends FormDef, CS> = CS extends Record<DEF['ft'], infer FC>
+  ? FC extends (def: any) => (props: infer IN) => JSX.Element
+    ? (props: Partial<IN>) => JSX.Element
+    : never
+  : never
+// type a = PickFcFromDef<Name, (props: { hoge: string }) => JSX.Element>
+type a = PickFcTypeByDefFromFormComponentSet<Name, typeof formComponentSetByDaisyUI>
+
 export type PickFcSetFromDefSet<
-  FORM_DEF_SET extends Record<string, FormDef>,
-  COMPONENT_SET extends Record<FormTag, (def: any) => FC>
-> = { [K in keyof FORM_DEF_SET]: ReturnType<COMPONENT_SET['text']> }
+  SET extends Record<keyof SET, FormDef>,
+  COMPONENT_SET extends Record<FormTag, unknown>
+> = SET extends Record<keyof SET, infer DEF>
+  ? DEF extends FormDef
+    ? { [K in keyof SET]: PickFcTypeByDefFromFormComponentSet<DEF, COMPONENT_SET> }
+    : never
+  : never
+
+// export type PickFcSetFromDefSet<
+//   FORM_DEF_SET extends Record<string, FormDef>,
+//   COMPONENT_SET extends Record<FormTag, (def: any) => unknown>
+// > = { [K in keyof FORM_DEF_SET]: ReturnType<COMPONENT_SET['text']> }
 
 const createCreateForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
   switch (componentLibraryTag) {
