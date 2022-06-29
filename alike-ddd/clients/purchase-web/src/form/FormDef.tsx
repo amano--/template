@@ -10,7 +10,44 @@ export type InputTextDef = FormDefBase & { ft: 'text' }
 
 export type ChoiceItemDef = { name: string; label: string }
 
-export type ChoiceDef = FormDefBase & { items: Record<string, ChoiceItemDef> }
+export type ChoiceDef<T extends Record<string, ChoiceItemDef> = any> = FormDefBase & {
+  items: T
+}
+
+export type SelectDef<T extends Record<string, ChoiceItemDef> = any> = ChoiceDef<T> & { ft: 'select' }
+export type RadioDef<T extends Record<string, ChoiceItemDef> = any> = ChoiceDef<T> & { ft: 'radio' }
+
+export type FormDef<T extends Record<string, ChoiceItemDef> = any> = InputTextDef | SelectDef<T> | RadioDef<T>
+// export type FormDef = InputTextDef | SelectDef<any> | RadioDef
+
+const name: InputTextDef = {
+  ft: 'text',
+  name: 'name',
+  label: '名前',
+  required: true,
+}
+
+const genderItems = { male: { name: 'male', label: '男性' }, female: { name: 'female', label: '女性' } } as const
+
+const gender: SelectDef<typeof genderItems> = {
+  ft: 'select',
+  name: 'gender',
+  label: '性別',
+  required: false,
+  items: genderItems,
+}
+
+const a: [FormDef] = [name, gender]
+
+// export type ChoiceItemDef<K, V> = { name: K; label: V }
+
+// export type ChoiceDef<O extends Record<string, unknown>> = O extends Record<infer K, infer V>
+//   ? FormDefBase & {
+//       items: Record<K, ChoiceItemDef<K, V>>
+//     }
+//   : never
+// const e = { foo: 'フー', bar: 'バー' }
+// type A = ChoiceDef<typeof e>
 
 // //TODO items の多言語対応
 // export type ChoicePropsBase = FormPropsBase & { itemDefs: Record<string, ChoiceItemDef> }
