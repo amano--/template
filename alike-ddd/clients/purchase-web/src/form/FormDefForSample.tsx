@@ -1,4 +1,4 @@
-import { createForms, InputTextDef, SelectDef } from './FormDef'
+import { InputTextDef, SelectDef } from './FormDef'
 
 const name: InputTextDef = {
   ft: 'text',
@@ -16,7 +16,8 @@ const gender: SelectDef<typeof genderItems> = {
   required: false,
   items: genderItems,
 }
-export const formDefs = { name, gender } as const
+
+export const formDefsForSample = { name, gender } as const
 
 // type Set = PickFcSetFromDefSet<typeof forms, typeof formComponentSetByDaisyUI>
 

@@ -14,6 +14,7 @@ export type ChoiceDef<T extends Record<string, ChoiceItemDef>> = FormDefBase & {
 export type SelectDef<T extends Record<string, ChoiceItemDef>> = ChoiceDef<T> & { ft: 'select' }
 export type RadioDef<T extends Record<string, ChoiceItemDef>> = ChoiceDef<T> & { ft: 'radio' }
 
+// TODO any で適当に対応したので改善
 export type FormDef = InputTextDef | SelectDef<any> | RadioDef<any>
 
 export type PickFcTypeByDefFromFormComponentSet<DEF extends FormDef, CS> = CS extends Record<DEF['ft'], infer FC>
@@ -37,7 +38,7 @@ const createCreateForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui')
   switch (componentLibraryTag) {
     case 'daisyui':
       return createFormsByDaisyui
-    //網羅性のチェックのためのコード
+    
     default: {
       //網羅性のチェックのためのコード
       // eslint-disable-next-line no-unused-vars
