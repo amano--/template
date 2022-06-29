@@ -1,18 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-undef */
 export type FormDefBase = { name: string; label: string; required: boolean }
 export type InputTextDef = FormDefBase & { ft: 'text' }
 
-import { FC } from 'react'
-import { Form as FormByDaisyui, createForms as createFormsByDaisyui, formFcSetByDaisyUI } from './daisyui'
+import { Form as FormByDaisyui, createForms as createFormsByDaisyui } from './daisyui'
 import { FormTag } from './Form'
-import { formDefs } from './formDefSet'
-export type ComponentLibraryTag = 'daisyui'
-
-// //TODO label の多言語対応
-// export type FormPropsBase = { name: string; label: string }
-
-// export type InputTextProps = FormPropsBase & { ft: 'text' }
-
-// export type SingleInputProps = InputTextProps
 
 export type ChoiceItemDef = { name: string; label: string }
 export type ChoiceDef<T extends Record<string, ChoiceItemDef>> = FormDefBase & {
@@ -23,107 +15,37 @@ export type SelectDef<T extends Record<string, ChoiceItemDef>> = ChoiceDef<T> & 
 export type RadioDef<T extends Record<string, ChoiceItemDef>> = ChoiceDef<T> & { ft: 'radio' }
 
 export type FormDef = InputTextDef | SelectDef<any> | RadioDef<any>
-// export type FormDef = InputTextDef | SelectDef<any> | RadioDef
 
-// export type ChoiceItemDef = { name: string; label: string }
-
-// export type ChoiceDef = FormDefBase & {
-//   items: Record<string, ChoiceItemDef>
-// }
-
-// export type SelectDef = ChoiceDef & { ft: 'select' }
-// export type RadioDef = ChoiceDef & { ft: 'radio' }
-
-// export type FormDef = InputTextDef | SelectDef | RadioDef
-
-const defaultComponentLibraryTag = 'daisyui'
-
-export const Form = defaultComponentLibraryTag == 'daisyui' ? FormByDaisyui : FormByDaisyui
-
-// type Name = typeof forms.name
-// type PickFcFromDef<DEF extends FormDef, FC> = FC extends (props: infer IN) => JSX.Element
-//   ? (props: Partial<IN>) => JSX.Element
-//   : never
-// type a = PickFcFromDef<Name, (props: { hoge: string }) => JSX.Element>
-
-type Name = typeof formDefs.name
-type PickFcTypeByDefFromFormComponentSet<DEF extends FormDef, CS> = CS extends Record<DEF['ft'], infer FC>
+export type PickFcTypeByDefFromFormComponentSet<DEF extends FormDef, CS> = CS extends Record<DEF['ft'], infer FC>
   ? FC extends (def: any) => (props: infer IN) => JSX.Element
     ? (props: Partial<IN>) => JSX.Element
     : never
   : never
-// type a = PickFcFromDef<Name, (props: { hoge: string }) => JSX.Element>
-// type a = PickFcTypeByDefFromFormComponentSet<Name, typeof formComponentSetByDaisyUI>
 
-// export type PickFcSetFromDefSet<
-//   SET extends Record<keyof SET, FormDef>,
-//   COMPONENT_SET extends Record<FormTag, unknown>
-// > = SET extends Record<keyof SET, infer DEF>
-//   ? DEF extends FormDef
-//     ? { [K in keyof SET]: PickFcTypeByDefFromFormComponentSet<DEF, COMPONENT_SET> }
-//     : never
-//   : never
 export type PickFcSetFromDefSet<
   TFormDefSet extends Record<keyof TFormDefSet, FormDef>,
   TFormFcSet extends Record<FormTag, unknown>
 > = { [K in keyof TFormDefSet]: PickFcTypeByDefFromFormComponentSet<TFormDefSet[K], TFormFcSet> }
 
-// type B = PickFcSetFromDefSet<typeof formDefs, typeof formComponentSetByDaisyUI>
+export type ComponentLibraryTag = 'daisyui'
 
-// export type PickFcSetFromDefSet<
-//   FORM_DEF_SET extends Record<string, FormDef>,
-//   COMPONENT_SET extends Record<FormTag, (def: any) => unknown>
-// > = { [K in keyof FORM_DEF_SET]: ReturnType<COMPONENT_SET['text']> }
+const defaultComponentLibraryTag: ComponentLibraryTag = 'daisyui'
+
+export const Form = defaultComponentLibraryTag == 'daisyui' ? FormByDaisyui : FormByDaisyui
 
 const createCreateForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
   switch (componentLibraryTag) {
     case 'daisyui':
       return createFormsByDaisyui
     //網羅性のチェックのためのコード
-    default:
+    default: {
+      //網羅性のチェックのためのコード
+      // eslint-disable-next-line no-unused-vars
       const forExhaustiveCheck: never = componentLibraryTag
+      // ここに到達することは通常ないが 戻り値の推論型から undefined を消すため定義
       return createFormsByDaisyui
+    }
   }
 }
 
 export const createForms = createCreateForms()
-
-// export type ChoiceItemDef<K, V> = { name: K; label: V }
-
-// export type ChoiceDef<O extends Record<string, unknown>> = O extends Record<infer K, infer V>
-//   ? FormDefBase & {
-//       items: Record<K, ChoiceItemDef<K, V>>
-//     }
-//   : never
-// const e = { foo: 'フー', bar: 'バー' }
-// type A = ChoiceDef<typeof e>
-
-// //TODO items の多言語対応
-// export type ChoicePropsBase = FormPropsBase & { itemDefs: Record<string, ChoiceItemDef> }
-// export type SelectProps = ChoicePropsBase & { ft: 'select' }
-
-// export type ChoiceProps = SelectProps
-
-// export type FormProps = SingleInputProps | ChoiceProps
-
-// export type FormTag = FormProps['ft']
-
-// export type FormSetType = { [P in FormTag]: (props: { ft: string }) => JSX.Element }
-// export type FormSetType = Record<FormTag, (props: FormProps) => JSX.Element>
-
-//type HasFormTag<T> = keyof T extends FormTag ? T : never
-
-// const createForm =
-//   <SET extends Record<FormTag, unknown>>(set: SET) =>
-//   (props: FormProps) => {
-//     switch (props.ft) {
-//       case 'text':
-//         return set['text']
-//       case 'select':
-//         return set['select']
-
-//       //網羅性のチェックのためのコード
-//       default:
-//         const forExhaustiveCheck: never = props
-//     }
-//   }

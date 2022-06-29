@@ -23,23 +23,3 @@ export type ChoiceProps = SelectProps | RadioProps
 export type FormProps = SingleInputProps | ChoiceProps
 
 export type FormTag = FormProps['ft']
-
-// export type FormSetType = { [P in FormTag]: (props: { ft: string }) => JSX.Element }
-// export type FormSetType = Record<FormTag, (props: FormProps) => JSX.Element>
-
-//type HasFormTag<T> = keyof T extends FormTag ? T : never
-
-// const createForm =
-//   <SET extends Record<FormTag, unknown>>(set: SET) =>
-//   (props: FormProps) => {
-//     switch (props.ft) {
-//       case 'text':
-//         return set['text']
-//       case 'select':
-//         return set['select']
-
-//       //網羅性のチェックのためのコード
-//       default:
-//         const forExhaustiveCheck: never = props
-//     }
-//   }
