@@ -1,7 +1,9 @@
 export type FormDefBase = { name: string; label: string; required: boolean }
 export type InputTextDef = FormDefBase & { ft: 'text' }
 
-import { Form as DaisyuiForm } from './daisyui'
+import { FC } from 'react'
+import { Form as FormByDaisyui, createForms as createFormsByDaisyui } from './daisyui'
+import { FormProps, FormTag } from './Form'
 export type ComponentLibraryTag = 'daisyui'
 
 // //TODO label の多言語対応
@@ -33,55 +35,27 @@ export type FormDef = InputTextDef | SelectDef<any> | RadioDef<any>
 
 // export type FormDef = InputTextDef | SelectDef | RadioDef
 
-const name: InputTextDef = {
-  ft: 'text',
-  name: 'name',
-  label: '名前',
-  required: true,
-}
-
-const genderItems = { male: { name: 'male', label: '男性' }, female: { name: 'female', label: '女性' } } as const
-
-const gender: SelectDef<typeof genderItems> = {
-  ft: 'select',
-  name: 'gender',
-  label: '性別',
-  required: false,
-  items: genderItems,
-}
-
-const form: Record<string, FormDef> = { name, gender }
-
 const defaultComponentLibraryTag = 'daisyui'
-export const Form = defaultComponentLibraryTag == 'daisyui' ? DaisyuiForm : DaisyuiForm
 
-const createForm = (def: FormDef, componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
+export const Form = defaultComponentLibraryTag == 'daisyui' ? FormByDaisyui : FormByDaisyui
+
+export type PickFcSetFromDefSet<
+  FORM_DEF_SET extends Record<string, FormDef>,
+  COMPONENT_SET extends Record<FormTag, (def: any) => FC>
+> = { [K in keyof FORM_DEF_SET]: ReturnType<COMPONENT_SET['text']> }
+
+const createCreateForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
   switch (componentLibraryTag) {
     case 'daisyui':
-      return DaisyuiForm(def)
+      return createFormsByDaisyui
     //網羅性のチェックのためのコード
     default:
       const forExhaustiveCheck: never = componentLibraryTag
+      return createFormsByDaisyui
   }
 }
 
-export const createForms = <T extends Record<string, FormDef>>(
-  defs: T,
-  componentLibraryTag: ComponentLibraryTag = 'daisyui'
-) => {
-  const arr = Object.entries(defs).map(([key, def]) => [key, createForm(def, componentLibraryTag)])
-
-  return Object.fromEntries(arr) //as Record<keyof T,>
-  // defs.
-  // switch (componentLibraryTag) {
-  //   case 'daisyui':
-  //     return DaisyuiForm
-
-  //   //網羅性のチェックのためのコード
-  //   default:
-  //     const forExhaustiveCheck: never = componentLibraryTag
-  // }
-}
+export const createForms = createCreateForms()
 
 // export type ChoiceItemDef<K, V> = { name: K; label: V }
 
