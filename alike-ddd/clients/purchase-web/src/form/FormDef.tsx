@@ -9,16 +9,26 @@ export type InputTextDef = FormDefBase & { ft: 'text' }
 // export type SingleInputProps = InputTextProps
 
 export type ChoiceItemDef = { name: string; label: string }
-
-export type ChoiceDef<T extends Record<string, ChoiceItemDef> = any> = FormDefBase & {
+export type ChoiceDef<T extends Record<string, ChoiceItemDef>> = FormDefBase & {
   items: T
 }
 
-export type SelectDef<T extends Record<string, ChoiceItemDef> = any> = ChoiceDef<T> & { ft: 'select' }
-export type RadioDef<T extends Record<string, ChoiceItemDef> = any> = ChoiceDef<T> & { ft: 'radio' }
+export type SelectDef<T extends Record<string, ChoiceItemDef>> = ChoiceDef<T> & { ft: 'select' }
+export type RadioDef<T extends Record<string, ChoiceItemDef>> = ChoiceDef<T> & { ft: 'radio' }
 
-export type FormDef<T extends Record<string, ChoiceItemDef> = any> = InputTextDef | SelectDef<T> | RadioDef<T>
+export type FormDef = InputTextDef | SelectDef<any> | RadioDef<any>
 // export type FormDef = InputTextDef | SelectDef<any> | RadioDef
+
+// export type ChoiceItemDef = { name: string; label: string }
+
+// export type ChoiceDef = FormDefBase & {
+//   items: Record<string, ChoiceItemDef>
+// }
+
+// export type SelectDef = ChoiceDef & { ft: 'select' }
+// export type RadioDef = ChoiceDef & { ft: 'radio' }
+
+// export type FormDef = InputTextDef | SelectDef | RadioDef
 
 const name: InputTextDef = {
   ft: 'text',
@@ -37,7 +47,7 @@ const gender: SelectDef<typeof genderItems> = {
   items: genderItems,
 }
 
-const a: [FormDef] = [name, gender]
+const a: Record<string, FormDef> = { name, gender }
 
 // export type ChoiceItemDef<K, V> = { name: K; label: V }
 
