@@ -1,26 +1,22 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC } from 'react'
 import { Input, InputProps, Select, SelectProps as DUSelectProps } from 'react-daisyui'
-import { FormProps, InputTextProps, SelectProps } from '../Form'
+import { InputTextProps, SelectProps } from '../Form'
 import { ChoiceItemDef, FormDef, InputTextDef, PickFcSetFromDefSet, SelectDef } from '../FormDef'
 
 const defaultInputTextForm: InputProps = { color: 'primary' }
-export const InputTextForm = //: (defaultDef: InputTextDef) => (props: InputTextProps & InputProps) => JSX.Element =
-  (defaultDef: InputTextDef) => (props: InputTextProps & InputProps) => {
-    const mergedProps = { ...defaultInputTextForm, ...defaultDef, ...props }
+export const InputTextForm = (defaultDef: InputTextDef) => (props: InputTextProps & InputProps) => {
+  const mergedProps = { ...defaultInputTextForm, ...defaultDef, ...props }
 
-    return <Input {...mergedProps} />
-  }
+  return <Input {...mergedProps} />
+}
 
 type PartialDUSelectProps = Partial<DUSelectProps<'string'>>
 const defaultSelectForm: PartialDUSelectProps = { color: 'primary' }
 
-export const SelectForm: <T extends Record<string, ChoiceItemDef>>(
-  def: SelectDef<T>
-) => FC<SelectProps & PartialDUSelectProps> =
+export const SelectForm =
   <T extends Record<string, ChoiceItemDef>>(def: SelectDef<T>) =>
-  (props) => {
+  (props: SelectProps & PartialDUSelectProps) => {
     const mergedProps = { ...defaultSelectForm, ...props }
 
     return (
@@ -40,7 +36,7 @@ export const SelectForm: <T extends Record<string, ChoiceItemDef>>(
 //     return <SelectForm {...props} />
 //   }
 
-export const formComponentSetByDaisyUI = { text: InputTextForm, select: SelectForm, radio: SelectForm } as const
+export const formFcSetByDaisyUI = { text: InputTextForm, select: SelectForm, radio: SelectForm } as const
 
 // TODO 多分不可能だと思うが、本当は 右辺の型を Record<FormTag,(props: FormProps) => JSX.Element> のように 厳密にチェックしたいが方法がわからない
 // const forTypeCheck: Record<FormTag, unknown> = formSet
@@ -48,9 +44,9 @@ export const formComponentSetByDaisyUI = { text: InputTextForm, select: SelectFo
 export const Form = (def: FormDef) => {
   switch (def.ft) {
     case 'text':
-      return formComponentSetByDaisyUI.text(def)
+      return formFcSetByDaisyUI.text(def)
     case 'select':
-      return formComponentSetByDaisyUI.select(def)
+      return formFcSetByDaisyUI.select(def)
     case 'radio':
       return () => <></>
 
@@ -68,7 +64,7 @@ export const createForms = <T extends Record<string, FormDef>>(defs: T) => {
   const arr = Object.entries(defs).map(([key, def]) => [key, Form(def)])
   //TODO 型チェックエラーのごまかしの解消
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  return Object.fromEntries(arr as any) as PickFcSetFromDefSet<T, typeof formComponentSetByDaisyUI>
+  return Object.fromEntries(arr as any) as PickFcSetFromDefSet<T, typeof formFcSetByDaisyUI>
 }
 
 // const createForm = (props: FormProps) => {

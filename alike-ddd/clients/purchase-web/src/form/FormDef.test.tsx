@@ -3,12 +3,12 @@ import React, { useEffect } from 'react'
 import { render, fireEvent, waitFor, screen, prettyDOM } from '@testing-library/react'
 import { Button } from '@alike-ddd/react-libs'
 import { createForms, FormDef, InputTextDef, SelectDef, PickFcSetFromDefSet } from './FormDef'
-import { formComponentSetByDaisyUI } from './daisyui'
-
+import { formFcSetByDaisyUI } from './daisyui'
+import { formDefs } from './formDefSet'
 
 describe('simple test', () => {
   it('dom draw', () => {
-    const Forms = createForms(forms)
+    const Forms = createForms(formDefs)
 
     const target = render(
       <>

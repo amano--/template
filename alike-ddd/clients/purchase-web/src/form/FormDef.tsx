@@ -2,7 +2,7 @@ export type FormDefBase = { name: string; label: string; required: boolean }
 export type InputTextDef = FormDefBase & { ft: 'text' }
 
 import { FC } from 'react'
-import { Form as FormByDaisyui, createForms as createFormsByDaisyui, formComponentSetByDaisyUI } from './daisyui'
+import { Form as FormByDaisyui, createForms as createFormsByDaisyui, formFcSetByDaisyUI } from './daisyui'
 import { FormTag } from './Form'
 import { formDefs } from './formDefSet'
 export type ComponentLibraryTag = 'daisyui'
@@ -53,16 +53,22 @@ type PickFcTypeByDefFromFormComponentSet<DEF extends FormDef, CS> = CS extends R
     : never
   : never
 // type a = PickFcFromDef<Name, (props: { hoge: string }) => JSX.Element>
-type a = PickFcTypeByDefFromFormComponentSet<Name, typeof formComponentSetByDaisyUI>
+// type a = PickFcTypeByDefFromFormComponentSet<Name, typeof formComponentSetByDaisyUI>
 
+// export type PickFcSetFromDefSet<
+//   SET extends Record<keyof SET, FormDef>,
+//   COMPONENT_SET extends Record<FormTag, unknown>
+// > = SET extends Record<keyof SET, infer DEF>
+//   ? DEF extends FormDef
+//     ? { [K in keyof SET]: PickFcTypeByDefFromFormComponentSet<DEF, COMPONENT_SET> }
+//     : never
+//   : never
 export type PickFcSetFromDefSet<
-  SET extends Record<keyof SET, FormDef>,
-  COMPONENT_SET extends Record<FormTag, unknown>
-> = SET extends Record<keyof SET, infer DEF>
-  ? DEF extends FormDef
-    ? { [K in keyof SET]: PickFcTypeByDefFromFormComponentSet<DEF, COMPONENT_SET> }
-    : never
-  : never
+  TFormDefSet extends Record<keyof TFormDefSet, FormDef>,
+  TFormFcSet extends Record<FormTag, unknown>
+> = { [K in keyof TFormDefSet]: PickFcTypeByDefFromFormComponentSet<TFormDefSet[K], TFormFcSet> }
+
+// type B = PickFcSetFromDefSet<typeof formDefs, typeof formComponentSetByDaisyUI>
 
 // export type PickFcSetFromDefSet<
 //   FORM_DEF_SET extends Record<string, FormDef>,
