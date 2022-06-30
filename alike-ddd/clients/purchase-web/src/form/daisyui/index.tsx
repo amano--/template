@@ -1,33 +1,47 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from 'react'
 import { Input, InputProps, Select, SelectProps as DUSelectProps } from 'react-daisyui'
 import { InputTextProps, SelectProps } from '../Form'
 import { ChoiceItemDef, FormDef, InputTextDef, PickFcSetFromDefSet, SelectDef } from '../FormDef'
 
 const defaultInputTextForm: InputProps = { color: 'primary' }
 export const InputTextForm = (defaultDef: InputTextDef) => (props: InputTextProps & InputProps) => {
-  const mergedProps = { ...defaultInputTextForm, ...defaultDef, ...props }
+  const mergedProps = {
+    ...defaultInputTextForm,
+    'aria-label': defaultDef.label,
+    // required: defaultDef.required,
+    ...props,
+  }
 
   return <Input {...mergedProps} />
 }
 
-type PartialDUSelectProps = Partial<DUSelectProps<'string'>>
-const defaultSelectForm: PartialDUSelectProps = { color: 'primary' }
+type PartialDUSelectProps = Partial<DUSelectProps<string>>
+const defaultSelectForm: PartialDUSelectProps = { color: 'primary', value: 'BLANK' }
 
+const BLANK_KEY = 'BLANK'
+export type SelectFormProps = SelectProps & PartialDUSelectProps
 export const SelectForm =
   <T extends Record<string, ChoiceItemDef>>(def: SelectDef<T>) =>
-  (props: SelectProps & PartialDUSelectProps) => {
-    const mergedProps = { ...defaultSelectForm, ...props }
+  (props: SelectFormProps) => {
+    const [value, setValue] = useState(props.value)
+    const mergedProps: SelectFormProps = {
+      ...defaultSelectForm,
+      defaultValue: props.value ?? BLANK_KEY,
+      ...props,
+      value,
+    }
 
-    return (
-      <Select {...mergedProps}>
-        {Object.values(def.items).map((itemDef) => (
-          <Select.Option key={itemDef.name} value={itemDef.name}>
-            {itemDef.label}
-          </Select.Option>
-        ))}
-      </Select>
-    )
+    const blankItem = value === BLANK_KEY ? <Select.Option key={BLANK_KEY} value={BLANK_KEY} disabled /> : undefined
+    const items = Object.values(def.items).map((itemDef) => (
+      <Select.Option key={itemDef.name} value={itemDef.name} selected={itemDef.name === mergedProps.value}>
+        {itemDef.label}
+      </Select.Option>
+    ))
+    const children = blankItem ? [blankItem, ...items] : items
+
+    return <Select {...mergedProps}>{children}</Select>
   }
 
 // const select =

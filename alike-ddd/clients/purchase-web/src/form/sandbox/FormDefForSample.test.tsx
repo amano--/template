@@ -1,10 +1,10 @@
 import React from 'react'
 import { render, prettyDOM } from '@testing-library/react'
-import { createForms } from './FormDef'
+import { FormDefForSampleForms } from './FormDefForSample'
 
 describe('simple test', () => {
   it('dom draw', () => {
-    const Forms = createForms(formDefsForSample)
+    const Forms = FormDefForSampleForms
 
     const target = render(
       <>
