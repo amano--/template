@@ -1,4 +1,5 @@
 import { createForms, InputTextDef, SelectDef } from '../FormDef'
+import { useFormDef } from '../daisyui/Form';
 
 const name: InputTextDef = {
   ft: 'text',
@@ -26,3 +27,14 @@ export const FormDefForSampleForms = (props: { hoge: string }) => (
     <Sample.gender></Sample.gender>
   </>
 )
+
+export const FormDefForSampleForms2 = (props: { hoge: string }) =>
+{
+  const { } = useFormDef(formDefsForSample,)
+(
+  <>
+    <Sample.name></Sample.name>
+    <Sample.gender></Sample.gender>
+  </>
+)
+}
