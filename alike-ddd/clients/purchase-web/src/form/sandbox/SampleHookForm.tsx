@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from 'react-daisyui'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 export const schema = z.object({
@@ -42,7 +42,7 @@ export const SampleHookForm: FC<Schema> = (props) => {
     resolver: zodResolver(schema),
   })
   // const onSubmit: SubmitHandler<Schema> = (data) => console.log(data)
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data: Schema) => console.log(data)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

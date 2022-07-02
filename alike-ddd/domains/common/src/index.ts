@@ -5,7 +5,7 @@ export * from './event'
 export * from './user/account'
 export * from './user/lank'
 
-export * from './usecase'
+export * from './test/usecase'
 export * from './api'
 
 export * from './usecases'

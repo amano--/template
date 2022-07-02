@@ -1,4 +1,4 @@
-import { OutputEvent } from './event'
+import { OutputEvent } from '../event'
 // import { string } from 'fp-ts'
 
 export type UsecaseLine<IN, OUT> = (e: IN) => Promise<OUT>
