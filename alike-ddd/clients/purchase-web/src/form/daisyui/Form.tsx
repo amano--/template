@@ -1,13 +1,13 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useForm, UseFormProps } from 'react-hook-form'
+import { Controller, Path, useForm, UseFormProps } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FC, ReactNode } from 'react'
 import { FormDef, PickFcSetFromDefSet } from '../FormDef'
 import { InputTextForm } from './InputTextForm'
 import { SelectForm } from './SelectForm'
 import { PROPERTY_TYPES } from '@babel/types'
-import { Button } from 'react-daisyui'
+import { Button, Input } from 'react-daisyui'
 
 export const formFcSetByDaisyUI = { text: InputTextForm, select: SelectForm, radio: SelectForm } as const
 
@@ -50,6 +50,7 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
   withSubmit: (data: T) => void
 ) => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -64,16 +65,27 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
   )
 
   //TODO 型チェックエラーのごまかしの解消
-  let arr = Object.entries(defs).map(([key, def]) => {
-    const Component = (p: any) => {
-      const mergedProps = { def, ...register(key as any), error: (errors as any)[key]?.message, ...p }
-      return Form(def)(mergedProps)
+  const FormFCes = Object.entries(defs).map(([key, def]) => {
+    const RawForm = Form(def)
+    const RawFC = (p: any) => {
+      const mergedProps = { def, error: (errors as any)[key]?.message, ...p }
+      return (
+        <Controller
+          name={key as Path<T>}
+          control={control}
+          defaultValue={p?.defaultValue}
+          render={(
+            { field } //<input {...(field as any)} />}
+          ) => RawForm({ ...mergedProps, ...field })}
+        />
+      )
     }
-    return [key, Component]
+
+    return [key, RawFC]
   })
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const Items = Object.fromEntries(arr as any) as PickFcSetFromDefSet<DEF, typeof formFcSetByDaisyUI>
+  const Items = Object.fromEntries(FormFCes as any) as PickFcSetFromDefSet<DEF, typeof formFcSetByDaisyUI>
 
   const ComposedForm = () => (
     <FormNode>

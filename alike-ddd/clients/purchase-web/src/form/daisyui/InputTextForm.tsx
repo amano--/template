@@ -8,16 +8,20 @@ const defaultInputTextForm: InputProps = { color: 'primary' }
 export const InputTextForm = (def: InputTextDef) => (props: InputTextProps & InputProps) => {
   const mergedProps = {
     ...defaultInputTextForm,
+    color: props.error ? 'error' : defaultInputTextForm.color,
     'aria-label': def.label,
     // required: defaultDef.required,
     ...props,
   }
+
+  console.log('props=', props)
 
   return (
     <label className="label" htmlFor={def.name}>
       <span className="label-text">{def.label}</span>
       {/* <span className="label-text-alt">Alt label</span> */}
       <Input {...mergedProps} />
+      {props.error && <span className="text-error">{props.error}</span>}
     </label>
   )
 }
