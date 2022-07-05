@@ -8,6 +8,7 @@ import { InputTextForm } from './InputTextForm'
 import { SelectForm } from './SelectForm'
 import { PROPERTY_TYPES } from '@babel/types'
 import { Button, Input } from 'react-daisyui'
+import React from 'react'
 
 export const formFcSetByDaisyUI = { text: InputTextForm, select: SelectForm, radio: SelectForm } as const
 
@@ -52,41 +53,11 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
 ) => {
   const useFormReturn = useForm(hookFormProps)
 
-  // const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
-
-  // const Submit: SubmitButtonType = ({ label = '送信' }) => (
-  //   <Button color="primary" type="submit">
-  //     {label}
-  //   </Button>
-  // )
-
-  // //TODO 型チェックエラーのごまかしの解消
-  // const FormFCes = Object.entries(defs).map(([key, def]) => {
-  //   const RawForm = Form(def)
-  //   const RawFC = (p: any) => {
-  //     const mergedProps = { def, error: (errors as any)[key]?.message, ...p }
-  //     return (
-  //       <Controller
-  //         name={key as Path<T>}
-  //         control={control}
-  //         defaultValue={p?.defaultValue}
-  //         render={(
-  //           { field } //<input {...(field as any)} />}
-  //         ) => RawForm({ ...mergedProps, ...field })}
-  //       />
-  //     )
-  //   }
-
-  //   return [key, RawFC]
-  // })
-
-  // // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  // const Items = Object.fromEntries(FormFCes as any) as PickFcSetFromDefSet<DEF, typeof formFcSetByDaisyUI>
-
   const Parts = createFormPartsByReactHookForms(defs, useFormReturn, withSubmit)
   const Forms = () => (
     <Parts.Form>
-      {Object.values(Parts.Items)}
+      {/* {React.Children} */}
+      {Object.values(Parts.Items).map((Node) => React.createElement(Node))}
       <Parts.Submit />
     </Parts.Form>
   )

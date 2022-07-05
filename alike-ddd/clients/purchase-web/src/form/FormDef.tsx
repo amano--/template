@@ -3,7 +3,11 @@
 export type FormDefBase = { name: string; label: string; required: boolean }
 export type InputTextDef = FormDefBase & { ft: 'text' }
 
-import { Form as FormByDaisyui, createForms as createFormsByDaisyui } from './daisyui'
+import {
+  Form as FormByDaisyui,
+  createForms as createFormsByDaisyui,
+  useFormDef as useFormDefByDaisyui,
+} from './daisyui'
 import { FormTag } from './Form'
 
 export type ChoiceItemDef = { name: string; label: string }
@@ -34,11 +38,11 @@ const defaultComponentLibraryTag: ComponentLibraryTag = 'daisyui'
 
 export const Form = defaultComponentLibraryTag == 'daisyui' ? FormByDaisyui : FormByDaisyui
 
-const createCreateForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
+const defineCreateForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
   switch (componentLibraryTag) {
     case 'daisyui':
       return createFormsByDaisyui
-    
+
     default: {
       //網羅性のチェックのためのコード
       // eslint-disable-next-line no-unused-vars
@@ -49,4 +53,21 @@ const createCreateForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui')
   }
 }
 
-export const createForms = createCreateForms()
+export const createForms = defineCreateForms()
+
+const defineUseFormDef = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
+  switch (componentLibraryTag) {
+    case 'daisyui':
+      return useFormDefByDaisyui
+
+    default: {
+      //網羅性のチェックのためのコード
+      // eslint-disable-next-line no-unused-vars
+      const forExhaustiveCheck: never = componentLibraryTag
+      // ここに到達することは通常ないが 戻り値の推論型から undefined を消すため定義
+      return useFormDefByDaisyui
+    }
+  }
+}
+
+export const useFormDef = defineUseFormDef()

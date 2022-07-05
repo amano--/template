@@ -1,5 +1,5 @@
 import { createForms, InputTextDef, SelectDef } from '../FormDef'
-import { useFormDef, useFormByHookForms } from '../daisyui/Form'
+import { useFormDef } from '../daisyui/Form'
 
 const name: InputTextDef = {
   ft: 'text',
@@ -40,23 +40,7 @@ export const schema = z.object({
 export type Schema = z.infer<typeof schema>
 
 export const FormDefForSampleForms2 = (props: Schema) => {
-  const { Form } = useFormByHookForms(
-    Sample,
-    {
-      defaultValues: props,
-      resolver: zodResolver(schema),
-      // shouldFocusError: false,
-    },
-    (data) => {
-      console.log('form submitted: data=', data)
-    }
-  )
-
-  return <Form></Form>
-}
-
-export const FormDefForSampleForms3 = (props: Schema) => {
-  const { Forms } = useFormDef(
+  const { Forms, Parts } = useFormDef(
     formDefsForSample,
     {
       defaultValues: props,
@@ -68,6 +52,25 @@ export const FormDefForSampleForms3 = (props: Schema) => {
     }
   )
 
+  // Parts.Items.name
+  //{/* <Forms.Items.name ></Forms.Items.name> */}
+  return <Forms></Forms>
+}
+
+export const FormDefForSampleForms3 = (props: Schema) => {
+  const { Forms, Parts } = useFormDef(
+    formDefsForSample,
+    {
+      defaultValues: props,
+      resolver: zodResolver(schema),
+      // shouldFocusError: false,
+    },
+    (data) => {
+      console.log('form submitted: data=', data)
+    }
+  )
+
+  // Parts.Items.name
   //{/* <Forms.Items.name ></Forms.Items.name> */}
   return <Forms></Forms>
 }
