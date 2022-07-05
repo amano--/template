@@ -30,6 +30,7 @@ export const FormDefForSampleForms = (props: { hoge: string }) => (
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useForm } from 'react-hook-form'
 
 export const schema = z.object({
   name: z.string().max(5),
@@ -44,11 +45,28 @@ export const FormDefForSampleForms2 = (props: Schema) => {
     {
       defaultValues: props,
       resolver: zodResolver(schema),
+      // shouldFocusError: false,
     },
     (data) => {
-      console.log(data)
+      console.log('form submitted: data=', data)
     }
   )
 
   return <Form></Form>
+}
+
+export const FormDefForSampleForms3 = (props: Schema) => {
+  const MyForm = useMyForm(
+    Sample,
+    {
+      defaultValues: props,
+      resolver: zodResolver(schema),
+      // shouldFocusError: false,
+    },
+    (data) => {
+      console.log('form submitted: data=', data)
+    }
+  )
+
+  return <MyForm.Form></MyForm.Form>
 }
