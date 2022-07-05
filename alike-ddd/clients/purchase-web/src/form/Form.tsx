@@ -1,7 +1,7 @@
-import { InputTextDef } from "./FormDef";
+import { InputTextDef } from './FormDef'
 
 //TODO label の多言語対応
-export type FormBase = { name: string; label: string }
+export type FormBase = { name: string; label: string; error?: string }
 
 // export type FormDefBase = FormBase & { required: boolean }
 // export type InputTextDef = FormDefBase & { ft: 'text' }
