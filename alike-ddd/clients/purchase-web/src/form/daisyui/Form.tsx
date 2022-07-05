@@ -50,147 +50,143 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
   hookFormProps: UseFormProps<T>,
   withSubmit: (data: T) => void
 ) => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm(hookFormProps)
+  const useFormReturn = useForm(hookFormProps)
 
-  const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
+  // const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
 
-  const Submit: SubmitButtonType = ({ label = '送信' }) => (
-    <Button color="primary" type="submit">
-      {label}
-    </Button>
+  // const Submit: SubmitButtonType = ({ label = '送信' }) => (
+  //   <Button color="primary" type="submit">
+  //     {label}
+  //   </Button>
+  // )
+
+  // //TODO 型チェックエラーのごまかしの解消
+  // const FormFCes = Object.entries(defs).map(([key, def]) => {
+  //   const RawForm = Form(def)
+  //   const RawFC = (p: any) => {
+  //     const mergedProps = { def, error: (errors as any)[key]?.message, ...p }
+  //     return (
+  //       <Controller
+  //         name={key as Path<T>}
+  //         control={control}
+  //         defaultValue={p?.defaultValue}
+  //         render={(
+  //           { field } //<input {...(field as any)} />}
+  //         ) => RawForm({ ...mergedProps, ...field })}
+  //       />
+  //     )
+  //   }
+
+  //   return [key, RawFC]
+  // })
+
+  // // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  // const Items = Object.fromEntries(FormFCes as any) as PickFcSetFromDefSet<DEF, typeof formFcSetByDaisyUI>
+
+  const Parts = createFormPartsByReactHookForms(defs, useFormReturn, withSubmit)
+  const Forms = () => (
+    <Parts.Form>
+      {Object.values(Parts.Items)}
+      <Parts.Submit />
+    </Parts.Form>
   )
 
-  //TODO 型チェックエラーのごまかしの解消
-  const FormFCes = Object.entries(defs).map(([key, def]) => {
-    const RawForm = Form(def)
-    const RawFC = (p: any) => {
-      const mergedProps = { def, error: (errors as any)[key]?.message, ...p }
-      return (
-        <Controller
-          name={key as Path<T>}
-          control={control}
-          defaultValue={p?.defaultValue}
-          render={(
-            { field } //<input {...(field as any)} />}
-          ) => RawForm({ ...mergedProps, ...field })}
-        />
-      )
-    }
-
-    return [key, RawFC]
-  })
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const Items = Object.fromEntries(FormFCes as any) as PickFcSetFromDefSet<DEF, typeof formFcSetByDaisyUI>
-
-  const ComposedForm = () => (
-    <FormNode>
-      {Object.values(Items)}
-      <Submit />
-    </FormNode>
-  )
-
-  return { Form: ComposedForm, FormNode, Submit, Items }
+  return { Forms, Parts }
 }
 
-export const useMyForm = <T,>(
-  FormItems: Record<keyof T, (props: any) => JSX.Element>,
-  hookFormProps: UseFormProps<T>,
-  withSubmit: (data: T) => void
-) => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm(hookFormProps)
+// export const useFormByHookForms = <T,>(
+//   FormItems: Record<keyof T, (props: any) => JSX.Element>,
+//   hookFormProps: UseFormProps<T>,
+//   withSubmit: (data: T) => void
+// ) => {
+//   const {
+//     control,
+//     // register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm(hookFormProps)
 
-  const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
+//   const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
 
-  const Submit: SubmitButtonType = ({ label = '送信' }) => (
-    <Button color="primary" type="submit">
-      {label}
-    </Button>
-  )
+//   const Submit: SubmitButtonType = ({ label = '送信' }) => (
+//     <Button color="primary" type="submit">
+//       {label}
+//     </Button>
+//   )
 
-  const Items = Object.entries(FormItems).map(([key, FormItem]) => {
-    //TODO 型チェックエラーのごまかしの解消
-    const props = { error: (errors as any)[key]?.message }
-    return (
-      <Controller
-        name={key as Path<T>}
-        control={control}
-        // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
-        render={(
-          { field } //<input {...(field as any)} />}
-        ) => FormItem({ ...props, ...field })}
-      />
-    )
-  })
+//   const Items = Object.entries(FormItems).map(([key, FormItem]) => {
+//     //TODO 型チェックエラーのごまかしの解消
+//     const props = { error: (errors as any)[key]?.message }
+//     return (
+//       <Controller
+//         name={key as Path<T>}
+//         control={control}
+//         // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
+//         render={(
+//           { field } //<input {...(field as any)} />}
+//         ) => FormItem({ ...props, ...field })}
+//       />
+//     )
+//   })
 
-  const ComposedForm = () => (
-    <FormNode>
-      {Object.values(Items)}
-      <Submit />
-    </FormNode>
-  )
+//   const ComposedForm = () => (
+//     <FormNode>
+//       {Object.values(Items)}
+//       <Submit />
+//     </FormNode>
+//   )
 
-  return { Form: ComposedForm, FormNode, Submit, Items }
-}
+//   return { Form: ComposedForm, FormNode, Submit, Items }
+// }
 
-export const createFormsByReactHookForms = <DEF extends Record<string, FormDef>, SCHEMA>(
-  defs: DEF,
-  hookFormProps: UseFormProps<SCHEMA>,
-  withSubmit: (data: SCHEMA) => void
-) => {
-  ;(props: SCHEMA) => {
-    const {
-      control,
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm(hookFormProps)
+// export const createFormsByReactHookForms = <DEF extends Record<string, FormDef>, SCHEMA>(
+//   defs: DEF,
+//   hookFormProps: UseFormProps<SCHEMA>,
+//   withSubmit: (data: SCHEMA) => void
+// ) => {
+//   ;(props: SCHEMA) => {
+//     const {
+//       control,
+//       register,
+//       handleSubmit,
+//       formState: { errors },
+//     } = useForm(hookFormProps)
 
-    const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
+//     const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
 
-    const Submit: SubmitButtonType = ({ label = '送信' }) => (
-      <Button color="primary" type="submit">
-        {label}
-      </Button>
-    )
+//     const Submit: SubmitButtonType = ({ label = '送信' }) => (
+//       <Button color="primary" type="submit">
+//         {label}
+//       </Button>
+//     )
 
-    const Items = Object.entries(FormItems).map(([key, FormItem]) => {
-      //TODO 型チェックエラーのごまかしの解消
-      const props = { error: (errors as any)[key]?.message }
-      return (
-        <Controller
-          name={key as Path<T>}
-          control={control}
-          // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
-          render={(
-            { field } //<input {...(field as any)} />}
-          ) => FormItem({ ...props, ...field })}
-        />
-      )
-    })
+//     const Items = Object.entries(FormItems).map(([key, FormItem]) => {
+//       //TODO 型チェックエラーのごまかしの解消
+//       const props = { error: (errors as any)[key]?.message }
+//       return (
+//         <Controller
+//           name={key as Path<T>}
+//           control={control}
+//           // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
+//           render={(
+//             { field } //<input {...(field as any)} />}
+//           ) => FormItem({ ...props, ...field })}
+//         />
+//       )
+//     })
 
-    const ComposedForm = () => (
-      <FormNode>
-        {Object.values(Items)}
-        <Submit />
-      </FormNode>
-    )
+//     const ComposedForm = () => (
+//       <FormNode>
+//         {Object.values(Items)}
+//         <Submit />
+//       </FormNode>
+//     )
 
-    return { Form: ComposedForm, FormNode, Submit, Items }
-  }
-}
+//     return { Form: ComposedForm, FormNode, Submit, Items }
+//   }
+// }
 
-export const createFormsByReactHookForms2 = <DEF extends Record<string, FormDef>, SCHEMA>(
+export const createFormPartsByReactHookForms = <DEF extends Record<string, FormDef>, SCHEMA>(
   defs: DEF,
   hookFormReturn: UseFormReturn<SCHEMA>,
   withSubmit: (data: SCHEMA) => void
@@ -205,30 +201,24 @@ export const createFormsByReactHookForms2 = <DEF extends Record<string, FormDef>
     </Button>
   )
 
-  // const arr = Object.entries(defs).map(([key, def]) => [key, Form(def)])
   const tmpArray = Object.entries(defs).map(([key, def]) => {
+    const RawForm = Form(def)
     //TODO 型チェックエラーのごまかしの解消
-    const props = { error: (hookFormReturn.formState.errors as any)[key]?.message }
-    return (
+    const Fc = (props: SCHEMA) => (
       <Controller
         name={key as Path<SCHEMA>}
         control={hookFormReturn.control}
         // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
-        render={(
-          { field } //<input {...(field as any)} />}
-        ) => Form(def)({ ...props, ...field } as any)}
+        render={({ field, formState }) => {
+          const mergedProps = { ...props, ...field, error: (formState.errors as any)[key]?.message }
+          return RawForm(mergedProps as any)
+        }}
       />
     )
+    return [key, Fc]
   })
 
   const Items = Object.fromEntries(tmpArray as any) as PickFcSetFromDefSet<DEF, typeof formFcSetByDaisyUI>
 
-  const Root = (props: SCHEMA) => (
-    <FormNode>
-      {Object.values(Items)}
-      <Submit />
-    </FormNode>
-  )
-
-  return { Root, FormNode, Submit, Items }
+  return { Form: FormNode, Submit, Items }
 }

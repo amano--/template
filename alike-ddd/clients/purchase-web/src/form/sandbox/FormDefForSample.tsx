@@ -1,5 +1,5 @@
 import { createForms, InputTextDef, SelectDef } from '../FormDef'
-import { useFormDef, useMyForm } from '../daisyui/Form'
+import { useFormDef, useFormByHookForms } from '../daisyui/Form'
 
 const name: InputTextDef = {
   ft: 'text',
@@ -40,7 +40,7 @@ export const schema = z.object({
 export type Schema = z.infer<typeof schema>
 
 export const FormDefForSampleForms2 = (props: Schema) => {
-  const { Form } = useMyForm(
+  const { Form } = useFormByHookForms(
     Sample,
     {
       defaultValues: props,
@@ -56,8 +56,8 @@ export const FormDefForSampleForms2 = (props: Schema) => {
 }
 
 export const FormDefForSampleForms3 = (props: Schema) => {
-  const MyForm = useMyForm(
-    Sample,
+  const { Forms } = useFormDef(
+    formDefsForSample,
     {
       defaultValues: props,
       resolver: zodResolver(schema),
@@ -68,5 +68,6 @@ export const FormDefForSampleForms3 = (props: Schema) => {
     }
   )
 
-  return <MyForm.Form></MyForm.Form>
+  //{/* <Forms.Items.name ></Forms.Items.name> */}
+  return <Forms></Forms>
 }

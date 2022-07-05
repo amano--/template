@@ -1,4 +1,5 @@
 import { InputTextDef } from './FormDef'
+import { useFormByHookForms } from './daisyui/Form'
 
 //TODO label の多言語対応
 export type FormBase = { name: string; label: string }
@@ -23,3 +24,6 @@ export type ChoiceProps = SelectProps | RadioProps
 export type FormProps = SingleInputProps | ChoiceProps
 
 export type FormTag = FormProps['ft']
+
+const useFormDefaultFwId = 'reactHookForms'
+export const useForm = useFormDefaultFwId === 'reactHookForms' ? useFormByHookForms : useFormByHookForms

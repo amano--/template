@@ -5,6 +5,7 @@ import { Select, SelectProps as DUSelectProps } from 'react-daisyui'
 import { SelectProps } from '../Form'
 import { ChoiceItemDef, FormDef, PickFcSetFromDefSet, SelectDef } from '../FormDef'
 
+
 type PartialDUSelectProps = Partial<DUSelectProps<string>>
 
 const defaultSelectForm: PartialDUSelectProps = { color: 'primary', value: 'BLANK' }
