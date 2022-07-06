@@ -1,4 +1,4 @@
-import { createForms, InputTextDef, SelectDef } from '../FormDef'
+import { newForms, InputTextDef, SelectDef } from '../FormDef'
 import { useFormDef } from '../daisyui/Form'
 
 const name: InputTextDef = {
@@ -20,7 +20,7 @@ const gender: SelectDef<typeof genderItems> = {
 
 export const formDefsForSample = { name, gender } as const
 
-const Sample = createForms(formDefsForSample)
+const Sample = newForms(formDefsForSample)
 export const FormDefForSampleForms = (props: { hoge: string }) => (
   <>
     <Sample.name></Sample.name>

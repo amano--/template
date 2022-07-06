@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undef */
 import {
-  newForm as FormByDaisyui,
-  newForms as createFormsByDaisyui,
+  newForm as newFormByDaisyui,
+  newForms as newFormsByDaisyui,
   useFormDef as useFormDefByDaisyui,
 } from './daisyui'
 import { FormTag } from './Form'
@@ -37,24 +37,24 @@ export type ComponentLibraryTag = 'daisyui'
 
 const defaultComponentLibraryTag: ComponentLibraryTag = 'daisyui'
 
-export const Form = defaultComponentLibraryTag == 'daisyui' ? FormByDaisyui : FormByDaisyui
+export const newForm = defaultComponentLibraryTag == 'daisyui' ? newFormByDaisyui : newFormByDaisyui
 
-const defineCreateForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
+const defineNewForms = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
   switch (componentLibraryTag) {
     case 'daisyui':
-      return createFormsByDaisyui
+      return newFormsByDaisyui
 
     default: {
       //網羅性のチェックのためのコード
       // eslint-disable-next-line no-unused-vars
       const forExhaustiveCheck: never = componentLibraryTag
       // ここに到達することは通常ないが 戻り値の推論型から undefined を消すため定義
-      return createFormsByDaisyui
+      return newFormsByDaisyui
     }
   }
 }
 
-export const createForms = defineCreateForms()
+export const newForms = defineNewForms()
 
 const defineUseFormDef = (componentLibraryTag: ComponentLibraryTag = 'daisyui') => {
   switch (componentLibraryTag) {
