@@ -1,42 +1,31 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { newSelectForm } from '.'
+import { SelectDef } from '../FormDef'
 
-type TargetType = typeof newSelectForm
-type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
+const items = { no1: { name: 'no1', label: '選択肢1' }, no2: { name: 'no2', label: '選択肢2' } }
+const def: SelectDef = { ft: 'select', name: 'formName', label: 'ラベル', required: true, items }
+const SelectForm = newSelectForm(def)
 
-export default { component: newSelectForm } as ComponentMeta<TargetType>
+type TargetType = typeof SelectForm
+type StoryObj = ComponentStoryObj<TargetType>
+// type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
 
-const itemDefs = { no1: { name: 'no1', label: '選択肢1' }, no2: { name: 'no2', label: '選択肢2' } }
+export default { component: SelectForm } as ComponentMeta<TargetType>
 
-export const Normal: RequiredStoryObj = {
-  args: {
-    ft: 'select',
-    name: 'aaaa',
-    label: 'ははは',
-    itemDefs,
-  },
+export const Normal: StoryObj = {
+  args: {},
 }
 
-export const Error: RequiredStoryObj = {
+export const Error: StoryObj = {
   args: {
-    ft: 'select',
-    name: 'aaaa',
-    label: 'ははは',
-    itemDefs,
-
     color: 'error',
   },
 }
 
-export const CustomByTw: RequiredStoryObj = {
+export const CustomByTw: StoryObj = {
   // TODO storyName 設定が反省されない問題の調査
   storyName: 'tailwindcss のクラス名を使ったサンプル',
   args: {
-    ft: 'select',
-    name: 'aaaa',
-    label: 'ははは',
-    itemDefs,
-
     //TODO Twの VSCode のプラグインによる補完のきかせ方について調査
     className: 'rounded-r-full',
   },

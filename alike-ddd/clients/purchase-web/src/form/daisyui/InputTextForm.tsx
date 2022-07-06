@@ -5,7 +5,7 @@ import { InputTextProps } from '../Form'
 import { InputTextDef } from '../FormDef'
 
 const defaultInputTextForm: InputProps = { color: 'primary' }
-export const InputTextForm = (def: InputTextDef) => (props: InputTextProps & InputProps) => {
+export const newInputTextForm = (def: InputTextDef) => (props: InputTextProps & InputProps) => {
   const mergedProps = {
     ...defaultInputTextForm,
     color: props.error ? 'error' : defaultInputTextForm.color,

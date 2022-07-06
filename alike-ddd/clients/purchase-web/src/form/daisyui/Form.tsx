@@ -3,13 +3,14 @@
 import { Controller, Path, useForm, UseFormProps, UseFormReturn } from 'react-hook-form'
 import { FC, ReactNode, useMemo } from 'react'
 import { FormDef, PickFcSetFromDefSet } from '../FormDef'
-import { InputTextForm } from './InputTextForm'
+import { newInputTextForm } from './InputTextForm'
 import { newSelectForm } from './SelectForm'
 import React from 'react'
 import { newRangeForm } from './RangeForm'
+import { Button } from 'react-daisyui'
 
 export const formFcSetByDaisyUI = {
-  text: InputTextForm,
+  text: newInputTextForm,
   range: newRangeForm,
   select: newSelectForm,
   radio: newSelectForm,
@@ -18,7 +19,7 @@ export const formFcSetByDaisyUI = {
 // TODO 多分不可能だと思うが、本当は 右辺の型を Record<FormTag,(props: FormProps) => JSX.Element> のように 厳密にチェックしたいが方法がわからない
 // const forTypeCheck: Record<FormTag, unknown> = formSet
 
-export const Form = (def: FormDef) => {
+export const newForm = (def: FormDef) => {
   switch (def.ft) {
     case 'text':
       return formFcSetByDaisyUI.text(def)
@@ -41,8 +42,8 @@ export const Form = (def: FormDef) => {
   }
 }
 
-export const createForms = <T extends Record<string, FormDef>>(defs: T) => {
-  const arr = Object.entries(defs).map(([key, def]) => [key, Form(def)])
+export const newForms = <T extends Record<string, FormDef>>(defs: T) => {
+  const arr = Object.entries(defs).map(([key, def]) => [key, newForm(def)])
   //TODO 型チェックエラーのごまかしの解消
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return Object.fromEntries(arr as any) as PickFcSetFromDefSet<T, typeof formFcSetByDaisyUI>
@@ -185,7 +186,7 @@ export const createFormPartsByReactHookForms = <DEF extends Record<string, FormD
   )
 
   const tmpArray = Object.entries(defs).map(([key, def]) => {
-    const RawForm = Form(def)
+    const RawForm = newForm(def)
     //TODO 型チェックエラーのごまかしの解消
     const Fc = (props: SCHEMA) => (
       <Controller

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undef */
 import {
-  Form as FormByDaisyui,
-  createForms as createFormsByDaisyui,
+  newForm as FormByDaisyui,
+  newForms as createFormsByDaisyui,
   useFormDef as useFormDefByDaisyui,
 } from './daisyui'
 import { FormTag } from './Form'
