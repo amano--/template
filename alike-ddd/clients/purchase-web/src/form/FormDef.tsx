@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undef */
-export type FormDefBase = { name: string; label: string; required: boolean }
-export type InputTextDef = FormDefBase & { ft: 'text' }
-
 import {
   Form as FormByDaisyui,
   createForms as createFormsByDaisyui,
@@ -10,16 +7,20 @@ import {
 } from './daisyui'
 import { FormTag } from './Form'
 
+export type FormDefBase = { name: string; label: string; required: boolean }
+export type InputTextDef = FormDefBase & { ft: 'text' }
+export type RangeDef = FormDefBase & { ft: 'range'; min: number; max: number; step: number }
+
 export type ChoiceItemDef = { name: string; label: string }
 export type ChoiceDef<T extends Record<string, ChoiceItemDef>> = FormDefBase & {
   items: T
 }
 
-export type SelectDef<T extends Record<string, ChoiceItemDef>> = ChoiceDef<T> & { ft: 'select' }
-export type RadioDef<T extends Record<string, ChoiceItemDef>> = ChoiceDef<T> & { ft: 'radio' }
+// TODO any で適当に対応したので改善 ぶっちゃけこの型引数いらない気がしてきた
+export type SelectDef<T extends Record<string, ChoiceItemDef> = any> = ChoiceDef<T> & { ft: 'select' }
+export type RadioDef<T extends Record<string, ChoiceItemDef> = any> = ChoiceDef<T> & { ft: 'radio' }
 
-// TODO any で適当に対応したので改善
-export type FormDef = InputTextDef | SelectDef<any> | RadioDef<any>
+export type FormDef = InputTextDef | RangeDef | SelectDef | RadioDef
 
 export type PickFcTypeByDefFromFormComponentSet<DEF extends FormDef, CS> = CS extends Record<DEF['ft'], infer FC>
   ? FC extends (def: any) => (props: infer IN) => JSX.Element

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Controller, Path, useForm, UseFormProps, UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useMemo } from 'react'
 import { FormDef, PickFcSetFromDefSet } from '../FormDef'
 import { InputTextForm } from './InputTextForm'
 import { SelectForm } from './SelectForm'
@@ -53,13 +53,20 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
 ) => {
   const useFormReturn = useForm(hookFormProps)
 
-  const Parts = createFormPartsByReactHookForms(defs, useFormReturn, withSubmit)
-  const Forms = () => (
-    <Parts.Form>
-      {/* {React.Children} */}
-      {Object.values(Parts.Items).map((Node) => React.createElement(Node))}
-      <Parts.Submit />
-    </Parts.Form>
+  const Parts = useMemo(
+    () => createFormPartsByReactHookForms(defs, useFormReturn, withSubmit),
+    [useFormReturn, withSubmit, defs]
+  )
+  const Forms = useMemo(
+    () => () =>
+      (
+        <Parts.Form>
+          {/* {React.Children} */}
+          {Object.values(Parts.Items).map((Node) => React.createElement(Node))}
+          <Parts.Submit />
+        </Parts.Form>
+      ),
+    [Parts]
   )
 
   return { Forms, Parts }

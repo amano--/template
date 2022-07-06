@@ -1,5 +1,4 @@
-import { InputTextDef } from './FormDef'
-import { useFormByHookForms } from './daisyui/Form'
+import { InputTextDef, RangeDef } from './FormDef'
 
 //TODO label の多言語対応
 export type FormBase = { name: string; label: string }
@@ -11,8 +10,9 @@ export type FormBase = { name: string; label: string }
 export type FormPropsBase = { name: string; label: string; error?: string }
 
 export type InputTextProps = FormPropsBase & { ft: 'text'; def: InputTextDef }
+export type RangeProps = FormPropsBase & { ft: 'range'; def: RangeDef }
 
-export type SingleInputProps = InputTextProps
+export type SingleInputProps = InputTextProps | RangeProps
 
 //TODO items の多言語対応
 export type ChoicePropsBase = FormPropsBase
