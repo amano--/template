@@ -11,21 +11,21 @@ const defaultRangeForm: DUIRangeProps = { color: 'primary' }
 
 export const RangeForm = (def: RangeDef) => (props: RangeFormProps) => {
   // TODO nested object 対応
-  const id = def.name
+  const id = props.name ?? def.name
 
   const mergedProps: RangeFormProps = {
     ...defaultRangeForm,
-    id, // color: props.error ? 'error' : defaultRangeForm.color,
     'aria-label': def.label,
     // required: defaultDef.required,
     // TODO 不要なものが展開される問題の対応
     ...def,
     // TODO def とか余計なものがDOMについちゃう問題の対応
     ...props,
-    // name: props.name ?? id,
+    id, // color: props.error ? 'error' : defaultRangeForm.color,
+    name: id,
     // min: props.min ?? def.min,
   }
-  console.log('def.min', def.min)
+  // console.log('def.min', def.min)
   return (
     <label className="label" htmlFor={id}>
       <span className="label-text">{def.label}</span>

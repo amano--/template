@@ -19,3 +19,10 @@ export const Normal: PartialStoryObj = {
     def,
   },
 }
+
+export const Normal_Value75: PartialStoryObj = {
+  args: {
+    ...Normal.args,
+    value: 75,
+  },
+}
