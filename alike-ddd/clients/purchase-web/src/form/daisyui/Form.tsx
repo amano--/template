@@ -1,16 +1,19 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Controller, Path, useForm, UseFormProps, UseFormReturn } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { FC, ReactNode, useMemo } from 'react'
 import { FormDef, PickFcSetFromDefSet } from '../FormDef'
 import { InputTextForm } from './InputTextForm'
-import { SelectForm } from './SelectForm'
-import { PROPERTY_TYPES } from '@babel/types'
-import { Button, Input } from 'react-daisyui'
+import { newSelectForm } from './SelectForm'
 import React from 'react'
+import { newRangeForm } from './RangeForm'
 
-export const formFcSetByDaisyUI = { text: InputTextForm, select: SelectForm, radio: SelectForm } as const
+export const formFcSetByDaisyUI = {
+  text: InputTextForm,
+  range: newRangeForm,
+  select: newSelectForm,
+  radio: newSelectForm,
+} as const
 
 // TODO 多分不可能だと思うが、本当は 右辺の型を Record<FormTag,(props: FormProps) => JSX.Element> のように 厳密にチェックしたいが方法がわからない
 // const forTypeCheck: Record<FormTag, unknown> = formSet
@@ -19,6 +22,8 @@ export const Form = (def: FormDef) => {
   switch (def.ft) {
     case 'text':
       return formFcSetByDaisyUI.text(def)
+    case 'range':
+      return formFcSetByDaisyUI.range(def)
     case 'select':
       return formFcSetByDaisyUI.select(def)
     case 'radio':

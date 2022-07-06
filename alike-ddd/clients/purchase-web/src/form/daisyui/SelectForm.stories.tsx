@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import { SelectForm } from '.'
+import { newSelectForm } from '.'
 
-type TargetType = typeof SelectForm
+type TargetType = typeof newSelectForm
 type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
 
-export default { component: SelectForm } as ComponentMeta<TargetType>
+export default { component: newSelectForm } as ComponentMeta<TargetType>
 
 const itemDefs = { no1: { name: 'no1', label: '選択肢1' }, no2: { name: 'no2', label: '選択肢2' } }
 

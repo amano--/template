@@ -9,7 +9,7 @@ export type RangeFormProps = RangeProps & DUIRangeProps
 
 const defaultRangeForm: DUIRangeProps = { color: 'primary' }
 
-export const RangeForm = (def: RangeDef) => (props: RangeFormProps) => {
+export const newRangeForm = (def: RangeDef) => (props: RangeFormProps) => {
   // TODO nested object 対応
   const id = props.name ?? def.name
 
@@ -27,14 +27,16 @@ export const RangeForm = (def: RangeDef) => (props: RangeFormProps) => {
   }
   // console.log('def.min', def.min)
   return (
-    <label className="label" htmlFor={id}>
-      <span className="label-text">{def.label}</span>
-      {/* <span className="label-text-alt">Alt label</span> */}
-      <Range {...mergedProps} />
+    <>
+      <label className="label" htmlFor={id}>
+        <span className="label-text">{def.label}</span>
+        {/* <span className="label-text-alt">Alt label</span> */}
 
-      {/*
+        {/*
       {props.error && <span className="text-error">{props.error}</span>}
       */}
-    </label>
+      </label>
+      <Range {...mergedProps} />
+    </>
   )
 }

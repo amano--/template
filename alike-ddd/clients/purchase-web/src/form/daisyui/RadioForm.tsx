@@ -12,7 +12,7 @@ const defaultSelectForm: PartialDUSelectProps = { color: 'primary', value: 'BLAN
 
 const BLANK_KEY = 'BLANK'
 export type SelectFormProps = SelectProps & PartialDUSelectProps
-export const SelectForm =
+export const newSelectForm =
   <T extends Record<string, ChoiceItemDef>>(def: SelectDef<T>) =>
   (props: SelectFormProps) => {
     const [value, setValue] = useState(props.value)

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import { RangeForm as createRangeForm } from './RangeForm'
+import { newRangeForm as createRangeForm } from './RangeForm'
 import { RangeDef } from '../FormDef'
 
 const def: RangeDef = { ft: 'range', name: 'formName', label: 'ラベル', required: true, min: 0, max: 100, step: 25 }
