@@ -22,7 +22,7 @@ export const Disabled: TargetStory = {
 
 export const Error: TargetStory = {
   args: {
-    color: 'error',
+    error: 'エラーが発生しました',
   },
 }
 

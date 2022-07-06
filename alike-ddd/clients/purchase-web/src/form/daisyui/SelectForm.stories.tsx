@@ -18,7 +18,7 @@ export const Normal: StoryObj = {
 
 export const Error: StoryObj = {
   args: {
-    color: 'error',
+    error: 'エラーが発生しました',
   },
 }
 

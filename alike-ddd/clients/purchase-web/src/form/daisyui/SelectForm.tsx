@@ -7,7 +7,7 @@ import { ChoiceItemDef, FormDef, PickFcSetFromDefSet, SelectDef } from '../FormD
 
 type PartialDUSelectProps = Partial<DUSelectProps<string>>
 
-const defaultSelectForm: PartialDUSelectProps = { color: 'primary', value: 'BLANK' }
+const defaultProps: PartialDUSelectProps = { color: 'primary', value: 'BLANK' }
 
 const BLANK_KEY = 'BLANK'
 
@@ -18,8 +18,9 @@ export const newSelectForm =
   ({ value, ...props }: SelectFormProps) => {
     // const [value, setValue] = useState(props.value)
     const mergedProps: SelectFormProps = {
-      ...defaultSelectForm,
+      ...defaultProps,
       defaultValue: value ?? BLANK_KEY,
+      color: props.error ? 'error' : defaultProps.color,
       ...props,
       value,
     }
@@ -37,6 +38,7 @@ export const newSelectForm =
         <span className="label-text">{def.label}</span>
         {/* <span className="label-text-alt">Alt label</span> */}
         <Select {...mergedProps}>{children}</Select>
+        {props.error && <span className="text-error">{props.error}</span>}
       </label>
     )
   }

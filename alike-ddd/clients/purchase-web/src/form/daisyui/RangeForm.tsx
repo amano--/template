@@ -7,14 +7,16 @@ import { RangeDef } from '../FormDef'
 //TODO このFormは 不正な値が手入力できないため 入力エラーになることは基本ないと思うが、対応を熟慮する必要があるかも
 export type RangeFormProps = RangeProps & DUIRangeProps
 
-const defaultRangeForm: DUIRangeProps = { color: 'primary' }
+const defaultProps: DUIRangeProps = { color: 'primary' }
 
 export const newRangeForm = (def: RangeDef) => (props: RangeFormProps) => {
   // TODO nested object 対応
   const id = props.name ?? def.name
 
   const mergedProps: RangeFormProps = {
-    ...defaultRangeForm,
+    ...defaultProps,
+    // TODO range に error がない問題の対応
+    color: props.error ? 'accent' : defaultProps.color,
     'aria-label': def.label,
     // required: defaultDef.required,
     // TODO 不要なものが展開される問題の対応
@@ -37,6 +39,7 @@ export const newRangeForm = (def: RangeDef) => (props: RangeFormProps) => {
       */}
       </label>
       <Range {...mergedProps} />
+      {props.error && <span className="text-error">{props.error}</span>}
     </>
   )
 }

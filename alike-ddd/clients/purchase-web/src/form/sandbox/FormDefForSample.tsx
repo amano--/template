@@ -1,4 +1,4 @@
-import { newForms, InputTextDef, SelectDef } from '../FormDef'
+import { newForms, InputTextDef, SelectDef, RangeDef } from '../FormDef'
 import { useFormDef } from '../daisyui/Form'
 
 const name: InputTextDef = {
@@ -18,23 +18,34 @@ const gender: SelectDef<typeof genderItems> = {
   items: genderItems,
 }
 
-export const formDefsForSample = { name, gender } as const
+const volume: RangeDef = {
+  ft: 'range',
+  name: 'volume',
+  label: 'ボリューム',
+  required: true,
+  min: 0,
+  max: 100,
+  step: 25,
+}
+
+export const formDefsForSample = { name, gender, volume } as const
 
 const Sample = newForms(formDefsForSample)
+
 export const FormDefForSampleForms = (props: { hoge: string }) => (
   <>
-    <Sample.name></Sample.name>
+    <Sample.name color="accent"></Sample.name>
     <Sample.gender></Sample.gender>
   </>
 )
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
 
 export const schema = z.object({
   name: z.string().max(5),
   gender: z.string().max(5),
+  // volume: z.number().min(0).max(50),
 })
 
 export type Schema = z.infer<typeof schema>

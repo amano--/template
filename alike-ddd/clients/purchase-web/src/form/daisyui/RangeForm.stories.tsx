@@ -8,19 +8,16 @@ const RangeForm = createRangeForm(def)
 
 type TargetType = typeof RangeForm
 
-type PartialStoryObj = ComponentStoryObj<TargetType>
-type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
+type TargetStory = ComponentStoryObj<TargetType>
+// type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
 
 export default { component: RangeForm } as ComponentMeta<TargetType>
 
-export const Normal: PartialStoryObj = {
-  args: {
-    ft: 'range',
-    def,
-  },
+export const Normal: TargetStory = {
+  args: {},
 }
 
-export const Normal_Value75: PartialStoryObj = {
+export const Normal_Value75: TargetStory = {
   args: {
     ...Normal.args,
     value: 75,
