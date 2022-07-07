@@ -9,20 +9,20 @@ export default { component: FormDefForSampleForms2 } as ComponentMeta<TargetType
 
 export const Valid: RequiredStoryObj = {
   args: {
-    name: 'abcde',
-    gender: 'female',
-    volume: 50,
+    name: '日本太郎',
+    gender: 'male',
+    volume: 25,
   },
-  // play: async (ctx) => {
-  //   const canvas = within(ctx.canvasElement)
-  //   await userEvent.click(canvas.getByText('送信'))
-  // },
+  play: async (ctx) => {
+    const canvas = within(ctx.canvasElement)
+    await userEvent.click(canvas.getByText('送信'))
+  },
 }
 
 export const Invalid: RequiredStoryObj = {
   args: {
     name: 'invalid name',
-    gender: 'hoge' as 'male',
+    gender: undefined as unknown as 'male', //'hoge' as 'male',
     volume: 1000,
   },
   // play: async (ctx) => {

@@ -63,13 +63,15 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
     () => createFormPartsByReactHookForms(defs, useFormReturn, withSubmit),
     [useFormReturn, withSubmit, defs]
   )
+
   const Forms = useMemo(
     () => () =>
       (
         <Parts.Form>
-          {/* {React.Children} */}
-          {Object.values(Parts.Items).map((Node) => React.createElement(Node))}
+          {/*  <form onSubmit={useFormReturn.handleSubmit((data) => console.log('form : data=', data))}> */}
+          {Object.entries(Parts.Items).map(([key, Node]) => React.createElement(Node, { key }))}
           <Parts.Submit />
+          {/* </form> */}
         </Parts.Form>
       ),
     [Parts]
@@ -77,98 +79,6 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
 
   return { Forms, Parts }
 }
-
-// export const useFormByHookForms = <T,>(
-//   FormItems: Record<keyof T, (props: any) => JSX.Element>,
-//   hookFormProps: UseFormProps<T>,
-//   withSubmit: (data: T) => void
-// ) => {
-//   const {
-//     control,
-//     // register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm(hookFormProps)
-
-//   const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
-
-//   const Submit: SubmitButtonType = ({ label = '送信' }) => (
-//     <Button color="primary" type="submit">
-//       {label}
-//     </Button>
-//   )
-
-//   const Items = Object.entries(FormItems).map(([key, FormItem]) => {
-//     //TODO 型チェックエラーのごまかしの解消
-//     const props = { error: (errors as any)[key]?.message }
-//     return (
-//       <Controller
-//         name={key as Path<T>}
-//         control={control}
-//         // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
-//         render={(
-//           { field } //<input {...(field as any)} />}
-//         ) => FormItem({ ...props, ...field })}
-//       />
-//     )
-//   })
-
-//   const ComposedForm = () => (
-//     <FormNode>
-//       {Object.values(Items)}
-//       <Submit />
-//     </FormNode>
-//   )
-
-//   return { Form: ComposedForm, FormNode, Submit, Items }
-// }
-
-// export const createFormsByReactHookForms = <DEF extends Record<string, FormDef>, SCHEMA>(
-//   defs: DEF,
-//   hookFormProps: UseFormProps<SCHEMA>,
-//   withSubmit: (data: SCHEMA) => void
-// ) => {
-//   ;(props: SCHEMA) => {
-//     const {
-//       control,
-//       register,
-//       handleSubmit,
-//       formState: { errors },
-//     } = useForm(hookFormProps)
-
-//     const FormNode: FormNodeType = (props) => <form onSubmit={handleSubmit(withSubmit)}>{props.children}</form>
-
-//     const Submit: SubmitButtonType = ({ label = '送信' }) => (
-//       <Button color="primary" type="submit">
-//         {label}
-//       </Button>
-//     )
-
-//     const Items = Object.entries(FormItems).map(([key, FormItem]) => {
-//       //TODO 型チェックエラーのごまかしの解消
-//       const props = { error: (errors as any)[key]?.message }
-//       return (
-//         <Controller
-//           name={key as Path<T>}
-//           control={control}
-//           // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
-//           render={(
-//             { field } //<input {...(field as any)} />}
-//           ) => FormItem({ ...props, ...field })}
-//         />
-//       )
-//     })
-
-//     const ComposedForm = () => (
-//       <FormNode>
-//         {Object.values(Items)}
-//         <Submit />
-//       </FormNode>
-//     )
-
-//     return { Form: ComposedForm, FormNode, Submit, Items }
-//   }
-// }
 
 export const createFormPartsByReactHookForms = <DEF extends Record<string, FormDef>, SCHEMA>(
   defs: DEF,

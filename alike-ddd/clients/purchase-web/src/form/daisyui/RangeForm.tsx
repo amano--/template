@@ -23,6 +23,7 @@ export const newRangeForm = (def: RangeDef) => (props: RangeFormProps) => {
     ...def,
     // TODO def とか余計なものがDOMについちゃう問題の対応
     ...props,
+    // key: id,
     id, // color: props.error ? 'error' : defaultRangeForm.color,
     name: id,
     // min: props.min ?? def.min,

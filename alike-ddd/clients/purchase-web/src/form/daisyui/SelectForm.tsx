@@ -20,18 +20,20 @@ const blankItemElement = (
 )
 
 export const newSelectForm = <T extends Record<string, ChoiceItemDef>>(def: SelectDef<T>) => {
-  const calcSelectOptions = (selectedValue?: string) => {
-    const blankItem = (selectedValue || selectedValue === BLANK_KEY) && blankItemElement
+  const calcSelectOptions = (selectedValue: string = BLANK_KEY) => {
+    const blankItem = selectedValue === BLANK_KEY ? blankItemElement : undefined
+
+    // react-daisyui の Select.Option の selected が機能していないので option を使う
     const items = Object.values(def.items).map((itemDef) => (
-      <Select.Option key={itemDef.name} value={itemDef.name} selected={itemDef.name === selectedValue}>
+      <option key={itemDef.name} value={itemDef.name} selected={itemDef.name === selectedValue}>
         {itemDef.label}
-      </Select.Option>
+      </option>
     ))
 
     const options = blankItem ? [blankItem, ...items] : items
 
-    console.log('calcSelectOptions : selectedValue=', selectedValue)
-    console.log('calcSelectOptions : options=', options)
+    // console.log('calcSelectOptions : selectedValue=', selectedValue)
+    // console.log('calcSelectOptions : options=', options)
 
     return options
   }
@@ -45,7 +47,7 @@ export const newSelectForm = <T extends Record<string, ChoiceItemDef>>(def: Sele
       ...props,
     }
 
-    console.log('newSelectForm :mergedProps=', mergedProps)
+    // console.log('newSelectForm :mergedProps=', mergedProps)
 
     // const blankItem =
     //   props.value === BLANK_KEY ? <Select.Option key={BLANK_KEY} value={BLANK_KEY} disabled /> : undefined
