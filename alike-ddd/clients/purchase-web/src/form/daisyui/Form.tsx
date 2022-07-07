@@ -1,19 +1,20 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react'
+import { Button } from 'react-daisyui'
 import { Controller, Path, useForm, UseFormProps, UseFormReturn } from 'react-hook-form'
 import { FC, ReactNode, useMemo } from 'react'
 import { FormDef, PickFcSetFromDefSet } from '../FormDef'
 import { newInputTextForm } from './InputTextForm'
 import { newSelectForm } from './SelectForm'
-import React from 'react'
 import { newRangeForm } from './RangeForm'
-import { Button } from 'react-daisyui'
+import { newRadioForm } from './RadioForm'
 
 export const formFcSetByDaisyUI = {
   text: newInputTextForm,
   range: newRangeForm,
   select: newSelectForm,
-  radio: newSelectForm,
+  radio: newRadioForm,
 } as const
 
 // TODO 多分不可能だと思うが、本当は 右辺の型を Record<FormTag,(props: FormProps) => JSX.Element> のように 厳密にチェックしたいが方法がわからない
@@ -28,7 +29,7 @@ export const newForm = (def: FormDef) => {
     case 'select':
       return formFcSetByDaisyUI.select(def)
     case 'radio':
-      return () => <></>
+      return formFcSetByDaisyUI.radio(def)
 
     // return formSet['select'](def)
 
@@ -105,6 +106,7 @@ export const createFormPartsByReactHookForms = <DEF extends Record<string, FormD
         // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
         render={({ field, formState }) => {
           const mergedProps = { ...props, ...field, error: (formState.errors as any)[key]?.message }
+          console.log('createFormPartsByReactHookForms : mergedProps', mergedProps)
           return RawForm(mergedProps as any)
         }}
       />

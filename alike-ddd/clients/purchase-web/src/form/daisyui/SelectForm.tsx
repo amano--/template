@@ -5,11 +5,11 @@ import { Select, SelectProps as DUSelectProps } from 'react-daisyui'
 import { SelectProps } from '../Form'
 import { ChoiceItemDef, FormDef, PickFcSetFromDefSet, SelectDef } from '../FormDef'
 
+const BLANK_KEY = 'BLANK'
+
 type PartialDUSelectProps = Partial<DUSelectProps<string>>
 
-const defaultProps: PartialDUSelectProps = { color: 'primary', value: 'BLANK' }
-
-const BLANK_KEY = 'BLANK'
+const defaultProps: PartialDUSelectProps = { color: 'primary', value: BLANK_KEY }
 
 export type SelectFormProps = SelectProps & PartialDUSelectProps
 
@@ -45,7 +45,7 @@ export const newSelectForm = <T extends Record<string, ChoiceItemDef>>(def: Sele
       defaultValue: props.value ?? BLANK_KEY,
       color: props.error ? 'error' : defaultProps.color,
       ...props,
-      value: props.value ?? BLANK_KEY,
+      // value: props.value ?? BLANK_KEY,
     }
 
     // console.log('newSelectForm :mergedProps=', mergedProps)

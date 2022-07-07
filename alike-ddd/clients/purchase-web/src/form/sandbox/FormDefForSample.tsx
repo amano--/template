@@ -1,4 +1,4 @@
-import { newForms, InputTextDef, SelectDef, RangeDef, ToFormProps, ToFormsProps } from '../FormDef'
+import { newForms, InputTextDef, SelectDef, RangeDef, ToFormProps, ToFormsProps, RadioDef } from '../FormDef'
 import { useFormDef } from '../daisyui/Form'
 
 const name: InputTextDef = {
@@ -24,6 +24,21 @@ const gender: SelectDef<typeof genderItems> = {
   items: genderItems,
 }
 
+// 職業
+const professionItems = {
+  male: { name: 'employee', label: '会社員' },
+  female: { name: 'director', label: '会社役員' },
+  other: { name: 'other', label: 'その他' },
+} as const
+
+const profession: RadioDef<typeof professionItems> = {
+  ft: 'radio',
+  name: 'profession',
+  label: '職業',
+  required: true,
+  items: professionItems,
+}
+
 const volume: RangeDef = {
   ft: 'range',
   name: 'volume',
@@ -35,7 +50,7 @@ const volume: RangeDef = {
   step: 25,
 }
 
-export const formDefsForSample = { name, gender, volume } as const
+export const formDefsForSample = { name, gender, profession, volume } as const
 
 const Sample = newForms(formDefsForSample)
 
@@ -53,6 +68,7 @@ import { z } from 'zod'
 export const schema = z.object({
   name: z.string().max(5),
   gender: z.enum(genderItemKeys), //string().max(5),
+  profession: z.string(),
   volume: z
     .number()
     .min(0)
