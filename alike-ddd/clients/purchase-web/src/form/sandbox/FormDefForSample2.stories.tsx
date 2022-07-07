@@ -13,10 +13,10 @@ export const Valid: RequiredStoryObj = {
     gender: 'male',
     volume: 25,
   },
-  play: async (ctx) => {
-    const canvas = within(ctx.canvasElement)
-    await userEvent.click(canvas.getByText('送信'))
-  },
+  // play: async (ctx) => {
+  //   const canvas = within(ctx.canvasElement)
+  //   await userEvent.click(canvas.getByText('送信'))
+  // },
 }
 
 export const Invalid: RequiredStoryObj = {
@@ -25,8 +25,8 @@ export const Invalid: RequiredStoryObj = {
     gender: undefined as unknown as 'male', //'hoge' as 'male',
     volume: 1000,
   },
-  // play: async (ctx) => {
-  //   const canvas = within(ctx.canvasElement)
-  //   await userEvent.click(canvas.getByText('送信'))
-  // },
+  play: async (ctx) => {
+    const canvas = within(ctx.canvasElement)
+    await userEvent.click(canvas.getByText('送信'))
+  },
 }

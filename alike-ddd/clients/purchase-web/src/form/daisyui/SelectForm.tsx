@@ -14,9 +14,9 @@ const BLANK_KEY = 'BLANK'
 export type SelectFormProps = SelectProps & PartialDUSelectProps
 
 const blankItemElement = (
-  <Select.Option key={BLANK_KEY} value={BLANK_KEY} disabled>
+  <option key={BLANK_KEY} value={BLANK_KEY} disabled>
     選択してください
-  </Select.Option>
+  </option>
 )
 
 export const newSelectForm = <T extends Record<string, ChoiceItemDef>>(def: SelectDef<T>) => {
@@ -45,6 +45,7 @@ export const newSelectForm = <T extends Record<string, ChoiceItemDef>>(def: Sele
       defaultValue: props.value ?? BLANK_KEY,
       color: props.error ? 'error' : defaultProps.color,
       ...props,
+      value: props.value ?? BLANK_KEY,
     }
 
     // console.log('newSelectForm :mergedProps=', mergedProps)

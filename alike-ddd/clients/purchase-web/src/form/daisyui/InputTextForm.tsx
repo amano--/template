@@ -14,7 +14,7 @@ export const newInputTextForm = (def: InputTextDef) => (props: InputTextProps & 
     ...props,
   }
 
-  console.log('props=', props)
+  // console.log('props=', props)
 
   return (
     <label className="label" htmlFor={def.name}>

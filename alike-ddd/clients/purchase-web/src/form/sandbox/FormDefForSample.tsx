@@ -8,9 +8,14 @@ const name: InputTextDef = {
   required: true,
 }
 
-const genderItems = { male: { name: 'male', label: '男性' }, female: { name: 'female', label: '女性' } } as const
+const genderItems = {
+  male: { name: 'male', label: '男性' },
+  female: { name: 'female', label: '女性' },
+  other: { name: 'other', label: 'その他' },
+} as const
 
 const genderItemKeys = Object.keys(genderItems) as unknown as readonly [string, ...string[]]
+
 const gender: SelectDef<typeof genderItems> = {
   ft: 'select',
   name: 'gender',
@@ -24,6 +29,7 @@ const volume: RangeDef = {
   name: 'volume',
   label: 'ボリューム',
   required: true,
+
   min: 0,
   max: 100,
   step: 25,
@@ -47,14 +53,18 @@ import { z } from 'zod'
 export const schema = z.object({
   name: z.string().max(5),
   gender: z.enum(genderItemKeys), //string().max(5),
-  volume: z.number().or(
-    z
-      .string()
-      .refine((v) => {
-        return !isNaN(Number(v))
-      }, 'error message')
-      .transform(Number)
-  ),
+  volume: z
+    .number()
+    .min(0)
+    .max(100)
+    .or(
+      z
+        .string()
+        .refine((v) => {
+          return !isNaN(Number(v))
+        }, 'error message')
+        .transform(Number)
+    ),
 })
 
 export type Schema = z.infer<typeof schema>
@@ -68,8 +78,8 @@ export const FormDefForSampleForms2 = (props: Props) => {
       // shouldFocusError: false,
     },
     (data) => {
-      // console.log('form submitted: data=', data)
-      window?.alert(`form submitted: data=${JSON.stringify(data)}`)
+      console.log('form submitted: data=', data)
+      // window?.alert(`form submitted: data=${JSON.stringify(data)}`)
     }
   )
 
