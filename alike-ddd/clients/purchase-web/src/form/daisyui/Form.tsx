@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
-import { Button } from 'react-daisyui'
+import { Button, ButtonProps } from 'react-daisyui'
 import { Controller, Path, useForm, UseFormProps, UseFormReturn } from 'react-hook-form'
 import { FC, ReactNode, useMemo } from 'react'
 import { FormDef, PickFcSetFromDefSet } from '../FormDef'
@@ -21,6 +21,7 @@ export const formFcSetByDaisyUI = {
 // const forTypeCheck: Record<FormTag, unknown> = formSet
 
 export const newForm = (def: FormDef) => {
+
   switch (def.ft) {
     case 'text':
       return formFcSetByDaisyUI.text(def)
@@ -51,7 +52,7 @@ export const newForms = <T extends Record<string, FormDef>>(defs: T) => {
 }
 
 type FormNodeType = FC<{ children: ReactNode }>
-type SubmitButtonType = FC<{ label?: string }>
+type SubmitButtonType = FC<{ label?: string } & ButtonProps>
 
 export const useFormDef = <DEF extends Record<string, FormDef>, T>(
   defs: DEF,
@@ -90,8 +91,8 @@ export const createFormPartsByReactHookForms = <DEF extends Record<string, FormD
     <form onSubmit={hookFormReturn.handleSubmit(withSubmit)}>{props.children}</form>
   )
 
-  const Submit: SubmitButtonType = ({ label = '送信' }) => (
-    <Button color="primary" type="submit">
+  const Submit: SubmitButtonType = ({ label = '送信', ...props }) => (
+    <Button color="primary" type="submit" {...props}>
       {label}
     </Button>
   )
@@ -106,7 +107,7 @@ export const createFormPartsByReactHookForms = <DEF extends Record<string, FormD
         // defaultValue={hookFormProps?.defaultValues?[key as Path<T>]}
         render={({ field, formState }) => {
           const mergedProps = { ...props, ...field, error: (formState.errors as any)[key]?.message }
-          console.log('createFormPartsByReactHookForms : mergedProps', mergedProps)
+          // console.log('createFormPartsByReactHookForms : mergedProps', mergedProps)
           return RawForm(mergedProps as any)
         }}
       />

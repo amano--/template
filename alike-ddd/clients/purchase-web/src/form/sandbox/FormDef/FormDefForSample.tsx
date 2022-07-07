@@ -1,5 +1,5 @@
-import { newForms, InputTextDef, SelectDef, RangeDef, ToFormProps, ToFormsProps, RadioDef } from '../FormDef'
-import { useFormDef } from '../daisyui/Form'
+import { newForms, InputTextDef, SelectDef, RangeDef, ToFormProps, ToFormsProps, RadioDef } from '../../FormDef'
+import { useFormDef } from '../../daisyui/Form'
 
 const name: InputTextDef = {
   ft: 'text',
@@ -26,8 +26,8 @@ const gender: SelectDef<typeof genderItems> = {
 
 // 職業
 const professionItems = {
-  male: { name: 'employee', label: '会社員' },
-  female: { name: 'director', label: '会社役員' },
+  employee: { name: 'employee', label: '会社員' },
+  director: { name: 'director', label: '会社役員' },
   other: { name: 'other', label: 'その他' },
 } as const
 
@@ -37,7 +37,7 @@ const profession: RadioDef<typeof professionItems> = {
   label: '職業',
   required: true,
   items: professionItems,
-}
+} as const
 
 const volume: RangeDef = {
   ft: 'range',
@@ -57,8 +57,10 @@ const Sample = newForms(formDefsForSample)
 type Props = ToFormsProps<typeof formDefsForSample>
 export const FormDefForSampleForms = (props: { hoge: string }) => (
   <>
-    <Sample.name color="accent"></Sample.name>
-    <Sample.gender></Sample.gender>
+    <Sample.name color="secondary" className="rounded-r-full"></Sample.name>
+    <Sample.gender color="accent"></Sample.gender>
+    <Sample.profession color="secondary"></Sample.profession>
+    <Sample.volume color="accent"></Sample.volume>
   </>
 )
 
@@ -104,7 +106,7 @@ export const FormDefForSampleForms2 = (props: Props) => {
   return <Forms></Forms>
 }
 
-export const FormDefForSampleForms3 = (props: Schema) => {
+export const SetFormPerItem = (props: Props) => {
   const { Forms, Parts } = useFormDef(
     formDefsForSample,
     {
@@ -119,5 +121,20 @@ export const FormDefForSampleForms3 = (props: Schema) => {
 
   // Parts.Items.name
   //{/* <Forms.Items.name ></Forms.Items.name> */}
-  return <Forms></Forms>
+  return (
+    <Parts.Form>
+      <Parts.Items.name color="secondary" className="rounded-r-full" />
+      <Parts.Items.gender color="accent" />
+      <Parts.Items.profession color="secondary" />
+      <Parts.Items.volume color="primary" />
+
+      <div className="flex-row justify-center">
+        <Parts.Submit label="個人情報入力画面へ" />
+      </div>
+
+      {/* <div className="flex-row justify-center">
+        <span>lang = {document.documentElement.lang}</span>
+      </div> */}
+    </Parts.Form>
+  )
 }

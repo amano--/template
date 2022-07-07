@@ -18,7 +18,7 @@ export type RadioFormProps = RadioProps & DURadioProps & { value: string }
 // )
 
 export const newRadioForm = <T extends Record<string, ChoiceItemDef>>(def: RadioDef<T>) => {
-  const calcRadioOptions = (selectedValue: string = BLANK_KEY) => {
+  const calcRadioOptions = (props: RadioFormProps) => {
     // const blankItem = selectedValue === BLANK_KEY ? blankItemElement : undefined
 
     // react-daisyui の Radio.Option の Radioed が機能していないので option を使う
@@ -30,7 +30,9 @@ export const newRadioForm = <T extends Record<string, ChoiceItemDef>>(def: Radio
             key={itemDef.name}
             name={def.name}
             value={itemDef.name}
-            checked={itemDef.name === selectedValue}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+            checked={itemDef.name === props.value}
           ></Radio>
         </label>
       </div>
@@ -58,8 +60,8 @@ export const newRadioForm = <T extends Record<string, ChoiceItemDef>>(def: Radio
       // value: props.value ?? BLANK_KEY,
     }
 
-    console.log('newRadioForm :mergedProps=', mergedProps)
-    console.log('newRadioForm :props=', props)
+    // console.log('newRadioForm :mergedProps=', mergedProps)
+    // console.log('newRadioForm :props=', props)
 
     // const blankItem =
     //   props.value === BLANK_KEY ? <Radio.Option key={BLANK_KEY} value={BLANK_KEY} disabled /> : undefined
@@ -69,7 +71,7 @@ export const newRadioForm = <T extends Record<string, ChoiceItemDef>>(def: Radio
       <>
         <label className="label" htmlFor={def.name}>
           <span className="label-text">{def.label}</span>
-          {calcRadioOptions(props.value)}
+          {calcRadioOptions(props)}
           {props.error && <span className="text-error">{props.error}</span>}
         </label>
       </>

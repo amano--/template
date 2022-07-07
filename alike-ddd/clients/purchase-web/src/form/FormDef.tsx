@@ -9,7 +9,7 @@ import { FormTag } from './Form'
 
 export type FormDefBase = { name: string; label: string; required: boolean }
 export type InputTextDef = FormDefBase & { ft: 'text' }
-export type RangeDef = FormDefBase & { ft: 'range'; min: number; max: number; step: number }
+export type RangeDef = FormDefBase & { ft: 'range'; min: number; max: number; step?: number }
 
 export type ChoiceItemDef = { name: string; label: string }
 export type ChoiceDef<T extends Record<string, ChoiceItemDef>> = FormDefBase & {
@@ -34,7 +34,7 @@ export type PickFcSetFromDefSet<
 > = { [K in keyof TFormDefSet]: PickFcTypeByDefFromFormComponentSet<TFormDefSet[K], TFormFcSet> }
 
 // TODO Range 等 number型 のやつへの対応
-export type ToFormProps<Def extends FormDef> = Def extends SelectDef
+export type ToFormProps<Def extends FormDef> = Def extends ChoiceDef<any>
   ? keyof Def['items']
   : Def extends RangeDef
   ? number

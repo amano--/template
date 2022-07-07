@@ -1,9 +1,8 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
 import { Select, SelectProps as DUSelectProps } from 'react-daisyui'
 import { SelectProps } from '../Form'
-import { ChoiceItemDef, FormDef, PickFcSetFromDefSet, SelectDef } from '../FormDef'
+import { ChoiceItemDef, SelectDef } from '../FormDef'
 
 const BLANK_KEY = 'BLANK'
 
@@ -49,11 +48,6 @@ export const newSelectForm = <T extends Record<string, ChoiceItemDef>>(def: Sele
     }
 
     // console.log('newSelectForm :mergedProps=', mergedProps)
-
-    // const blankItem =
-    //   props.value === BLANK_KEY ? <Select.Option key={BLANK_KEY} value={BLANK_KEY} disabled /> : undefined
-    // const items = blankItem ? [blankItem, ...Items] : Items
-
     return (
       <label className="label" htmlFor={def.name}>
         <span className="label-text">{def.label}</span>
