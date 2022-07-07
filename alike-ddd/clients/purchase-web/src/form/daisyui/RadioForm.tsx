@@ -30,6 +30,7 @@ export const newRadioForm = <T extends Record<string, ChoiceItemDef>>(def: Radio
             key={itemDef.name}
             name={def.name}
             value={itemDef.name}
+            color={props.color}
             onChange={props.onChange}
             onBlur={props.onBlur}
             checked={itemDef.name === props.value}
@@ -71,7 +72,7 @@ export const newRadioForm = <T extends Record<string, ChoiceItemDef>>(def: Radio
       <>
         <label className="label" htmlFor={def.name}>
           <span className="label-text">{def.label}</span>
-          {calcRadioOptions(props)}
+          {calcRadioOptions(mergedProps)}
           {props.error && <span className="text-error">{props.error}</span>}
         </label>
       </>

@@ -1,11 +1,11 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
-import { SetFormPerItem } from './SampleForm'
+import { CustomFormItems } from './SampleForm'
 
-type TargetType = typeof SetFormPerItem
+type TargetType = typeof CustomFormItems
 type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
 
-export default { component: SetFormPerItem } as ComponentMeta<TargetType>
+export default { component: CustomFormItems } as ComponentMeta<TargetType>
 
 export const Normal: RequiredStoryObj = {
   storyName: '個別にFormItemを配置した場合',
