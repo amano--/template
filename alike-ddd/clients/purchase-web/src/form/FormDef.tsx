@@ -33,6 +33,17 @@ export type PickFcSetFromDefSet<
   TFormFcSet extends Record<FormTag, unknown>
 > = { [K in keyof TFormDefSet]: PickFcTypeByDefFromFormComponentSet<TFormDefSet[K], TFormFcSet> }
 
+// TODO Range 等 number型 のやつへの対応
+export type ToFormProps<Def extends FormDef> = Def extends SelectDef
+  ? keyof Def['items']
+  : Def extends RangeDef
+  ? number
+  : string
+
+export type ToFormsProps<TFormDefSet extends Record<keyof TFormDefSet, FormDef>> = {
+  [K in keyof TFormDefSet]: ToFormProps<TFormDefSet[K]>
+}
+
 export type ComponentLibraryTag = 'daisyui'
 
 const defaultComponentLibraryTag: ComponentLibraryTag = 'daisyui'

@@ -1,4 +1,4 @@
-import { newForms, InputTextDef, SelectDef, RangeDef } from '../FormDef'
+import { newForms, InputTextDef, SelectDef, RangeDef, ToFormProps, ToFormsProps } from '../FormDef'
 import { useFormDef } from '../daisyui/Form'
 
 const name: InputTextDef = {
@@ -32,6 +32,7 @@ export const formDefsForSample = { name, gender, volume } as const
 
 const Sample = newForms(formDefsForSample)
 
+type Props = ToFormsProps<typeof formDefsForSample>
 export const FormDefForSampleForms = (props: { hoge: string }) => (
   <>
     <Sample.name color="accent"></Sample.name>
@@ -50,7 +51,7 @@ export const schema = z.object({
 
 export type Schema = z.infer<typeof schema>
 
-export const FormDefForSampleForms2 = (props: Schema) => {
+export const FormDefForSampleForms2 = (props: Props) => {
   const { Forms, Parts } = useFormDef(
     formDefsForSample,
     {

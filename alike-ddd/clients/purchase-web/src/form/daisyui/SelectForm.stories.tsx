@@ -16,6 +16,12 @@ export const Normal: StoryObj = {
   args: {},
 }
 
+export const SelectNo2: StoryObj = {
+  args: {
+    value: 'no2',
+  },
+}
+
 export const Error: StoryObj = {
   args: {
     error: 'エラーが発生しました',
