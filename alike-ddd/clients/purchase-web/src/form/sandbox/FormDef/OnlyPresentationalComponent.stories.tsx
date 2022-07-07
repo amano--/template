@@ -1,11 +1,11 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
-import { FormDefForSampleForms } from './FormDefForSample'
+import { OnlyPresentationalComponent } from './SampleForm'
 
-type TargetType = typeof FormDefForSampleForms
+type TargetType = typeof OnlyPresentationalComponent
 type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
 
-export default { component: FormDefForSampleForms } as ComponentMeta<TargetType>
+export default { component: OnlyPresentationalComponent } as ComponentMeta<TargetType>
 
 export const Normal: RequiredStoryObj = {
   args: {
@@ -13,6 +13,6 @@ export const Normal: RequiredStoryObj = {
   },
   // play: async (ctx) => {
   //   const canvas = within(ctx.canvasElement)
-  //   await userEvent.click(canvas.getByText('送信'))
+  //   await userEvent.click(canvas.getByText('登録'))
   // },
 }

@@ -21,7 +21,6 @@ export const formFcSetByDaisyUI = {
 // const forTypeCheck: Record<FormTag, unknown> = formSet
 
 export const newForm = (def: FormDef) => {
-
   switch (def.ft) {
     case 'text':
       return formFcSetByDaisyUI.text(def)
@@ -91,7 +90,7 @@ export const createFormPartsByReactHookForms = <DEF extends Record<string, FormD
     <form onSubmit={hookFormReturn.handleSubmit(withSubmit)}>{props.children}</form>
   )
 
-  const Submit: SubmitButtonType = ({ label = '送信', ...props }) => (
+  const Submit: SubmitButtonType = ({ label = '登録', ...props }) => (
     <Button color="primary" type="submit" {...props}>
       {label}
     </Button>

@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
-import { SetFormPerItem } from './FormDefForSample'
+import { SetFormPerItem } from './SampleForm'
 
 type TargetType = typeof SetFormPerItem
 type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
@@ -17,6 +17,6 @@ export const Normal: RequiredStoryObj = {
   },
   // play: async (ctx) => {
   //   const canvas = within(ctx.canvasElement)
-  //   await userEvent.click(canvas.getByText('送信'))
+  //   await userEvent.click(canvas.getByText('登録'))
   // },
 }

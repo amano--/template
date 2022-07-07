@@ -6,7 +6,9 @@ import {
   useFormDef as useFormDefByDaisyui,
 } from './daisyui'
 import { FormTag } from './Form'
-
+/**
+ * @param ft FormType の略。TaggedUnionのTagに使用。
+ */
 export type FormDefBase = { name: string; label: string; required: boolean }
 export type InputTextDef = FormDefBase & { ft: 'text' }
 export type RangeDef = FormDefBase & { ft: 'range'; min: number; max: number; step?: number }
