@@ -34,7 +34,7 @@ export const DefaultForms = (props: SampleFormProps) => {
 }
 
 export const CustomFormItems = (props: SampleFormProps) => {
-  const { Form } = useFormDef(
+  const { Forms } = useFormDef(
     SampleFormDef,
     {
       defaultValues: props,
@@ -48,15 +48,15 @@ export const CustomFormItems = (props: SampleFormProps) => {
   )
 
   return (
-    <Form.Form>
-      <Form.Items.name color="warning" className="rounded-r-full" />
-      <Form.Items.gender color="info" />
-      <Form.Items.profession color="secondary" />
-      <Form.Items.volume color="secondary" />
+    <Forms.Form>
+      <Forms.Items.name color="warning" className="rounded-r-full" />
+      <Forms.Items.gender color="info" />
+      <Forms.Items.profession color="secondary" />
+      <Forms.Items.volume color="secondary" />
 
       <div className="flex-row justify-center">
-        <Form.Submit label="個人情報入力画面へ" />
+        <Forms.Submit label="個人情報入力画面へ" />
       </div>
-    </Form.Form>
+    </Forms.Form>
   )
 }

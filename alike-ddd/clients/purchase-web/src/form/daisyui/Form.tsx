@@ -60,7 +60,7 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
 ) => {
   const useFormReturn = useForm(hookFormProps)
 
-  const Form = useMemo(
+  const Forms = useMemo(
     () => createFormPartsByReactHookForms(defs, useFormReturn, withSubmit),
     [useFormReturn, withSubmit, defs]
   )
@@ -68,17 +68,17 @@ export const useFormDef = <DEF extends Record<string, FormDef>, T>(
   const RootForms = useMemo(
     () => () =>
       (
-        <Form.Form>
+        <Forms.Form>
           {/*  <form onSubmit={useFormReturn.handleSubmit((data) => console.log('form : data=', data))}> */}
-          {Object.entries(Form.Items).map(([key, Node]) => React.createElement(Node, { key }))}
-          <Form.Submit />
+          {Object.entries(Forms.Items).map(([key, Node]) => React.createElement(Node, { key }))}
+          <Forms.Submit />
           {/* </form> */}
-        </Form.Form>
+        </Forms.Form>
       ),
-    [Form]
+    [Forms]
   )
 
-  return { RootForms, Form }
+  return { RootForms, Forms }
 }
 
 export const createFormPartsByReactHookForms = <DEF extends Record<string, FormDef>, SCHEMA>(
