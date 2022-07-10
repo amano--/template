@@ -16,6 +16,11 @@ export const OnlyPresentationalComponent = (props: { hoge: string }) => (
   </>
 )
 
+const validated = (data: SampleFormProps) => {
+  console.log('form submitted: data=', data)
+  // window?.alert(`form submitted: data=${JSON.stringify(data)}`)
+}
+
 export const DefaultForms = (props: SampleFormProps) => {
   const { RootForms } = useFormDef(
     SampleFormDef,
@@ -24,10 +29,7 @@ export const DefaultForms = (props: SampleFormProps) => {
       resolver: zodResolver(SampleFormSchema),
       // shouldFocusError: false,
     },
-    (data) => {
-      console.log('form submitted: data=', data)
-      // window?.alert(`form submitted: data=${JSON.stringify(data)}`)
-    }
+    validated
   )
 
   return <RootForms />
@@ -41,10 +43,7 @@ export const CustomFormItems = (props: SampleFormProps) => {
       resolver: zodResolver(SampleFormSchema),
       // shouldFocusError: false,
     },
-    (data) => {
-      console.log('form submitted: data=', data)
-      // window?.alert(`form submitted: data=${JSON.stringify(data)}`)
-    }
+    validated
   )
 
   return (
