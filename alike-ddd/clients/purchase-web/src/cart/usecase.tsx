@@ -3,12 +3,12 @@ import { InputEventKey, UsecaseLine } from '@alike-ddd/common'
 
 export const newUsecaseLineHook =
   <
-    UC extends UsecaseLine<InputEvent, OutputEvent>,
+    Usecase extends UsecaseLine<InputEvent, OutputEvent>,
     BaseInputEvent extends InputEvent,
-    InputEvent = Parameters<UC>[0],
-    OutputEvent = Awaited<ReturnType<UC>>
+    InputEvent = Parameters<Usecase>[0],
+    OutputEvent = Awaited<ReturnType<Usecase>>
   >(
-    usecaseLine: UC,
+    usecaseLine: Usecase,
     baseInputEvent: BaseInputEvent
   ) =>
   //TODO BaseInputEvent で指定された 型を optional にした型にする
