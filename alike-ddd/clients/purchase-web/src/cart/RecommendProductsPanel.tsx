@@ -1,71 +1,13 @@
 import React, { FC } from 'react'
 import { useQuery } from 'react-query'
 import { addCart, listRecommendProducts, Product, ProductId } from '@alike-ddd/purchase'
-import { UsecaseLineAny } from '@alike-ddd/common'
 
-type RecommendProductsPanelState = Awaited<ReturnType<typeof listRecommendProducts>> | undefined
+import { newUsecaseLineHook } from './usecase'
 
-export const createUsecaseLineHook =
-  <UC extends UsecaseLineAny>(usecaseLine: UC, baseEvent: Partial<Parameters<UC>[0]>) =>
-  (fetchEnabled?: boolean, ...args: any): Awaited<ReturnType<UC>> | undefined => {
-    const event = { ...baseEvent, ...args }
-    const cacheKey = JSON.stringify(event) ?? ''
-    const enabled = cacheKey !== '' || fetchEnabled
-
-    const res = useQuery(cacheKey, (ctx) => usecaseLine(event), {
-      enabled,
-    })
-
-    if (res.isFetched) {
-      return res.data!
-    }
-    return undefined
-  }
-
-export const a = createUsecaseLineHook(listRecommendProducts, {
+export const useRecommendProductsPanel = newUsecaseLineHook(listRecommendProducts, {
   q: 'ListRecommendProducts',
-  input: { keyword: 'hoge' },
-} as const)
-
-export const useRecommendProductsPanel = ({
-  productId,
-  fetchEnabled: enabled = true,
-}: {
-  productId: ProductId
-  fetchEnabled?: boolean
-}): RecommendProductsPanelState => {
-  const event = { q: 'ListRecommendProducts', input: { keyword: 'hoge' } } as const
-  const cacheKey = JSON.stringify(event)
-  const res = useQuery(cacheKey, (ctx) => listRecommendProducts(event), {
-    enabled,
-  })
-
-  if (res.isFetched) {
-    return res.data
-  }
-
-  return undefined
-}
-
-// export const useRelatedProductList = (props: { productId: ProductId }) => {
-//   const event = { c: 'CartAdd', productId: props.productId } as const
-//   const testRes = {
-//     r: 'CartAddProductOutOfStock',
-//     hoge: 'hoge foo',
-//     list: [{ productId: 'ssss' }],
-//   } as const
-
-//   const r = { isFetched: true, data: testRes }
-//   //const r = useQuery(event.c, () => testRes)
-//   // const r = useQuery(event.c, () => addCart(event))
-
-//   if (r.isFetched) {
-//     const res = r.data!
-//     return res.r === 'CartAddProductOutOfStock' ? res.list : undefined
-//   }
-
-//   return undefined
-// }
+  input: { keyword: '' },
+})
 
 export type RelatedProductsPanelProps = {
   productId: ProductId

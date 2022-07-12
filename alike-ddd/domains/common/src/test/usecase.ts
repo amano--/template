@@ -3,7 +3,7 @@ import { OutputEvent } from '../event'
 
 export type UsecaseLine<IN, OUT> = (e: IN) => Promise<OUT>
 
-export type UsecaseLineAny = (e: unknown) => Promise<OutputEvent>
+export type UsecaseLineAny<InputEvent = any> = (e: InputEvent) => Promise<OutputEvent>
 // type Usecases<E extends AllEvent> = { [P: string]: (e: E) => Promise<AllEventRes> }
 // TODO 本当は type Usecases = { [P: string]: (e: AllEvent) => Promise<AllEventRes> }
 // のような定義をして型チェックと厳密化したいが方法がわからないので unknown でごまかす

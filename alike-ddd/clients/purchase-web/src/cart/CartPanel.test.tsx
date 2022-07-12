@@ -2,8 +2,11 @@ import React, { useEffect } from 'react'
 // import { purchaseMock } from '../../mocks/src/purchase/index';
 import { render, renderHook, fireEvent, waitFor, screen, prettyDOM } from '@testing-library/react'
 import { Button } from '@alike-ddd/react-libs'
-import { ProductPanel, useRelatedProductList } from './Cart'
+import { ProductPanel, useAddCart, useRelatedProductList } from './CartPanel'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { useRecommendProductsPanel } from './RecommendProductsPanel'
+
+const wrapper = (props: any) => <QueryClientProvider client={new QueryClient()}>{props.children}</QueryClientProvider>
 
 describe('simple test', () => {
   it('dom draw2', () => {
@@ -17,8 +20,6 @@ describe('simple test', () => {
 })
 
 describe('useRelatedProductList', () => {
-  const wrapper = (props: any) => <QueryClientProvider client={new QueryClient()}>{props.children}</QueryClientProvider>
-
   it('render hook', async () => {
     const { result } = renderHook(() => useRelatedProductList({ productId: 'outOfStock' }), {
       wrapper,
@@ -39,6 +40,24 @@ describe('useRelatedProductList', () => {
 
     await waitFor(() => {
       expect(result.current).toEqual(undefined)
+    })
+  })
+})
+
+describe('useAddCart', () => {
+  it('render hook', async () => {
+    const { result } = renderHook(() => useAddCart({ productId: 'outOfStock' }), {
+      wrapper,
+    })
+
+    expect(result.current).toEqual(undefined)
+
+    await waitFor(() => {
+      expect(result.current).toMatchObject({
+        list: [{ productId: 'relate1' }, { productId: 'relate2' }],
+        r: 'CartAddProductOutOfStock',
+        rt: 'alt',
+      })
     })
   })
 })

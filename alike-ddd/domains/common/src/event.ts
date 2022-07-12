@@ -66,6 +66,10 @@ export type ResponseEvent =
 // export type EtcEvent = { e: string } & UnsaveEvent
 
 export type InputEvent = CommandEvent | QueryEvent | UserEvent //| FetchEvent
+
+//TODO 多分何かいい方法があると思うのだけどわからないので後で氏調査
+export type InputEventKey = keyof CommandEvent | keyof QueryEvent | keyof UserEvent
+
 export type OutputEvent = ResponseEvent
 
 export type AllEvent = InputEvent | OutputEvent

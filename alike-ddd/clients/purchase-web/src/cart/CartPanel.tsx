@@ -1,6 +1,12 @@
 import React, { FC } from 'react'
 import { useQuery } from 'react-query'
 import { addCart, Product, ProductId } from '@alike-ddd/purchase'
+import { newUsecaseLineHook } from './usecase'
+
+export const useAddCart = newUsecaseLineHook(addCart, {
+  c: 'CartAdd',
+  productId: '',
+})
 
 export const useRelatedProductList = ({
   productId,
