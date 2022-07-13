@@ -1,10 +1,9 @@
-import { UserAccount } from '@alike-ddd/common'
+import { assignLogger, UserAccount } from '@alike-ddd/common'
 import { Product, ProductId, CartSettleEvent, ListRecommendProductsInput } from '../src/index'
 
-import { getLogger } from 'log4js'
 import { apiSettle, newSettleEvent } from '@alike-ddd/settle'
 import { MockProducts } from './products'
-const logger = getLogger('purchase/mocks/api')
+const logger = assignLogger('purchase/mocks/api')
 
 const mutations = {
   // saveEvent: (e: PurchaseCommandEvent): Promise<PurchaseEventLog> => {

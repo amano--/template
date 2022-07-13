@@ -1,9 +1,8 @@
-import { CreateUserAccountEvent, apiCommon } from '../index'
+import { CreateUserAccountEvent, apiCommon, assignLogger } from '../index'
 
 // import {  } from '@alike-ddd/common/src/api'
 
-import { getLogger } from 'log4js'
-const logger = getLogger('usecases/createUser')
+const logger = assignLogger('usecases/createUser')
 
 export const createAccount = async (e: CreateUserAccountEvent) => {
   logger.info('createAccount : ', 'e=', e)

@@ -4,10 +4,10 @@ import {
   CreateUserAccountDuplicatedExceptionEvent,
   newLogId,
   UserLank,
+  assignLogger,
 } from '@alike-ddd/common'
 
-import { getLogger } from 'log4js'
-const logger = getLogger('mocks/common/api')
+const logger = assignLogger('mocks/common/api')
 
 // const simpleProducts = [{ productId: 'normal' }, { productId: 'outOfStock' }]
 // const relatedProducts = [{ productId: '5' }, { productId: '6' }]
