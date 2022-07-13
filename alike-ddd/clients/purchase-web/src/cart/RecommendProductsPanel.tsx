@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
-import { listRecommendProducts, Product, ProductId } from '@alike-ddd/purchase'
+import { addCart, listRecommendProducts, Product, ProductId } from '@alike-ddd/purchase'
 
 import { newHookForUsecaseLine, PickInputEvent, PickOutputEvent } from './usecase'
+import { Button } from 'react-daisyui'
 
 export const useRecommendProducts = newHookForUsecaseLine(listRecommendProducts, {
   q: 'ListRecommendProducts',
@@ -14,6 +15,11 @@ type OutEvent = Awaited<ReturnType<typeof useRecommendProducts>>
 type Props = InEvent
 type State = OutEvent
 
+export const useAddCart = newHookForUsecaseLine(addCart, {
+  c: 'CartAdd',
+  productId: '',
+})
+
 export const RecommendProductsPC: FC<State> = (props) => {
   return (
     <div>
@@ -23,9 +29,9 @@ export const RecommendProductsPC: FC<State> = (props) => {
       </div>
       {props?.list?.map((product) => (
         <>
-          <h4>{product.productId}</h4>
+          <h4>productId = {product.productId}</h4>
 
-          <button onClick={async () => {}}> button </button>
+          <Button onClick={async () => {}}> button </Button>
         </>
       ))}
     </div>

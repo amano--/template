@@ -1,39 +1,44 @@
 import React, { FC } from 'react'
 import { useQuery } from 'react-query'
 import { addCart, Product, ProductId } from '@alike-ddd/purchase'
-import { newUsecaseLineHook } from './usecase'
+import { newHookForUsecaseLine } from './usecase'
 
-export const useAddCart = newUsecaseLineHook(addCart, {
+export const useAddCart = newHookForUsecaseLine(addCart, {
   c: 'CartAdd',
   productId: '',
 })
 
-export const useRelatedProductList = ({
-  productId,
-  fetchEnabled: enabled = true,
-}: {
-  productId: ProductId
-  fetchEnabled?: boolean
-}) => {
-  const event = { c: 'CartAdd', productId } as const
-  const cacheKey = JSON.stringify(event)
-  // const testRes = {
-  //   r: 'CartAddProductOutOfStock',
-  //   hoge: 'hoge foo',
-  //   list: [{ productId: 'ssss' }],
-  // } as const
+// export const useRelatedProductList = newHookForUsecaseLine(addCart, {
+//   c: 'CartAdd',
+//   productId: '',
+// })
 
-  // const r = { isFetched: true, data: testRes }
-  //const r = useQuery(event.c, () => testRes)
-  const r = useQuery(cacheKey, (ctx) => addCart(event), { enabled })
+// export const useRelatedProductList = ({
+//   productId,
+//   fetchEnabled: enabled = true,
+// }: {
+//   productId: ProductId
+//   fetchEnabled?: boolean
+// }) => {
+//   const event = { c: 'CartAdd', productId } as const
+//   const cacheKey = JSON.stringify(event)
+//   // const testRes = {
+//   //   r: 'CartAddProductOutOfStock',
+//   //   hoge: 'hoge foo',
+//   //   list: [{ productId: 'ssss' }],
+//   // } as const
 
-  if (r.isFetched) {
-    const res = r.data!
-    return res.r === 'CartAddProductOutOfStock' ? res.list : undefined
-  }
+//   // const r = { isFetched: true, data: testRes }
+//   //const r = useQuery(event.c, () => testRes)
+//   const r = useQuery(cacheKey, (ctx) => addCart(event), { enabled })
 
-  return undefined
-}
+//   if (r.isFetched) {
+//     const res = r.data!
+//     return res.r === 'CartAddProductOutOfStock' ? res.list : undefined
+//   }
+
+//   return undefined
+// }
 
 // export const useRelatedProductList = (props: { productId: ProductId }) => {
 //   const event = { c: 'CartAdd', productId: props.productId } as const

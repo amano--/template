@@ -8,7 +8,7 @@ const createJestConfig = nextJest({
 
 // Jestのカスタム設定を設置する場所。従来のプロパティはここで定義。
 const customJestConfig = {
-  setupFilesAfterEnv: ['<rootDir>/log4js.setup.js', '<rootDir>/rtl.setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/rtl.setup.ts'],
   // moduleNameMapper: {
   //   // aliaseを定義（tsconfig.jsonのcompilerOptions>pathsの定義に合わせる）
   //   '^@/components/(.*)$': '<rootDir>/components/$1',

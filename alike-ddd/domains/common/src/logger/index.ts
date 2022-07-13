@@ -3,12 +3,14 @@ import type { Logger, Configuration } from 'log4js'
 
 type LoggerMin = Pick<Logger, 'debug' | 'info'>
 
+const log = (category: string, header: string, msgs: any[]) => console.log(category + '#' + header, ...msgs)
+
 const newLoggerMin = (category: string): LoggerMin => ({
   debug(message, ...args) {
-    console.log(category, message)
+    log(category, message, args)
   },
   info(message, ...args) {
-    console.log(category, message)
+    log(category, message, args)
   },
 })
 
