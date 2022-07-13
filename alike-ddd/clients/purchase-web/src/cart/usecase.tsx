@@ -7,6 +7,8 @@ import { InputEventKey, InputEvent, UsecaseLine } from '@alike-ddd/common'
 // export type PickInputEvent<Usecase extends UsecaseLine<InputEvent, any>> = Parameters<Usecase>[0]
 // export type PickOutputEvent<Usecase extends UsecaseLine<InputEvent, any>> = Awaited<ReturnType<Usecase>>
 
+export type HookForUsecaseLineOptions = { fetchEnabled: boolean }
+
 export type PickInputEvent<
   Usecase extends UsecaseLine<InputEvent, OutputEvent>,
   InputEvent = Parameters<Usecase>[0],
@@ -30,7 +32,10 @@ export const newHookForUsecaseLine =
     baseInputEvent: BaseInputEvent
   ) =>
   //TODO BaseInputEvent で指定された 型を optional にした型にしたいわからないので あとで調査する
-  (event: Omit<InputEvent, InputEventKey>, options?: { fetchEnabled?: boolean }): OutputEvent | undefined => {
+  (
+    event: Omit<InputEvent, InputEventKey>,
+    options: HookForUsecaseLineOptions = { fetchEnabled: false }
+  ): OutputEvent | undefined => {
     const mergedEvent = { ...baseInputEvent, ...event }
     const cacheKey = JSON.stringify(mergedEvent) ?? ''
     const enabled = cacheKey !== '' || options?.fetchEnabled

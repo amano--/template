@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { addCart, listRecommendProducts, Product, ProductId } from '@alike-ddd/purchase'
 
-import { newHookForUsecaseLine, PickInputEvent, PickOutputEvent } from './usecase'
+import { newHookForUsecaseLine, PickInputEvent, PickOutputEvent, HookForUsecaseLineOptions } from './usecase'
 import { Button } from 'react-daisyui'
 
 export const useRecommendProducts = newHookForUsecaseLine(listRecommendProducts, {
@@ -20,6 +20,24 @@ export const useAddCart = newHookForUsecaseLine(addCart, {
   productId: '',
 })
 
+const ProductPanel: FC<Product> = (props) => {
+  const [options, setOptions] = useState<HookForUsecaseLineOptions>({ fetchEnabled: false })
+  const state = useAddCart({ productId: props.productId }, options)
+
+  return (
+    <div>
+      <h1>{props.productId}</h1>
+      <button
+        onClick={async () => {
+          setOptions({ fetchEnabled: true })
+        }}
+      >
+        add cart
+      </button>
+    </div>
+  )
+}
+
 export const RecommendProductsPC: FC<State> = (props) => {
   return (
     <div>
@@ -28,11 +46,7 @@ export const RecommendProductsPC: FC<State> = (props) => {
         <p>message = {props?.message('ja')({ count: props?.list.length })}</p>
       </div>
       {props?.list?.map((product) => (
-        <>
-          <h4>productId = {product.productId}</h4>
-
-          <Button onClick={async () => {}}> button </Button>
-        </>
+        <ProductPanel {...product}></ProductPanel>
       ))}
     </div>
   )
