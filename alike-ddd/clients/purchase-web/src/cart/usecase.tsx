@@ -1,20 +1,38 @@
 import { useQuery } from 'react-query'
-import { InputEventKey, UsecaseLine } from '@alike-ddd/common'
+import { InputEventKey, InputEvent, UsecaseLine } from '@alike-ddd/common'
 
-export const newUsecaseLineHook =
+// type BaseInputEventForCheck<T> = (CommandEvent | QueryEvent) & Partial<T>
+//type BaseInputEventForCheck<T> = { [K in InputEventKey]?: string } & Partial<T>
+
+// export type PickInputEvent<Usecase extends UsecaseLine<InputEvent, any>> = Parameters<Usecase>[0]
+// export type PickOutputEvent<Usecase extends UsecaseLine<InputEvent, any>> = Awaited<ReturnType<Usecase>>
+
+export type PickInputEvent<
+  Usecase extends UsecaseLine<InputEvent, OutputEvent>,
+  InputEvent = Parameters<Usecase>[0],
+  OutputEvent = Awaited<ReturnType<Usecase>>
+> = InputEvent
+
+export type PickOutputEvent<
+  Usecase extends UsecaseLine<InputEvent, OutputEvent>,
+  InputEvent = Parameters<Usecase>[0],
+  OutputEvent = Awaited<ReturnType<Usecase>>
+> = OutputEvent
+
+export const newHookForUsecaseLine =
   <
     Usecase extends UsecaseLine<InputEvent, OutputEvent>,
-    BaseInputEvent extends InputEvent,
+    BaseInputEvent extends InputEvent, //BaseInputEventForCheck<InputEvent>,
     InputEvent = Parameters<Usecase>[0],
     OutputEvent = Awaited<ReturnType<Usecase>>
   >(
     usecaseLine: Usecase,
     baseInputEvent: BaseInputEvent
   ) =>
-  //TODO BaseInputEvent で指定された 型を optional にした型にする
+  //TODO BaseInputEvent で指定された 型を optional にした型にしたいわからないので あとで調査する
   (event: Omit<InputEvent, InputEventKey>, options?: { fetchEnabled?: boolean }): OutputEvent | undefined => {
     const mergedEvent = { ...baseInputEvent, ...event }
-    const cacheKey = JSON.stringify(event) ?? ''
+    const cacheKey = JSON.stringify(mergedEvent) ?? ''
     const enabled = cacheKey !== '' || options?.fetchEnabled
 
     const res = useQuery(cacheKey, (ctx) => usecaseLine(mergedEvent), {

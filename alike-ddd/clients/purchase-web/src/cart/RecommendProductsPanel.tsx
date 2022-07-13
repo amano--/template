@@ -1,29 +1,22 @@
 import React, { FC } from 'react'
-import { useQuery } from 'react-query'
-import { addCart, listRecommendProducts, Product, ProductId } from '@alike-ddd/purchase'
+import { listRecommendProducts, Product, ProductId } from '@alike-ddd/purchase'
 
-import { newUsecaseLineHook } from './usecase'
+import { newHookForUsecaseLine, PickInputEvent, PickOutputEvent } from './usecase'
 
-export const useRecommendProductsPanel = newUsecaseLineHook(listRecommendProducts, {
+export const useRecommendProducts = newHookForUsecaseLine(listRecommendProducts, {
   q: 'ListRecommendProducts',
   input: { keyword: '' },
 })
 
-export type RecommendProductsPanelProps = {
-  productId: ProductId
-  fetchEnabled?: boolean
-}
+type InEvent = Parameters<typeof useRecommendProducts>[0]
+type OutEvent = Awaited<ReturnType<typeof useRecommendProducts>>
 
-export type RecommendProductsPanelState = {
-  list?: Product[]
-}
+type Props = InEvent
+type State = OutEvent
 
-type ResEvent = Awaited<ReturnType<typeof listRecommendProducts>> | undefined
-
-export const RecommendProductsPanel: FC<ResEvent> = (props) => {
+export const RecommendProductsPC: FC<State> = (props) => {
   return (
     <div>
-      {' '}
       <h4>RecommendProductsPanel</h4>
       <div>
         <p>message = {props?.message('ja')({ count: props?.list.length })}</p>
@@ -37,4 +30,9 @@ export const RecommendProductsPanel: FC<ResEvent> = (props) => {
       ))}
     </div>
   )
+}
+
+export const RecommendProductsPanel: FC<Props> = (props) => {
+  const state = useRecommendProducts(props)
+  return state ? <RecommendProductsPC {...state}></RecommendProductsPC> : <></>
 }

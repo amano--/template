@@ -4,7 +4,7 @@ import { render, renderHook, fireEvent, waitFor, screen, prettyDOM } from '@test
 import { Button } from '@alike-ddd/react-libs'
 import { ProductPanel, useAddCart, useRelatedProductList } from './CartPanel'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { useRecommendProductsPanel } from './RecommendProductsPanel'
+import { useRecommendProducts } from './RecommendProductsPanel'
 
 const wrapper = (props: any) => <QueryClientProvider client={new QueryClient()}>{props.children}</QueryClientProvider>
 
