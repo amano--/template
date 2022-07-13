@@ -1,3 +1,4 @@
+export * from './logger'
 export * from './messages'
 export * from './boundedContext'
 export * from './etc'

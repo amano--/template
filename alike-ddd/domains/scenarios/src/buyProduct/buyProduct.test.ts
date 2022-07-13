@@ -1,9 +1,8 @@
 // import { selectAd } from '../selectAd'
 import { listRecommendProducts, addCart, settleCart } from '@alike-ddd/purchase'
-import { execUsecases, PickUsecasesTestParams, expectUsecases } from '@alike-ddd/common'
+import { execUsecases, PickUsecasesTestParams, expectUsecases, assignLogger } from '@alike-ddd/common'
 
-import { getLogger } from 'log4js'
-const logger = getLogger('scenarios/buyProduct')
+const logger = assignLogger('scenarios/buyProduct')
 
 //selectAd,
 const buyProduct = { listRecommendProducts, addCart, settleCart } as const

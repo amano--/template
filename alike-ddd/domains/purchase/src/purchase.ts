@@ -1,7 +1,7 @@
 import { MockProductIdType } from '../mocks'
 
-import { getLogger } from 'log4js'
-const logger = getLogger('domains/purchase')
+import { assignLogger } from '@alike-ddd/common'
+const logger = assignLogger('domains/purchase')
 
 // TBD テストデータを設定する時補完ができるように実験的に型を設定している。基本は string
 export type ProductId = MockProductIdType

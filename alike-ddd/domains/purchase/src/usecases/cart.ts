@@ -9,15 +9,14 @@ import {
   ResponseCommandSuccessEvent,
   ResponseExceptionEvent,
   ResponseNaviEvent,
+  assignLogger,
 } from '@alike-ddd/common'
 import { Temporal } from '@js-temporal/polyfill'
 
 import { Product, ProductId, apiPurchase } from '../index'
 import { messageFindersForPurchase } from '../messages'
 
-//const logger = getLogger(__filename)
-import { getLogger } from 'log4js'
-const logger = getLogger('domains/purchase/usecases/cart')
+const logger = assignLogger('domains/purchase/usecases/cart')
 
 export type ListRecommendProductsInput = { keyword: string }
 

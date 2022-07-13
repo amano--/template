@@ -1,9 +1,8 @@
-import { Money, ResponseCommandSuccessEvent, ResponseExceptionEvent } from '@alike-ddd/common'
+import { assignLogger, Money, ResponseCommandSuccessEvent, ResponseExceptionEvent } from '@alike-ddd/common'
 
 import { Temporal } from '@js-temporal/polyfill'
-import { getLogger } from 'log4js'
 
-const logger = getLogger('settle/types')
+const logger = assignLogger('settle/types')
 
 export type SettleProviderId = 'stripe'
 export const defaultSettleProvider: SettleProviderId = 'stripe'

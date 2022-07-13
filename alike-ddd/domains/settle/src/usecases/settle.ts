@@ -1,8 +1,8 @@
 import { apiSettle } from '../api'
 
-import { getLogger } from 'log4js'
 import { SettleEvent } from '../types'
-const logger = getLogger('settle/usecases/settle')
+import { assignLogger } from '@alike-ddd/common'
+const logger = assignLogger('settle/usecases/settle')
 
 // TODO 適当実装
 export const settle = async (e: SettleEvent) => {

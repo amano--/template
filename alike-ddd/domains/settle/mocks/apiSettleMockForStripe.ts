@@ -1,12 +1,11 @@
-import { newLogId } from '@alike-ddd/common'
+import { assignLogger, newLogId } from '@alike-ddd/common'
 
 import { Temporal } from '@js-temporal/polyfill'
-import { getLogger } from 'log4js'
 import { CARD_EXPIRE_DATE } from './constants'
 import { SettleEtcExceptionEvent, SettleSuccessEvent } from '../src/types'
 import { SettleEvent, SettleFailByCardExpiredEvent, SettleFailByInsufficientFundsEvent } from '../src/types'
 
-const logger = getLogger('settle/mocks/stripe/api') //
+const logger = assignLogger('settle/mocks/stripe/api') //
 // type StripeSettleEvent = SettleEvent
 // type StripeSettleSuccessEvent = SettleSuccessEvent
 

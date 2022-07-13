@@ -1,9 +1,9 @@
 // import { ulid, decodeTime } from 'ulidx'
 
 import { AdSelectEvent, AdToPurchaseNaviEvent, adApi } from '@alike-ddd/ad'
+import { assignLogger } from '@alike-ddd/common'
 
-import { getLogger } from 'log4js'
-const logger = getLogger('usecases/ad')
+const logger = assignLogger('usecases/ad')
 // logger.level = 'info'
 
 /*

@@ -3,11 +3,11 @@ import {
   CreateUserAccountEvent,
   CreateUserAccountSuccessEvent,
   CreateUserAccountDuplicatedExceptionEvent,
+  assignLogger,
 } from '@alike-ddd/common'
 
-import { getLogger } from 'log4js'
 import { UserLank } from '../src/user/lank'
-const logger = getLogger('mocks/common/api')
+const logger = assignLogger('mocks/common/api')
 
 const mutations = {
   createAccount: (e: CreateUserAccountEvent & { productionOnlyParam?: string }) => {
