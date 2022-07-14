@@ -1,12 +1,22 @@
 import { messageFindersForCommon } from '@alike-ddd/common'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { RecommendProductsPC } from './RecommendProductsPanel'
 
 type TargetType = typeof RecommendProductsPC
 type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
 
-export default { component: RecommendProductsPC } as ComponentMeta<TargetType>
+export default {
+  component: RecommendProductsPC,
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={new QueryClient()}>
+        <Story />
+      </QueryClientProvider>
+    ),
+  ],
+} as ComponentMeta<TargetType>
 
 export const Normal: RequiredStoryObj = {
   args: {

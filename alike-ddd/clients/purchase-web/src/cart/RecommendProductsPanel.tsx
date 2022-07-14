@@ -21,15 +21,13 @@ export const useAddCart = newHookForUsecaseLine(addCart, {
 })
 
 const ProductPanel: FC<Product> = (props) => {
-  const [options, setOptions] = useState<HookForUsecaseLineOptions>({ fetchEnabled: false })
-  const state = useAddCart({ productId: props.productId }, options)
-
+  
   return (
     <div>
-      <h1>{props.productId}</h1>
+      <h1>id = {props.productId}</h1>
       <button
         onClick={async () => {
-          setOptions({ fetchEnabled: true })
+          setProduct({ productId: props.productId, fetchEnabled: true })
         }}
       >
         add cart
