@@ -3,6 +3,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { RecommendProductsPC } from './RecommendProductsPanel'
+import { RecoilRoot } from 'recoil'
 
 type TargetType = typeof RecommendProductsPC
 type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<TargetType>[0] }
@@ -11,9 +12,11 @@ export default {
   component: RecommendProductsPC,
   decorators: [
     (Story) => (
-      <QueryClientProvider client={new QueryClient()}>
-        <Story />
-      </QueryClientProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={new QueryClient()}>
+          <Story />
+        </QueryClientProvider>
+      </RecoilRoot>
     ),
   ],
 } as ComponentMeta<TargetType>

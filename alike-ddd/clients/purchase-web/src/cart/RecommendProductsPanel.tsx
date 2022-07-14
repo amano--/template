@@ -21,7 +21,6 @@ export const useAddCart = newHookForUsecaseLine(addCart, {
 })
 
 const ProductPanel: FC<Product> = (props) => {
-  
   return (
     <div>
       <h1>id = {props.productId}</h1>
@@ -52,5 +51,7 @@ export const RecommendProductsPC: FC<State> = (props) => {
 
 export const RecommendProductsPanel: FC<Props> = (props) => {
   const state = useRecommendProducts(props)
+  const [product, setProduct] = useState({ productId: '', fetchEnabled: false })
+
   return state ? <RecommendProductsPC {...state}></RecommendProductsPC> : <></>
 }
