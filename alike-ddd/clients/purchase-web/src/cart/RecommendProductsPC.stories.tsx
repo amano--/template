@@ -10,15 +10,6 @@ type RequiredStoryObj = ComponentStoryObj<TargetType> & { args: Parameters<Targe
 
 export default {
   component: RecommendProductsPC,
-  decorators: [
-    (Story) => (
-      <RecoilRoot>
-        <QueryClientProvider client={new QueryClient()}>
-          <Story />
-        </QueryClientProvider>
-      </RecoilRoot>
-    ),
-  ],
 } as ComponentMeta<TargetType>
 
 export const Normal: RequiredStoryObj = {
