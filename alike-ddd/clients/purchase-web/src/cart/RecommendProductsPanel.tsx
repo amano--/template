@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { atom, useRecoilState } from 'recoil'
 import { addCart, listRecommendProducts, Product, ProductId } from '@alike-ddd/purchase'
 
 import { newHookForUsecaseLine, PickInputEvent, PickOutputEvent, HookForUsecaseLineOptions } from './usecase'
@@ -20,7 +21,13 @@ export const useAddCart = newHookForUsecaseLine(addCart, {
   productId: '',
 })
 
+const selectedProductAtAddCart = atom({
+  key: 'components.my.nameAtom', // globalに一意なキー
+  default: { productId: '', fetchEnabled: false },
+})
 const ProductPanel: FC<Product> = (props) => {
+  const [, setProduct] = useRecoilState(selectedProductAtAddCart)
+
   return (
     <div>
       <h1>id = {props.productId}</h1>
@@ -51,7 +58,7 @@ export const RecommendProductsPC: FC<State> = (props) => {
 
 export const RecommendProductsPanel: FC<Props> = (props) => {
   const state = useRecommendProducts(props)
-  const [product, setProduct] = useState({ productId: '', fetchEnabled: false })
+  // const [product, setProduct] = useState({ productId: '', fetchEnabled: false })
 
   return state ? <RecommendProductsPC {...state}></RecommendProductsPC> : <></>
 }
