@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
-import { atom, useRecoilState } from 'recoil'
+import { atom, useSetRecoilState } from 'recoil'
 import { addCart, listRecommendProducts, Product, ProductId } from '@alike-ddd/purchase'
 
 import { newHookForUsecaseLine, PickInputEvent, PickOutputEvent, HookForUsecaseLineOptions } from './usecase'
-import { Button } from 'react-daisyui'
+import { Button, Card, Stack } from 'react-daisyui'
 
 export const useRecommendProducts = newHookForUsecaseLine(listRecommendProducts, {
   q: 'ListRecommendProducts',
@@ -22,23 +22,30 @@ export const useAddCart = newHookForUsecaseLine(addCart, {
 })
 
 const selectedProductAtAddCart = atom({
-  key: 'components.my.nameAtom', // globalに一意なキー
+  key: 'selectedProductAtAddCart', // globalに一意なキー
   default: { productId: '', fetchEnabled: false },
 })
 const ProductPanel: FC<Product> = (props) => {
-  const [, setProduct] = useRecoilState(selectedProductAtAddCart)
+  const setProduct = useSetRecoilState(selectedProductAtAddCart)
 
   return (
-    <div>
-      <h1>id = {props.productId}</h1>
-      <button
-        onClick={async () => {
-          setProduct({ productId: props.productId, fetchEnabled: true })
-        }}
-      >
-        add cart
-      </button>
-    </div>
+    <Card>
+      {/* <Card.Image src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /> */}
+      <Card.Body className="items-center text-center">
+        <Card.Title tag="h2">商品ID = {props.productId}</Card.Title>
+        {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
+        <Card.Actions className="justify-end">
+          <Button
+            color="primary"
+            onClick={async () => {
+              setProduct({ productId: props.productId, fetchEnabled: true })
+            }}
+          >
+            カートに追加する
+          </Button>
+        </Card.Actions>
+      </Card.Body>
+    </Card>
   )
 }
 
@@ -49,9 +56,11 @@ export const RecommendProductsPC: FC<State> = (props) => {
       <div>
         <p>message = {props?.message('ja')({ count: props?.list.length })}</p>
       </div>
-      {props?.list?.map((product) => (
-        <ProductPanel {...product}></ProductPanel>
-      ))}
+      <Stack >
+        {props?.list?.map((product) => (
+          <ProductPanel {...product}></ProductPanel>
+        ))}
+      </Stack>
     </div>
   )
 }
