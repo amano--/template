@@ -15,3 +15,6 @@ export type PurchaseStartEvent = { c: 'PurchaseStart'; fromType: 'ad' | 'bookmar
 // export type PurchaseCommandEvent = CartAddEvent | CartSettleEvent
 // export type PurchaseQueryEvent = ListProductsEvent
 // export type PurchaseEvent = PurchaseCommandEvent | PurchaseQueryEvent
+
+export type SaleProductId = string //MockProductIdType
+export type SaleProduct = { saleProductId: SaleProductId; productId: ProductId }
