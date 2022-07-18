@@ -56,11 +56,11 @@ export const RecommendProductsPC: FC<State> = (props) => {
       <div>
         <p>message = {props?.message('ja')({ count: props?.list.length })}</p>
       </div>
-      <Stack >
+      <div className="md:container md:mx-auto md:px-4 grid grid-flow-col auto-cols-max">
         {props?.list?.map((product) => (
           <ProductPanel {...product}></ProductPanel>
         ))}
-      </Stack>
+      </div>
     </div>
   )
 }
