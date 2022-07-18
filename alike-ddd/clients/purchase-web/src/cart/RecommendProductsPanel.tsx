@@ -56,14 +56,21 @@ export const RecommendProductsPC: FC<State> = (props) => {
       <div>
         <p>message = {props?.message('ja')({ count: props?.list.length })}</p>
       </div>
-      <div className="md:container md:mx-auto md:px-4 grid grid-flow-col auto-cols-max">
+      <div className="md:container md:mx-auto grid grid-flow-col auto-cols-max">
         {props?.list?.map((product) => (
-          <ProductPanel {...product}></ProductPanel>
+          <div className="md:p-1">
+            <ProductPanel {...product}></ProductPanel>
+          </div>
         ))}
       </div>
     </div>
   )
 }
+
+const cartState = atom({
+  key: 'cartState', // globalに一意なキー
+  default: [] as Product[],
+})
 
 export const RecommendProductsPanel: FC<Props> = (props) => {
   const state = useRecommendProducts(props)
