@@ -44,8 +44,8 @@ export const assignLogger = (
 ) => (isOnNode ? newLoggerForLog4js(category) : newLoggerMin(category))
 
 // 一括文字列変換に対応するためすこしトリッキーな設定をしている
-const projectName = '@alike-ddd'.substring(1) + '/'
+const projectName = '@alike-ddd'.substring(1)
 
-export const pickLogCategory = (dirname: string) => {
-  return dirname.substring(dirname.indexOf(projectName) + projectName.length)
+export const toLogCategory = (dirname: string) => {
+  return dirname.substring(dirname.indexOf(projectName) + projectName.length + 1)
 }
