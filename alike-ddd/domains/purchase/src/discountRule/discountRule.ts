@@ -16,7 +16,6 @@ type DiscounterInput = NormalInput | SaleProductInput
 
 export type Discounter = (input: DiscounterInput) => DiscountResult
 
-export const PriceDiscounter: Discounter = (input: DiscounterInput) => {
-
-  return { label: '',money:Money.create(500) }
+export const priceDiscounter: Discounter = (input: DiscounterInput) => {
+  return { label: '', money: Money.create(500) }
 }

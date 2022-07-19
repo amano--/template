@@ -21,7 +21,12 @@ describe('Money', () => {
   test.each`
     input1  | input2 | expected
     ${1000} | ${500} | ${500}
-  `('minus: Money($input1) - Money($input2) = Money($expected) ', ({ input1, input2, expected }) => {
-    expect(Money.create(input1).minus(Money.create(input2))).toEqual(Money.create(expected))
+  `('subtract: Money($input1) - Money($input2) = Money($expected) ', ({ input1, input2, expected }) => {
+    const target = Money.create(input1)
+    const expectedMoney = Money.create(expected)
+
+    expect(target.subtract(input2)).toEqual(expectedMoney)
+    expect(target.subtract(Money.create(input2))).toEqual(expectedMoney)
+    expect(target.subtract(Money.create(input2, 'JPY'))).toEqual(expectedMoney)
   })
 })

@@ -35,13 +35,14 @@ const create = (amount: number, currency: SupportCurrency = 'JPY'): Money => {
 export const Money = { isMoney, create }
 
 // TODO Money のようなDDD文脈における汎用ValueObjectライブラリの調査
+//   ref to https://github.com/cbrunnkvist/es-money
 class SimpleMoney {
   // readonly #amount: number
   // readonly #currency: SupportCurrency
 
   constructor(public readonly amount: number, public readonly currency: SupportCurrency = 'JPY') {}
 
-  minus(money: number | Money): Money {
+  subtract(money: number | Money): Money {
     const yourMoney = isMoney(money) ? money : create(money)
     // TODO バリデーション的なやつ、別通貨同士の引き算の実装
     const newAmount = this.amount - yourMoney.amount
