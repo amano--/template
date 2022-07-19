@@ -12,10 +12,19 @@ export type DiscountResult = { label: string; money: Money }
 
 type NormalInput = { t: 'normal'; money: Money }
 type SaleProductInput = { t: 'saleProduct'; saleProduct: SaleProduct }
+// type CampaignInput = { t: 'campaign'; campaign: 'Campaign' }
 type DiscounterInput = NormalInput | SaleProductInput
 
 export type Discounter = (input: DiscounterInput) => DiscountResult
 
-export const priceDiscounter: Discounter = (input: DiscounterInput) => {
-  return { label: '', money: Money.create(500) }
-}
+export const priceDiscounter: (discountValue: Money) => Discounter =
+  (discountValue: Money) => (input: DiscounterInput) => {
+    switch (input.t) {
+      case 'normal':
+        return { label: `${discountValue}`, money: input.money.subtract(discountValue) }
+
+      case 'saleProduct':
+        //TODO あとで実装
+        throw new Error('あとで実装する')
+    }
+  }
