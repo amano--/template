@@ -1,6 +1,6 @@
-import { Money } from './etc'
+import { Money } from '.'
 
-describe('etc', () => {
+describe('Money', () => {
   test.each`
     input                                  | expected
     ${undefined}                           | ${false}
@@ -16,5 +16,12 @@ describe('etc', () => {
     ${{ currency: 'JPY', amount: 1000 }}   | ${true}
   `('isMoney: $input -> $expected ', ({ input, expected }) => {
     expect(Money.isMoney(input)).toBe(expected)
+  })
+
+  test.each`
+    input1  | input2 | expected
+    ${1000} | ${500} | ${500}
+  `('minus: Money($input1) - Money($input2) = Money($expected) ', ({ input1, input2, expected }) => {
+    expect(Money.create(input1).minus(Money.create(input2))).toEqual(Money.create(expected))
   })
 })

@@ -1,7 +1,7 @@
-import { Coupon } from './coupon'
+import { SaleProductPops } from './pop'
 
-describe('Pop', () => {
+describe('Pop - 設計のための雑テスト集', () => {
   it('test', () => {
-    expect(Coupon.priceDown.amount).toEqual(500)
+    expect(SaleProductPops.newPops('', '')).toEqual({ list: [] })
   })
 })
