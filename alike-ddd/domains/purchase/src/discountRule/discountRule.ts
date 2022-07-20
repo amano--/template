@@ -19,9 +19,11 @@ export type Discounter = (input: DiscounterInput) => DiscountResult
 
 export const priceDiscounter: (discountValue: Money) => Discounter =
   (discountValue: Money) => (input: DiscounterInput) => {
+    let money
     switch (input.t) {
       case 'normal':
-        return { label: `${discountValue}`, money: input.money.subtract(discountValue) }
+        money = input.money.subtract(discountValue)
+        return { label: `${discountValue}`, money }
 
       case 'saleProduct':
         //TODO あとで実装

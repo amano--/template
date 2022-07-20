@@ -5,7 +5,7 @@ const supportCurrencies = {
 } as const
 
 export type SupportCurrencyCode = keyof typeof supportCurrencies
-export type SupportCurrency = { code: SupportCurrencyCode; label: string; sign: string }
+export type SupportCurrency = { code: SupportCurrencyCode; label: string; sign: string ,locale:Loca}
 
 export type Money = SimpleMoney // { currency: SupportCurrency; amount: number }
 
@@ -38,5 +38,16 @@ class SimpleMoney {
     // TODO バリデーション的なやつ、別通貨同士の引き算の実装
     const newAmount = this.amount - yourMoney.amount
     return new SimpleMoney(newAmount, this.currency)
+  }
+
+  label(): string {
+    switch (this.currency.code) {
+      case 'JPY':
+
+        return ''
+
+      default:
+        return Number(this.amount).toString()
+    }
   }
 }
