@@ -21,53 +21,16 @@ const isMoney = (arg: unknown): arg is Money => {
   )
 }
 
-// // TODO Money のようなDDD文脈における汎用ValueObjectライブラリの調査
-// // TODO class 的なものを class を使わずに実装するときのベストプラクティスの調査
-// const minus =
-//   (thisMoney: Money) =>
-//   (money: Money): Money => {
-//     // TODO バリデーション的なやつ、別通貨同士の引き算の実装
-//     const newAmount = thisMoney.amount - money.amount
-//     return create(newAmount, thisMoney.currency)
-//   }
-
 const create = (amount: number, currency: SupportCurrencyCode | SupportCurrency = supportCurrencies.JPY): Money => {
   const cur = typeof currency === 'string' ? supportCurrencies[currency] : currency
   return new SimpleMoney(amount, cur)
-  // {
-  //   currency,
-  //   amount,
-  //   minus(),
-  // }
 }
-
-// const toCurrencyLabel = (currency: SupportCurrency = supportCurrencies.JPY): string => {
-//   switch (currency) {
-//     case 'JPY':
-//       return '円'
-//     default:
-//       return ''
-//   }
-// }
-
-// const toCurrencySign = (currency: SupportCurrency = 'JPY'): string => {
-//   // TODO とりあえず全角文字を返す
-//   switch (currency) {
-//     case 'JPY':
-//       return '￥'
-//     case 'USD':
-//       return '＄'
-//   }
-// }
 
 export const Money = { isMoney, create }
 
 // TODO Money のようなDDD文脈における汎用ValueObjectライブラリの調査
 //   ref to https://github.com/cbrunnkvist/es-money
 class SimpleMoney {
-  // public readonly currencyLabel
-  // public readonly currencySign
-
   constructor(public readonly amount: number, public readonly currency: SupportCurrency = supportCurrencies.JPY) {}
 
   subtract(money: number | Money): Money {
