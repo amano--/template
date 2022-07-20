@@ -2,12 +2,16 @@ import { Money } from '.'
 
 describe('Money', () => {
   it('create', () => {
-    const expected = { amount: 100, currency: { code: 'JPY', label: '円', sign: '￥' } }
+    const expected = { amount: 100, currency: { code: 'JPY', label: '円', sign: '￥', locale: 'ja-JP' } }
 
     expect(Money.create(100)).toEqual(expected)
     expect(Money.create(100, 'JPY')).toEqual(expected)
   })
 
+  it('label', () => {
+    expect(Money.create(1000).label()).toEqual('1,000円')
+    expect(Money.create(1000, 'USD').label()).toEqual('1,000')
+  })
   test.each`
     input                                  | expected
     ${undefined}                           | ${false}

@@ -6,11 +6,11 @@ $.verbose = true
 // package.json の workspaces から workspace の一覧を作成し npm install コマンドを生成
 const wsBaseDirs = await fs
   .readJson('../package.json')
-  .then((packageObj) => packageObj.workspaces.map((v) => v.replace('/*', '')).filter((v) => v !== 'configs'))
+  .then((packageObj) => packageObj.workspaces.packages.map((v) => v.replace('/*', '')).filter((v) => v !== 'configs'))
   .catch((err) => {
     console.error(err)
   })
-// console.log('wsBaseDirs=', wsBaseDirs)
+console.log('wsBaseDirs=', wsBaseDirs)
 
 // await $`cd ..`
 // const files = await $`cd .. && find ${wsBaseDirs.join(' ')} -depth 1 -type d`

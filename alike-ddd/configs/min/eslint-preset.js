@@ -93,6 +93,10 @@ module.exports = {
         namedComponents: 'arrow-function',
       },
     ],
+    // 以下独自設定
+    // コンパニオンオブジェクトパターンを使うので無効化
+    'no-redeclare': 'off',
+    '@typescript-eslint/no-redeclare': 'off',
   },
   settings: {
     // ref to https://github.com/jsx-eslint/eslint-plugin-react#configuration

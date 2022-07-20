@@ -126,5 +126,19 @@
     "editor.insertSpaces": false,
     // 行の折り返し表示
     "editor.wordWrap": "off"
-  }
+  },
+  //　参考 [ VS Code ESLint 拡張が Parsing error: Cannot read file エラー config ファイルが読み込めない問題にハマる](https://chaika.hatenablog.com/entry/2020/09/23/083000)　
+  "eslint.workingDirectories":[
+    "domains/ad",
+    "domains/common",
+    "domains/logistics",
+    "domains/purchase",
+    "domains/scenarios",
+    "domains/settle",
+    "libs/react",
+    "clients/docs",
+    "clients/logistics-web",
+    "clients/purchase-web",
+    "servers/purchase-server"
+  ]
 }

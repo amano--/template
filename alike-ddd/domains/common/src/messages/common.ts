@@ -45,3 +45,5 @@ export const messageFindersForCommon = {
   querySuccess: createMessageFinder('querySuccess'),
   listQuerySuccess: createMessageFinder('listQuerySuccess'),
 }
+
+// export type OmitFunction<T> =
