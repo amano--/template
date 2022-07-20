@@ -4,7 +4,8 @@ const supportCurrencies = {
   USD: { code: 'USD', label: '', sign: '＄' },
 } as const
 
-export type SupportCurrency = { code: 'JPY' | 'USD'; label: string; sign: string }
+export type SupportCurrencyCode = keyof typeof supportCurrencies
+export type SupportCurrency = { code: SupportCurrencyCode; label: string; sign: string }
 
 export type Money = SimpleMoney // { currency: SupportCurrency; amount: number }
 
@@ -20,18 +21,19 @@ const isMoney = (arg: unknown): arg is Money => {
   )
 }
 
-// TODO Money のようなDDD文脈における汎用ValueObjectライブラリの調査
-// TODO class 的なものを class を使わずに実装するときのベストプラクティスの調査
-const minus =
-  (thisMoney: Money) =>
-  (money: Money): Money => {
-    // TODO バリデーション的なやつ、別通貨同士の引き算の実装
-    const newAmount = thisMoney.amount - money.amount
-    return create(newAmount, thisMoney.currency)
-  }
+// // TODO Money のようなDDD文脈における汎用ValueObjectライブラリの調査
+// // TODO class 的なものを class を使わずに実装するときのベストプラクティスの調査
+// const minus =
+//   (thisMoney: Money) =>
+//   (money: Money): Money => {
+//     // TODO バリデーション的なやつ、別通貨同士の引き算の実装
+//     const newAmount = thisMoney.amount - money.amount
+//     return create(newAmount, thisMoney.currency)
+//   }
 
-const create = (amount: number, currency: SupportCurrency = supportCurrencies.JPY): Money => {
-  return new SimpleMoney(amount, currency)
+const create = (amount: number, currency: SupportCurrencyCode | SupportCurrency = supportCurrencies.JPY): Money => {
+  const cur = typeof currency === 'string' ? supportCurrencies[currency] : currency
+  return new SimpleMoney(amount, cur)
   // {
   //   currency,
   //   amount,
@@ -69,7 +71,7 @@ class SimpleMoney {
   constructor(public readonly amount: number, public readonly currency: SupportCurrency = supportCurrencies.JPY) {}
 
   subtract(money: number | Money): Money {
-    const yourMoney = isMoney(money) ? money : create(money)
+    const yourMoney = Number.isInteger(money) ? create(money) : money
     // TODO バリデーション的なやつ、別通貨同士の引き算の実装
     const newAmount = this.amount - yourMoney.amount
     return new SimpleMoney(newAmount, this.currency)
