@@ -23,7 +23,7 @@ export const priceDiscounter =
   (input: DiscounterInput) => {
     if (Money.isMoney(input)) {
       const money = input.subtract(discountMoney)
-      return { label: discountMoney.label() + '引き', money }
+      return { label: discountMoney.label() + '引き', money, discountMoney }
     }
 
     switch (input.t) {
@@ -38,9 +38,9 @@ export const percentDiscounter =
   (percentage: number): Discounter =>
   (input: DiscounterInput) => {
     if (Money.isMoney(input)) {
-      const discountMoney = input.amount subtract(discountMoney)
+      const discountMoney = input.percent(percentage)
       const money = input.subtract(discountMoney)
-      return { label: discountMoney.label() + '引き', money }
+      return { label: Number(percentage).toString() + `% 引き(${discountMoney.label()})`, money, percentage }
     }
 
     switch (input.t) {
