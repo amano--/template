@@ -1,7 +1,7 @@
-import { assignLogger, Money, toLogCategory } from '@alike-ddd/common'
+import { Money } from '@alike-ddd/common'
 import { SaleProduct } from '../purchase'
 
-const logger = assignLogger(toLogCategory(__dirname))
+// const logger = assignLogger('domains/purchase/discountRule')
 
 // export type DiscountRule = {}
 

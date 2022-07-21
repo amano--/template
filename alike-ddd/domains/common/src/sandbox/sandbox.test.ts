@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable unused-imports/no-unused-vars */
 describe('template literal', () => {
   it('aa', () => {
     const template = (lang: 'ja', args: { max: number; min: number }) =>
@@ -10,10 +12,26 @@ describe('template literal', () => {
 type A = { a: string }
 type B = { b: string }
 
-type A_B = ((a: A) => string) | ((b: B) => string)
+type AandB = ((a: A) => string) | ((b: B) => string)
 
-const ab: A_B = () => 'hoge'
+const ab: AandB = () => 'hoge'
 const ab1: ((a: A) => string) | ((b: B) => string) = () => 'hoge'
 test('func invariant check', () => {
   console.log(ab1({ a: 'a', b: 'b' }))
 })
+
+const mockApi = {
+  api1: (a: string) => 'api1 mock',
+  api2: (a: string) => 'api2 mock',
+  // api3: (c: string) => 'api3 mock',
+}
+const productionApi = {
+  api1: (a: string) => 'api1 productionApi',
+  api2: (a: string, b: string) => 'api2 productionApi',
+  api3: (c: string) => 'api3 productionApi',
+}
+
+const isProduction = process.env.NODE_ENV === 'production'
+const api = isProduction ? productionApi : mockApi
+
+// api.

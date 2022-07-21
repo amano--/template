@@ -1,6 +1,7 @@
 import { SaleProductId } from '../purchase'
-import { assignLogger, toLogCategory, UserId } from '@alike-ddd/common'
-const logger = assignLogger(toLogCategory(__dirname))
+import { assignLogger, UserId } from '@alike-ddd/common'
+// eslint-disable-next-line no-undef
+const logger = assignLogger('domains/purchase/pop')
 
 // TBD テストデータを設定する時補完ができるように実験的に型を設定している。基本は string
 export type PopId = string //MockPopIdType

@@ -10,6 +10,7 @@ import {
   ResponseExceptionEvent,
   ResponseNaviEvent,
   assignLogger,
+  toLogCategory,
 } from '@alike-ddd/common'
 import { Temporal } from '@js-temporal/polyfill'
 
