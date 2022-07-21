@@ -26,6 +26,7 @@ const isMoney = (arg: unknown): arg is Money => {
 
 // TODO Money のようなDDD文脈における汎用ValueObjectライブラリの調査
 //   ref to https://github.com/cbrunnkvist/es-money
+// TODO amountに小数点を許容するかどうか等の検討
 class SimpleMoney {
   constructor(public readonly amount: number, public readonly currency: SupportCurrency = supportCurrencies.JPY) {}
 
@@ -34,6 +35,13 @@ class SimpleMoney {
     const yourMoney = Number.isInteger(money) ? create(money) : money
     // TODO バリデーション的なやつ、別通貨同士の引き算の実装
     const newAmount = this.amount - yourMoney.amount
+    return new SimpleMoney(newAmount, this.currency)
+  }
+
+  percent(percentage: number): Money {
+    //小数点以下切り下げ
+    const per = Math.floor(percentage)
+    const newAmount = Math.floor((this.amount * per) / 100)
     return new SimpleMoney(newAmount, this.currency)
   }
 

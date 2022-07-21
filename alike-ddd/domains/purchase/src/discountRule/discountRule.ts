@@ -33,3 +33,20 @@ export const priceDiscounter =
         throw new Error('あとで実装する')
     }
   }
+
+export const percentDiscounter =
+  (percentage: number): Discounter =>
+  (input: DiscounterInput) => {
+    if (Money.isMoney(input)) {
+      const discountMoney = input.amount subtract(discountMoney)
+      const money = input.subtract(discountMoney)
+      return { label: discountMoney.label() + '引き', money }
+    }
+
+    switch (input.t) {
+      case 'saleProduct':
+      default:
+        //TODO あとで実装
+        throw new Error('あとで実装する')
+    }
+  }

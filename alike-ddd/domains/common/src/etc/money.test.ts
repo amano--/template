@@ -55,4 +55,18 @@ describe('Money', () => {
     expect(target.subtract(Money.create(input2))).toEqual(expectedMoney)
     expect(target.subtract(Money.create(input2, 'JPY'))).toEqual(expectedMoney)
   })
+
+  test.each([
+    [1000, 20, 200],
+    [1000, 33, 330],
+    [1000, 33.333, 330],
+    [1000, 0.1, 0],
+    [1000, 99.9, 990],
+    [1000, 120, 1200],
+  ])('percent: Money(%d) - Money(%d) = Money(%d) ', (input1, input2, expected) => {
+    const target = Money.create(input1)
+    const expectedMoney = Money.create(expected)
+
+    expect(target.percent(input2)).toEqual(expectedMoney)
+  })
 })
