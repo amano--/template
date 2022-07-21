@@ -1,7 +1,7 @@
-// TODO Locale 等　国際化に関する総合的な調査、対応
+// TODO Locale 等 国際化に関する総合的な調査、対応
 type SupportLocaleCode = 'ja-JP' | 'en-US'
 
-// TODO とりあえず sign は半角だとややこしい問題を起こしそうなので　全角文字を設定している
+// TODO とりあえず sign は半角だとややこしい問題を起こしそうなので全角文字を設定している
 const supportCurrencies = {
   JPY: { code: 'JPY', label: '円', sign: '￥', locale: 'ja-JP' },
   USD: { code: 'USD', label: '', sign: '＄', locale: 'en-US' },
