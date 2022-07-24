@@ -24,14 +24,16 @@ const mockApi = {
   api1: (a: string) => 'api1 mock',
   api2: (a: string) => 'api2 mock',
   // api3: (c: string) => 'api3 mock',
-}
+} as const
+
 const productionApi = {
   api1: (a: string) => 'api1 productionApi',
   api2: (a: string, b: string) => 'api2 productionApi',
   api3: (c: string) => 'api3 productionApi',
-}
+} as const
 
+// eslint-disable-next-line no-undef
 const isProduction = process.env.NODE_ENV === 'production'
 const api = isProduction ? productionApi : mockApi
 
-// api.
+const a = api.api1
