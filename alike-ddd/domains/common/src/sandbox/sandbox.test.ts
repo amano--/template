@@ -23,17 +23,17 @@ test('func invariant check', () => {
 const mockApi = {
   api1: (a: string) => 'api1 mock',
   api2: (a: string) => 'api2 mock',
-  // api3: (c: string) => 'api3 mock',
+  api3: (c: string) => ({ d: 'd' }),
 } as const
 
 const productionApi = {
   api1: (a: string) => 'api1 productionApi',
   api2: (a: string, b: string) => 'api2 productionApi',
-  api3: (c: string) => 'api3 productionApi',
+  // api3: (c: string) => ({ d: 'd', e: 'e' }),
 } as const
 
 // eslint-disable-next-line no-undef
 const isProduction = process.env.NODE_ENV === 'production'
 const api = isProduction ? productionApi : mockApi
 
-const a = api.api1
+const a = api.api2 //api3('a')
