@@ -96,8 +96,10 @@ describe('検討、検証用テストコード', () => {
         break
       // case 'Hoge':
       //   break
+      /* eslint-disable */
       default:
         const check: never = res
+      /* eslint-enable */
     }
 
     // response type で ある程度型を絞ってから、具体的なイベントを更に絞り込んでいくときのやり方
@@ -116,8 +118,10 @@ describe('検討、検証用テストコード', () => {
       case 'navi':
         console.log('res.r=', res.r)
         break
+      /* eslint-disable */
       default:
         const check: never = res
+      /* eslint-enable */
     }
 
     // success 以外はまとめて処理するときのやり方

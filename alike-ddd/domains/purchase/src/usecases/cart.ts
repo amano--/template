@@ -6,13 +6,9 @@ import {
   ResponseAltEvent,
   UserAccount,
   GuestAccount,
-  ResponseCommandSuccessEvent,
-  ResponseExceptionEvent,
   ResponseNaviEvent,
   assignLogger,
-  toLogCategory,
 } from '@alike-ddd/common'
-import { Temporal } from '@js-temporal/polyfill'
 
 import { Product, ProductId, apiPurchase } from '../index'
 import { messageFindersForPurchase } from '../messages'
@@ -24,7 +20,7 @@ export type ListRecommendProductsInput = { keyword: string }
 type ListRecommendProductsEvent = { q: 'ListRecommendProducts'; input: ListRecommendProductsInput }
 
 type CartAddEvent = { c: 'CartAdd'; productId: ProductId } //save: 'batch';
-type CartAddEventLog = CartAddEvent & { logId: Ulid }
+// type CartAddEventLog = CartAddEvent & { logId: Ulid }
 // type CartAddSuccessEvent = ResponseSuccessEvent & { r: 'CartAddSuccess' }
 type CartAddSuccessEvent = ResponseSuccessEvent & {
   r: 'CartAddSuccess'
@@ -107,5 +103,5 @@ export const settleCart = async (e: CartSettleEvent) => {
   //   return Promise.resolve({ r: 'Hoge', rt: 'success', hoge: 'hoge' } as const)
   // }
 
-  return await apiPurchase.settleCart({ ...e, account: e.account })
+  return apiPurchase.settleCart({ ...e, account: e.account })
 }

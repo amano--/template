@@ -13,7 +13,7 @@ describe('discountRule - 設計のための雑テスト集', () => {
   it('percentDiscounter', () => {
     const target = percentDiscounter(20)(Money.create(2000))
     expect(target).toMatchObject({
-      label: '20% 引き(400円)',
+      label: '20%引き(400円)',
       money: { amount: 1600 },
     })
   })
