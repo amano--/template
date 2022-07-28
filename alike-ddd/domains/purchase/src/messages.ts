@@ -2,7 +2,6 @@
 import {
   defaultLangKey,
   PickMessageValues,
-  SupportLang,
   DefaultLangKey,
   isSupportLang,
   defaultUseAtNotSupportLangKey,

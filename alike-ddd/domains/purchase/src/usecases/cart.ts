@@ -1,7 +1,6 @@
 import {
   isGuest,
   newListQuerySuccessEvent,
-  Ulid,
   ResponseSuccessEvent,
   ResponseAltEvent,
   UserAccount,
@@ -14,10 +13,6 @@ import { Product, ProductId, apiPurchase } from '../index'
 import { messageFindersForPurchase } from '../messages'
 
 const logger = assignLogger('domains/purchase/usecases/cart')
-
-export type ListRecommendProductsInput = { keyword: string }
-
-type ListRecommendProductsEvent = { q: 'ListRecommendProducts'; input: ListRecommendProductsInput }
 
 type CartAddEvent = { c: 'CartAdd'; productId: ProductId } //save: 'batch';
 // type CartAddEventLog = CartAddEvent & { logId: Ulid }
@@ -54,22 +49,6 @@ type NaviToUserEntryEvent = ResponseNaviEvent & {
   // TBD domain層から 外側のインフラ層の情報を返すことの是非
   // path: string
   callBy: { settleCart: CartSettleEvent }
-}
-
-export const listRecommendProducts = async (e: ListRecommendProductsEvent) => {
-  logger.info('listRecommendProducts :', 'e :', e)
-
-  const products = await apiPurchase.listProducts(e.input)
-
-  logger.info('listRecommendProducts : ', 'products=', products)
-
-  return Promise.resolve(newListQuerySuccessEvent(products))
-  //   <QuerySuccessEvent<Product>>({
-  //   r: 'QuerySuccess',
-  //   rt: 'success',
-  //   msg: messageFindersForCommon.querySuccess,
-  //   list: products,
-  // })
 }
 
 export const addCart = async (e: CartAddEvent) => {
