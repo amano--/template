@@ -32,8 +32,9 @@ const list = {
     desc: '',
   },
 } as const
-
+/* eslint-disable */
 const forTypeCheck: { [P: string]: UserPlan } = list
+/* eslint-enable */
 
 export type UserPlanTag = keyof typeof list
 

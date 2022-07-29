@@ -1,15 +1,15 @@
 import { UserLank } from './lank'
 
 describe('UserLank simple test', () => {
-  it('get', async () => {
+  it('get', () => {
     expect(UserLank.get('Silver')).toMatchObject({ ult: 'Silver' })
   })
 
-  it('overLankKeys', async () => {
+  it('overLankKeys', () => {
     expect(UserLank.overLankTags('Silver')).toEqual(['Silver', 'Gold', 'Platinum'])
   })
 
-  it('underLankKeys', async () => {
+  it('underLankKeys', () => {
     expect(UserLank.underLankTags('Silver')).toEqual(['None', 'Bronze', 'Silver'])
   })
 })

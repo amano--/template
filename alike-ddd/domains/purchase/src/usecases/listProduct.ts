@@ -1,10 +1,10 @@
-import { newListQuerySuccessEvent, assignLogger } from '@alike-ddd/common'
+import { newListQuerySuccessEvent, assignLogger, UserLank } from '@alike-ddd/common'
 
 import { apiPurchase } from '../index'
 
 const logger = assignLogger('domains/purchase/usecases/listProduct')
 
-export type ListRecommendProductsInput = { keyword: string }
+export type ListRecommendProductsInput = { lank?: UserLank }
 
 type ListRecommendProductsEvent = { q: 'ListRecommendProducts'; input: ListRecommendProductsInput }
 
