@@ -79,6 +79,7 @@ describe('検討、検証用テストコード', () => {
       account: MockUserAccounts.normal,
       list: [MockProducts.normal, MockProducts.relate1],
     })
+
     console.log('res=', res)
 
     switch (res.r) {
