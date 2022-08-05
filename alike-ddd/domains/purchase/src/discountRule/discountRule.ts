@@ -41,7 +41,7 @@ export const percentDiscounter =
       const discountMoney = input.percent(percentage)
       const money = input.subtract(discountMoney)
 
-      return { label: Number(percentage).toString() + `%引き(${discountMoney.label()})`, money, percentage }
+      return { label: `${percentage}%引き(${discountMoney.label()})`, money, percentage }
     }
 
     switch (input.t) {
