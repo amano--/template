@@ -23,6 +23,7 @@ export const priceDiscounter =
   (input: DiscounterInput) => {
     if (Money.isMoney(input)) {
       const money = input.subtract(discountMoney)
+
       return { label: discountMoney.label() + '引き', money, discountMoney }
     }
 
