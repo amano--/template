@@ -40,6 +40,7 @@ export const percentDiscounter =
   (input: DiscounterInput) => {
     if (Money.isMoney(input)) {
       const discountMoney = input.percent(percentage)
+
       const money = input.subtract(discountMoney)
 
       return { label: `${percentage}%引き(${discountMoney.label()})`, money, percentage }
