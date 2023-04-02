@@ -34,6 +34,9 @@
       "Orta.vscode-jest",// js のテストツール( jest ) のプラグイン
       "prisma.prisma",// OR Mapper( Prisma ) プラグイン
 
+      // プログラミング補助ツール
+      "github.copilot-labs",
+
       // 便利プラグイン
       "shd101wyy.markdown-preview-enhanced",// markdown を書く際に便利なプラグイン
       "bierner.markdown-mermaid",// mermaid を markdown-preview で使えるようにするプラグイン
