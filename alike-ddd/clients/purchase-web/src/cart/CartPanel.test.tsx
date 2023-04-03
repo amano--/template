@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 // import { purchaseMock } from '../../mocks/src/purchase/index';
-import { render, renderHook, fireEvent, waitFor, screen, prettyDOM } from '@testing-library/react'
-import { Button } from '@alike-ddd/react-libs'
+import { render, renderHook, waitFor, prettyDOM } from '@testing-library/react'
 import { ProductPanel, useAddCart, useRelatedProductList } from './CartPanel'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { useRecommendProducts } from './RecommendProductsPanel'
 
 const wrapper = (props: any) => <QueryClientProvider client={new QueryClient()}>{props.children}</QueryClientProvider>
 

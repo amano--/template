@@ -11,6 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@alike-ddd/common": "*",
     "@alike-ddd/purchase": "*",
     "@alike-ddd/react-libs": "*",
     "@hookform/resolvers": "^2.7.0",

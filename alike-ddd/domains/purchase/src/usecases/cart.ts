@@ -1,6 +1,5 @@
 import {
   isGuest,
-  newListQuerySuccessEvent,
   ResponseSuccessEvent,
   ResponseAltEvent,
   UserAccount,
