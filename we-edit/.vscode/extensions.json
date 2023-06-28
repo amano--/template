@@ -38,6 +38,9 @@
     // プログラミング補助ツール
     "github.copilot-labs",
 
+    // ===== お試し中のプラグイン =====
+    "AykutSarac.jsoncrack-vscode", // JSONの構造を見やすくするツール
+
     // ===== プロジェクト固有のプラグイン =====
     "prisma.prisma", // OR Mapper( Prisma ) プラグイン
     "bradlc.vscode-tailwindcss"
