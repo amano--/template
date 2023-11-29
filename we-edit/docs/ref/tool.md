@@ -29,3 +29,11 @@ The open-source notification infrastructure for products
 novuhq/novu
 
 OSS の通知インフラストラクチャ。アプリケーションのコードから通知をトリガーするメソッドを呼ぶと novu で設定した通りに通知が発行されるというように関心の分離が可能。メール・Push 通知・SMS を送ったりといった自前で実装したくない部分を隠蔽してくれて、なおかつアプリケーションコードからは柔軟な呼び出しができ自由度が高そうな予感がします。複数の溜まった通知をダイジェスト化する仕組みなどもあるようでとても便利そうです。
+
+Free and source-available fair-code licensed workflow automation tool. Easily automate tasks across different services.
+n8n-io/n8n
+
+GUI でワークフローを組み立てられるオートメーションツール。Zapier の OSS クローンという感じがしますが、独自のコンポーネントやロジックを追加実装できるようで、こちらの方が拡張性は高そうです。
+
+slidevjs/slidev
+要は Markdown で登壇資料が作れるツールの１つです。私の登壇資料(https://talks.leko.jp/)はjxnblk/mdx-deckというツールを使っているのですが、それをさらにリッチにしたものという印象です。最近全く登壇していませんが次回登壇するときに試してみようと思います。録画や拡張性やカスタマイズ性・エディタのサポートや速度などの開発体験を重要視してるようで
